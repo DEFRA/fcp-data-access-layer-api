@@ -20,7 +20,7 @@ export const CustomerBusiness = {
 
   async messages ({ id, customerId, sbi }, { pagination, showOnlyDeleted }, { dataSources }) {
     const notifications = await dataSources.ruralPaymentsPortalApi.getNotificationsByOrganisationIdAndPersonId(
-      id,
+      sbi,
       customerId,
       pagination?.page || 1,
       pagination?.perPage || 1
@@ -39,5 +39,4 @@ export const CustomerBusinessPermissionGroup = {
     const authorisation = await dataSources.ruralPaymentsPortalApi.getAuthorisationByOrganisationIdAndPersonId(sbi, customerId)
     return transformOrganisationAuthorisationToCustomerBusinessPermissionLevel(permissions, authorisation)
   }
-
 }
