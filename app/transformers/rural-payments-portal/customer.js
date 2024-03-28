@@ -1,4 +1,4 @@
-export const ruralPaymentsPortalCustomerTransformer = (data, sbi) => {
+export const ruralPaymentsPortalCustomerTransformer = data => {
   return {
     info: {
       name: {
@@ -41,7 +41,7 @@ export const ruralPaymentsPortalCustomerTransformer = (data, sbi) => {
       }
     },
     id: data.id,
-    sbi
+    sbi: data.sbi
   }
 }
 
