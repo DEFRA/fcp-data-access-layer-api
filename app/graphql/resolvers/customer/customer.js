@@ -13,7 +13,7 @@ export const Customer = {
 }
 
 export const CustomerBusiness = {
-  async roles ({ customerId, sbi }, __, { dataSources }) {
+  async roles ({ id, sbi }, __, { dataSources }) {
     if (!sbi) {
       return null
     }
@@ -22,10 +22,10 @@ export const CustomerBusiness = {
       .ruralPaymentsPortalApi
       .getAuthorisationByOrganisationId(sbi)
 
-    return transformPersonRolesToCustomerAuthorisedBusinessesRoles(customerId, authorisation.personRoles)
+    return transformPersonRolesToCustomerAuthorisedBusinessesRoles(id, authorisation.personRoles)
   },
 
-  async messages ({ customerId, sbi }, { pagination, showOnlyDeleted }, { dataSources }) {
+  async messages ({ id, sbi }, { pagination, showOnlyDeleted }, { dataSources }) {
     if (!sbi) {
       return null
     }
@@ -34,7 +34,7 @@ export const CustomerBusiness = {
       .ruralPaymentsPortalApi
       .getNotificationsByOrganisationIdAndPersonId(
         sbi,
-        customerId,
+        id,
         pagination?.page || 1,
         pagination?.perPage || 1
       )
@@ -42,26 +42,26 @@ export const CustomerBusiness = {
     return transformNotificationsToMessages(notifications, showOnlyDeleted)
   },
 
-  async permissionGroups ({ customerId, sbi }, __, { dataSources }) {
+  async permissionGroups ({ id, sbi }, __, { dataSources }) {
     if (!sbi) {
       return null
     }
 
     return dataSources.permissions.getPermissionGroups().map(
-      permissionGroup => ({ ...permissionGroup, businessId: sbi, customerId })
+      permissionGroup => ({ ...permissionGroup, businessId: sbi, customerId: id })
     )
   }
 }
 
 export const CustomerBusinessPermissionGroup = {
-  async level ({ businessId, customerId, permissions, sbi }, __, { dataSources }) {
+  async level ({ id, permissions, sbi }, __, { dataSources }) {
     if (!sbi) {
       return null
     }
 
     const authorisation = await dataSources
       .ruralPaymentsPortalApi
-      .getAuthorisationByOrganisationIdAndPersonId(sbi, customerId)
+      .getAuthorisationByOrganisationIdAndPersonId(sbi, id)
 
     return transformOrganisationAuthorisationToCustomerBusinessPermissionLevel(permissions, authorisation)
   }
