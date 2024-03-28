@@ -44,7 +44,7 @@ export const organisation = {
   },
   companiesHouseRegistrationNumber: null,
   charityCommissionRegistrationNumber: null,
-  customers: [
+  persons: [
     '4147551',
     '7353104',
     '5158039'
