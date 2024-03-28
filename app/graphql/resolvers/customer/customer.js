@@ -13,7 +13,7 @@ export const Customer = {
 }
 
 export const CustomerBusiness = {
-  async roles ({ id, customerId, sbi }, __, { dataSources }) {
+  async roles ({ customerId, sbi }, __, { dataSources }) {
     if (!sbi) {
       return null
     }
@@ -22,7 +22,7 @@ export const CustomerBusiness = {
     return transformPersonRolesToCustomerAuthorisedBusinessesRoles(customerId, authorisation.personRoles)
   },
 
-  async messages ({ id, customerId, sbi }, { pagination, showOnlyDeleted }, { dataSources }) {
+  async messages ({ customerId, sbi }, { pagination, showOnlyDeleted }, { dataSources }) {
     if (!sbi) {
       return null
     }
@@ -37,7 +37,7 @@ export const CustomerBusiness = {
     return transformNotificationsToMessages(notifications, showOnlyDeleted)
   },
 
-  async permissionGroups ({ id, customerId, sbi }, __, { dataSources }) {
+  async permissionGroups ({ customerId, sbi }, __, { dataSources }) {
     if (!sbi) {
       return null
     }
