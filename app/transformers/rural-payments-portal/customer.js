@@ -54,11 +54,10 @@ export function transformPersonPrivilegesToCustomerAuthorisedBusinessesPrivilege
 }
 
 export function transformPersonSummaryToCustomerAuthorisedBusinesses (customerId, summary) {
-  return summary.map(({ id, name, sbi }) => ({
+  return summary.map(({ id, name }) => ({
     customerId,
     id,
     name,
-    sbi
   }))
 }
 
