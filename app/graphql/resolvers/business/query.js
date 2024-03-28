@@ -17,8 +17,8 @@ export const Query = {
       customers: async () => {
         const customerIdCollection = []
         if (Array.isArray(response.persons)) {
-          for (const customer of response.persons) {
-            customerIdCollection.push({ id: customer.id })
+          for (const customerId of response.persons) {
+            customerIdCollection.push({ id: customerId })
           }
 
           return customerIdCollection
