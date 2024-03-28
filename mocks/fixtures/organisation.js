@@ -47,7 +47,7 @@ export const organisation = {
   customers: [
     '4147551',
     '7353104',
-    '5158039',
+    '5158039'
   ]
 }
 

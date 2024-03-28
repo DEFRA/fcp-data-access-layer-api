@@ -14,7 +14,18 @@ export const Query = {
       id,
       land: { sbi: id },
       ...business,
-      customers: [Customer],
+      customers: async () => {
+        const customerIdCollection = []
+        if (Array.isArray(response.persons)) {
+          for (const customer of response.persons) {
+            customerIdCollection.push({ id: customer.id })
+          }
+
+          return customerIdCollection
+        }
+
+        return null
+      }
     }
   },
 

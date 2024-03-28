@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker/locale/en_GB'
 
-function generateCoversSummary(onlyOneArea = false) {
+function generateCoversSummary (onlyOneArea = false) {
   const randomIndex = faker.number.int({ min: 0, max: 2 })
 
   const data = [
