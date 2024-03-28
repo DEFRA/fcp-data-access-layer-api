@@ -41,7 +41,7 @@ export const ruralPaymentsPortalCustomerTransformer = (data, sbi) => {
       }
     },
     id: data.id,
-    sbi: sbi
+    sbi
   }
 }
 

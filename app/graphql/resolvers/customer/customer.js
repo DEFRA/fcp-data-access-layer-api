@@ -18,7 +18,10 @@ export const CustomerBusiness = {
       return null
     }
 
-    const authorisation = await dataSources.ruralPaymentsPortalApi.getAuthorisationByOrganisationId(sbi)
+    const authorisation = await dataSources
+      .ruralPaymentsPortalApi
+      .getAuthorisationByOrganisationId(sbi)
+
     return transformPersonRolesToCustomerAuthorisedBusinessesRoles(customerId, authorisation.personRoles)
   },
 
@@ -27,12 +30,14 @@ export const CustomerBusiness = {
       return null
     }
 
-    const notifications = await dataSources.ruralPaymentsPortalApi.getNotificationsByOrganisationIdAndPersonId(
-      sbi,
-      customerId,
-      pagination?.page || 1,
-      pagination?.perPage || 1
-    )
+    const notifications = await dataSources
+      .ruralPaymentsPortalApi
+      .getNotificationsByOrganisationIdAndPersonId(
+        sbi,
+        customerId,
+        pagination?.page || 1,
+        pagination?.perPage || 1
+      )
 
     return transformNotificationsToMessages(notifications, showOnlyDeleted)
   },
@@ -42,7 +47,9 @@ export const CustomerBusiness = {
       return null
     }
 
-    return dataSources.permissions.getPermissionGroups().map(permissionGroup => ({ ...permissionGroup, businessId: sbi, customerId }))
+    return dataSources.permissions.getPermissionGroups().map(
+      permissionGroup => ({ ...permissionGroup, businessId: sbi, customerId })
+    )
   }
 }
 
@@ -52,7 +59,10 @@ export const CustomerBusinessPermissionGroup = {
       return null
     }
 
-    const authorisation = await dataSources.ruralPaymentsPortalApi.getAuthorisationByOrganisationIdAndPersonId(sbi, customerId)
+    const authorisation = await dataSources
+      .ruralPaymentsPortalApi
+      .getAuthorisationByOrganisationIdAndPersonId(sbi, customerId)
+
     return transformOrganisationAuthorisationToCustomerBusinessPermissionLevel(permissions, authorisation)
   }
 }
