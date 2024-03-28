@@ -4,7 +4,6 @@ import {
 import {
   transformOrganisationToBusiness
 } from '../../../transformers/rural-payments-portal/business.js'
-import { Customer } from '../customer/customer.js'
 
 export const Query = {
   async business (__, { id }, { dataSources }) {
