@@ -14,7 +14,7 @@ export const Query = {
       id,
       land: { sbi: id },
       ...business,
-      customers: Customer,
+      customers: [Customer],
     }
   },
 
