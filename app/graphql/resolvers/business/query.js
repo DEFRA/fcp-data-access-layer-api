@@ -2,6 +2,7 @@ import {
   transformOrganisationCSApplicationToBusinessApplications
 } from '../../../transformers/rural-payments-portal/applications-cs.js'
 import {
+  transformOrganisationPersonsToBusinessCustomers,
   transformOrganisationToBusiness
 } from '../../../transformers/rural-payments-portal/business.js'
 
@@ -14,18 +15,7 @@ export const Query = {
       id,
       land: { sbi: id },
       ...business,
-      customers: async () => {
-        const customerIdCollection = []
-        if (Array.isArray(response.persons)) {
-          for (const customerId of response.persons) {
-            customerIdCollection.push({ id: customerId })
-          }
-
-          return customerIdCollection
-        }
-
-        return null
-      }
+      customers: transformOrganisationPersonsToBusinessCustomers(response.persons),
     }
   },
 

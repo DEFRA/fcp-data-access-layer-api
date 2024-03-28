@@ -46,3 +46,16 @@ export const transformOrganisationToBusiness = data => {
     id: data.id
   }
 }
+
+export const transformOrganisationPersonsToBusinessCustomers = data => {
+  const customerIdCollection = []
+  if (Array.isArray(data)) {
+    for (const customerId of data) {
+      customerIdCollection.push({ id: customerId })
+    }
+
+    return customerIdCollection
+  }
+
+  return null
+}
