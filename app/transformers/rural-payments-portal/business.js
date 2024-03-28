@@ -43,40 +43,6 @@ export const transformOrganisationToBusiness = data => {
       },
       sbi: data.sbi
     },
-    id: data.id,
-    customers: (() => {
-      if (!data.persons) {
-        return []
-      }
-
-      const responseCollection = []
-      for (const customer of data.persons) {
-        responseCollection.push({
-          id: customer.id,
-          name: `${customer.firstName} ${customer.lastName}`,
-          sbi: data.id,
-          roles: [
-            customer.role
-          ],
-          permissionGroups: (() => {
-            if (!data.privileges) {
-              return []
-            }
-
-            const permissionGroupsResult = []
-            for (const prv of data.privileges) {
-              permissionGroupsResult.push({
-                level: prv.split(' - ')[0].toUpperCase(),
-                id: null
-              })
-            }
-
-            return permissionGroupsResult
-          })()
-        })
-      }
-
-      return responseCollection
-    })()
+    id: data.id
   }
 }
