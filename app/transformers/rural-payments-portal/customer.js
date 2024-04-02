@@ -58,7 +58,7 @@ export function transformPersonSummaryToCustomerAuthorisedBusinesses (customerId
     customerId,
     id,
     name,
-    sbi,
+    sbi
   }))
 }
 
