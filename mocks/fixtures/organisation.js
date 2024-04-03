@@ -163,5 +163,5 @@ export const organisationApplicationsByOrgId = orgId => {
 
 export const organisationPersonSummary = personId => {
   faker.seed(+personId)
-  return createOrganisationPersonSummaryMock({ id: personId })
+  return createOrganisationPersonSummaryMock({ id: personId, sbi: personId })
 }
