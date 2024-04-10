@@ -12,6 +12,6 @@ const sequelizeMSSQL = new Sequelize(databaseName, serverUsername, serverPasswor
   dialect: 'mssql'
 })
 
-const [results] = await sequelizeMSSQL.query('show tables;')
+const [results] = await sequelizeMSSQL.query("SELECT * FROM INFORMATION_SCHEMA.TABLES;");
 
 console.log(results)
