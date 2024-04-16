@@ -440,8 +440,14 @@
         "TG4706 0513"
       ]
     },
-    { "cphNumber": "36/062/0064", "parcelNumbers": [] },
-    { "cphNumber": "24/347/0169", "parcelNumbers": [] },
+    {
+      "cphNumber": "36/062/0064",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "24/347/0169",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "50/177/0028",
       "parcelNumbers": [
@@ -498,10 +504,24 @@
         "SE3927 7450"
       ]
     },
-    { "cphNumber": "36/246/0095", "parcelNumbers": [] },
-    { "cphNumber": "08/125/0012", "parcelNumbers": [] },
-    { "cphNumber": "20/189/0079", "parcelNumbers": [] },
-    { "cphNumber": "20/269/0060", "parcelNumbers": ["TQ7077 8830"] },
+    {
+      "cphNumber": "36/246/0095",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "08/125/0012",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "20/189/0079",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "20/269/0060",
+      "parcelNumbers": [
+        "TQ7077 8830"
+      ]
+    },
     {
       "cphNumber": "13/385/0057",
       "parcelNumbers": [
@@ -550,7 +570,16 @@
         "TL9612 3854"
       ]
     },
-    { "cphNumber": "21/420/0095", "parcelNumbers": ["SD4769 8337", "SD4870 3146", "SD4672 9906", "SD4673 5648", "SD4875 7177"] },
+    {
+      "cphNumber": "21/420/0095",
+      "parcelNumbers": [
+        "SD4769 8337",
+        "SD4870 3146",
+        "SD4672 9906",
+        "SD4673 5648",
+        "SD4875 7177"
+      ]
+    },
     {
       "cphNumber": "05/107/0063",
       "parcelNumbers": [
@@ -569,8 +598,16 @@
         "TL4045 3674"
       ]
     },
-    { "cphNumber": "49/492/8012", "parcelNumbers": [] },
-    { "cphNumber": "14/078/0345", "parcelNumbers": ["SO6008 7559"] },
+    {
+      "cphNumber": "49/492/8012",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "14/078/0345",
+      "parcelNumbers": [
+        "SO6008 7559"
+      ]
+    },
     {
       "cphNumber": "28/433/0077",
       "parcelNumbers": [
@@ -605,7 +642,10 @@
         "TG3405 0672"
       ]
     },
-    { "cphNumber": "11/261/0075", "parcelNumbers": [] },
+    {
+      "cphNumber": "11/261/0075",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "20/031/8000",
       "parcelNumbers": [
@@ -624,11 +664,24 @@
         "TR0521 8715"
       ]
     },
-    { "cphNumber": "31/180/0017", "parcelNumbers": [] },
-    { "cphNumber": "41/002/8005", "parcelNumbers": [] },
+    {
+      "cphNumber": "31/180/0017",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "41/002/8005",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "10/250/8001",
-      "parcelNumbers": ["SY0490 8846", "SY0490 9167", "SY0490 9473", "SY0691 3991", "SY0691 6375", "SY0490 8758"]
+      "parcelNumbers": [
+        "SY0490 8846",
+        "SY0490 9167",
+        "SY0490 9473",
+        "SY0691 3991",
+        "SY0691 6375",
+        "SY0490 8758"
+      ]
     },
     {
       "cphNumber": "37/053/0023",
@@ -693,7 +746,12 @@
         "SK0153 1627"
       ]
     },
-    { "cphNumber": "11/282/0049", "parcelNumbers": ["SY9789 6455"] },
+    {
+      "cphNumber": "11/282/0049",
+      "parcelNumbers": [
+        "SY9789 6455"
+      ]
+    },
     {
       "cphNumber": "05/017/0494",
       "parcelNumbers": [
@@ -1017,7 +1075,10 @@
         "NY5957 1751"
       ]
     },
-    { "cphNumber": "41/104/0134", "parcelNumbers": [] },
+    {
+      "cphNumber": "41/104/0134",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "21/239/8000",
       "parcelNumbers": [
@@ -1057,7 +1118,12 @@
         "TG3722 3176"
       ]
     },
-    { "cphNumber": "28/028/8023", "parcelNumbers": ["TG4207 8109"] },
+    {
+      "cphNumber": "28/028/8023",
+      "parcelNumbers": [
+        "TG4207 8109"
+      ]
+    },
     {
       "cphNumber": "38/265/0001",
       "parcelNumbers": [
@@ -1080,7 +1146,10 @@
         "TM3947 0499"
       ]
     },
-    { "cphNumber": "36/336/0063", "parcelNumbers": [] },
+    {
+      "cphNumber": "36/336/0063",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "08/065/0078",
       "parcelNumbers": [
@@ -1158,12 +1227,34 @@
         "NY2159 1064"
       ]
     },
-    { "cphNumber": "20/247/0006", "parcelNumbers": [] },
-    { "cphNumber": "38/025/0026", "parcelNumbers": ["TM4670 7055"] },
-    { "cphNumber": "20/312/8000", "parcelNumbers": ["TQ9767 1744", "TQ9866 9798", "TQ9867 5826"] },
+    {
+      "cphNumber": "20/247/0006",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "38/025/0026",
+      "parcelNumbers": [
+        "TM4670 7055"
+      ]
+    },
+    {
+      "cphNumber": "20/312/8000",
+      "parcelNumbers": [
+        "TQ9767 1744",
+        "TQ9866 9798",
+        "TQ9867 5826"
+      ]
+    },
     {
       "cphNumber": "51/857/0051",
-      "parcelNumbers": ["SE8223 5549", "SE8323 0965", "SE8323 7766", "SE8423 7733", "TM4469 7860", "SE8621 0175"]
+      "parcelNumbers": [
+        "SE8223 5549",
+        "SE8323 0965",
+        "SE8323 7766",
+        "SE8423 7733",
+        "TM4469 7860",
+        "SE8621 0175"
+      ]
     },
     {
       "cphNumber": "05/026/0652",
@@ -1324,9 +1415,20 @@
         "TL6985 3751"
       ]
     },
-    { "cphNumber": "28/572/0085", "parcelNumbers": [] },
-    { "cphNumber": "08/058/0073", "parcelNumbers": ["NY1961 8146"] },
-    { "cphNumber": "32/069/8000", "parcelNumbers": [] },
+    {
+      "cphNumber": "28/572/0085",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "08/058/0073",
+      "parcelNumbers": [
+        "NY1961 8146"
+      ]
+    },
+    {
+      "cphNumber": "32/069/8000",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "13/248/0791",
       "parcelNumbers": [
@@ -1473,7 +1575,10 @@
         "TM3845 0310"
       ]
     },
-    { "cphNumber": "05/026/7008", "parcelNumbers": [] },
+    {
+      "cphNumber": "05/026/7008",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "42/043/0029",
       "parcelNumbers": [
@@ -1517,10 +1622,32 @@
         "SZ8394 3022"
       ]
     },
-    { "cphNumber": "04/755/0088", "parcelNumbers": [] },
-    { "cphNumber": "04/755/0086", "parcelNumbers": ["NZ5125 2879"] },
-    { "cphNumber": "28/139/0054", "parcelNumbers": ["TG4907 0660", "TG4908 6229"] },
-    { "cphNumber": "10/424/8003", "parcelNumbers": ["SX9787 3563", "SX9787 4085", "SY0383 4092", "SY0384 5909"] },
+    {
+      "cphNumber": "04/755/0088",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "04/755/0086",
+      "parcelNumbers": [
+        "NZ5125 2879"
+      ]
+    },
+    {
+      "cphNumber": "28/139/0054",
+      "parcelNumbers": [
+        "TG4907 0660",
+        "TG4908 6229"
+      ]
+    },
+    {
+      "cphNumber": "10/424/8003",
+      "parcelNumbers": [
+        "SX9787 3563",
+        "SX9787 4085",
+        "SY0383 4092",
+        "SY0384 5909"
+      ]
+    },
     {
       "cphNumber": "47/607/8004",
       "parcelNumbers": [
@@ -1573,7 +1700,10 @@
         "SE4602 5338"
       ]
     },
-    { "cphNumber": "05/035/0454", "parcelNumbers": [] },
+    {
+      "cphNumber": "05/035/0454",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "43/099/0091",
       "parcelNumbers": [
@@ -1885,7 +2015,12 @@
         "TM4658 2549"
       ]
     },
-    { "cphNumber": "20/185/8012", "parcelNumbers": ["TR1060 6087"] },
+    {
+      "cphNumber": "20/185/8012",
+      "parcelNumbers": [
+        "TR1060 6087"
+      ]
+    },
     {
       "cphNumber": "05/151/0101",
       "parcelNumbers": [
@@ -1932,7 +2067,13 @@
         "TL3670 3874"
       ]
     },
-    { "cphNumber": "07/214/0176", "parcelNumbers": ["SW5436 9338", "SW5637 1891"] },
+    {
+      "cphNumber": "07/214/0176",
+      "parcelNumbers": [
+        "SW5436 9338",
+        "SW5637 1891"
+      ]
+    },
     {
       "cphNumber": "13/019/1574",
       "parcelNumbers": [
@@ -2196,10 +2337,26 @@
         "TQ7277 4770"
       ]
     },
-    { "cphNumber": "01/066/8004", "parcelNumbers": [] },
-    { "cphNumber": "40/146/0086", "parcelNumbers": ["SU8543 8164"] },
-    { "cphNumber": "41/029/0153", "parcelNumbers": [] },
-    { "cphNumber": "14/107/0158", "parcelNumbers": ["SO7719 4694"] },
+    {
+      "cphNumber": "01/066/8004",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "40/146/0086",
+      "parcelNumbers": [
+        "SU8543 8164"
+      ]
+    },
+    {
+      "cphNumber": "41/029/0153",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "14/107/0158",
+      "parcelNumbers": [
+        "SO7719 4694"
+      ]
+    },
     {
       "cphNumber": "38/434/0140",
       "parcelNumbers": [
@@ -2214,12 +2371,44 @@
         "TM0643 6919"
       ]
     },
-    { "cphNumber": "20/340/0195", "parcelNumbers": [] },
-    { "cphNumber": "20/370/0060", "parcelNumbers": ["TR3656 5005"] },
-    { "cphNumber": "38/226/0025", "parcelNumbers": ["TM0733 3153", "TM0733 2046", "TM0733 3335", "TM0733 3745"] },
-    { "cphNumber": "05/305/8001", "parcelNumbers": ["TL3673 5836", "TL3673 7626", "TL4177 4391", "TL4177 0742"] },
-    { "cphNumber": "45/214/0010", "parcelNumbers": ["SU2239 6973"] },
-    { "cphNumber": "43/099/0093", "parcelNumbers": [] },
+    {
+      "cphNumber": "20/340/0195",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "20/370/0060",
+      "parcelNumbers": [
+        "TR3656 5005"
+      ]
+    },
+    {
+      "cphNumber": "38/226/0025",
+      "parcelNumbers": [
+        "TM0733 3153",
+        "TM0733 2046",
+        "TM0733 3335",
+        "TM0733 3745"
+      ]
+    },
+    {
+      "cphNumber": "05/305/8001",
+      "parcelNumbers": [
+        "TL3673 5836",
+        "TL3673 7626",
+        "TL4177 4391",
+        "TL4177 0742"
+      ]
+    },
+    {
+      "cphNumber": "45/214/0010",
+      "parcelNumbers": [
+        "SU2239 6973"
+      ]
+    },
+    {
+      "cphNumber": "43/099/0093",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "11/222/0084",
       "parcelNumbers": [
@@ -2352,13 +2541,33 @@
         "SY9888 1237"
       ]
     },
-    { "cphNumber": "11/139/0255", "parcelNumbers": [] },
-    { "cphNumber": "13/326/0077", "parcelNumbers": ["TM1931 6458", "TM2031 5281"] },
+    {
+      "cphNumber": "11/139/0255",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "13/326/0077",
+      "parcelNumbers": [
+        "TM1931 6458",
+        "TM2031 5281"
+      ]
+    },
     {
       "cphNumber": "07/190/0076",
-      "parcelNumbers": ["SW5031 9854", "SW5031 4856", "SW5131 1967", "SW5131 1032", "SW5131 2878", "SW5131 3977", "SW5031 7546"]
+      "parcelNumbers": [
+        "SW5031 9854",
+        "SW5031 4856",
+        "SW5131 1967",
+        "SW5131 1032",
+        "SW5131 2878",
+        "SW5131 3977",
+        "SW5031 7546"
+      ]
     },
-    { "cphNumber": "08/125/0011", "parcelNumbers": [] },
+    {
+      "cphNumber": "08/125/0011",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "28/674/0016",
       "parcelNumbers": [
@@ -2399,7 +2608,10 @@
         "TG3823 0564"
       ]
     },
-    { "cphNumber": "28/692/0086", "parcelNumbers": [] },
+    {
+      "cphNumber": "28/692/0086",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "38/048/0074",
       "parcelNumbers": [
@@ -2446,7 +2658,10 @@
         "TM3758 7550"
       ]
     },
-    { "cphNumber": "31/114/0011", "parcelNumbers": [] },
+    {
+      "cphNumber": "31/114/0011",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "06/456/0338",
       "parcelNumbers": [
@@ -2484,11 +2699,39 @@
         "SJ3173 5705"
       ]
     },
-    { "cphNumber": "15/199/0072", "parcelNumbers": ["SU7558 1751", "SU7558 0118", "SU7658 1013", "SU8356 5514"] },
-    { "cphNumber": "01/066/0285", "parcelNumbers": ["SK0049 4854", "SP5612 1047"] },
-    { "cphNumber": "31/114/0010", "parcelNumbers": [] },
-    { "cphNumber": "28/801/8024", "parcelNumbers": [] },
-    { "cphNumber": "16/002/8003", "parcelNumbers": ["SZ6286 4576", "SZ6388 2204", "SZ6187 5418", "SZ6187 5317"] },
+    {
+      "cphNumber": "15/199/0072",
+      "parcelNumbers": [
+        "SU7558 1751",
+        "SU7558 0118",
+        "SU7658 1013",
+        "SU8356 5514"
+      ]
+    },
+    {
+      "cphNumber": "01/066/0285",
+      "parcelNumbers": [
+        "SK0049 4854",
+        "SP5612 1047"
+      ]
+    },
+    {
+      "cphNumber": "31/114/0010",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "28/801/8024",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "16/002/8003",
+      "parcelNumbers": [
+        "SZ6286 4576",
+        "SZ6388 2204",
+        "SZ6187 5418",
+        "SZ6187 5317"
+      ]
+    },
     {
       "cphNumber": "01/066/8005",
       "parcelNumbers": [
@@ -2530,9 +2773,18 @@
         "TL1848 9130"
       ]
     },
-    { "cphNumber": "11/222/0090", "parcelNumbers": [] },
-    { "cphNumber": "36/072/8001", "parcelNumbers": [] },
-    { "cphNumber": "11/439/0247", "parcelNumbers": [] },
+    {
+      "cphNumber": "11/222/0090",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "36/072/8001",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "11/439/0247",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "05/017/0430",
       "parcelNumbers": [
@@ -2796,10 +3048,22 @@
         "TL2999 8999"
       ]
     },
-    { "cphNumber": "24/538/0139", "parcelNumbers": [] },
-    { "cphNumber": "08/336/8007", "parcelNumbers": [] },
-    { "cphNumber": "51/177/0096", "parcelNumbers": [] },
-    { "cphNumber": "51/180/0193", "parcelNumbers": [] },
+    {
+      "cphNumber": "24/538/0139",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "08/336/8007",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "51/177/0096",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "51/180/0193",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "24/341/8000",
       "parcelNumbers": [
@@ -2848,8 +3112,14 @@
         "TF3941 3307"
       ]
     },
-    { "cphNumber": "05/017/7001", "parcelNumbers": [] },
-    { "cphNumber": "36/243/0240", "parcelNumbers": [] },
+    {
+      "cphNumber": "05/017/7001",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "36/243/0240",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "13/319/0099",
       "parcelNumbers": [
@@ -2984,8 +3254,16 @@
         "TR0763 2367"
       ]
     },
-    { "cphNumber": "18/134/8001", "parcelNumbers": [] },
-    { "cphNumber": "20/258/0028", "parcelNumbers": ["TQ8169 8149"] },
+    {
+      "cphNumber": "18/134/8001",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "20/258/0028",
+      "parcelNumbers": [
+        "TQ8169 8149"
+      ]
+    },
     {
       "cphNumber": "10/472/0019",
       "parcelNumbers": [
@@ -3023,7 +3301,12 @@
         "SX9274 1085"
       ]
     },
-    { "cphNumber": "11/222/0089", "parcelNumbers": ["SY9788 3417"] },
+    {
+      "cphNumber": "11/222/0089",
+      "parcelNumbers": [
+        "SY9788 3417"
+      ]
+    },
     {
       "cphNumber": "13/019/1609",
       "parcelNumbers": [
@@ -3048,7 +3331,10 @@
         "TQ7586 4938"
       ]
     },
-    { "cphNumber": "31/114/0009", "parcelNumbers": [] },
+    {
+      "cphNumber": "31/114/0009",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "33/273/0053",
       "parcelNumbers": [
@@ -3150,13 +3436,42 @@
         "SD3519 4687"
       ]
     },
-    { "cphNumber": "03/094/0042", "parcelNumbers": [] },
-    { "cphNumber": "05/402/0062", "parcelNumbers": [] },
-    { "cphNumber": "37/220/0185", "parcelNumbers": [] },
-    { "cphNumber": "42/058/0074", "parcelNumbers": ["SZ8595 1915", "SZ8595 0545", "SZ8597 9024", "SZ8697 6972"] },
-    { "cphNumber": "26/115/8005", "parcelNumbers": ["TQ5181 4507", "TQ5180 5576"] },
-    { "cphNumber": "41/002/8004", "parcelNumbers": [] },
-    { "cphNumber": "48/895/0012", "parcelNumbers": [] },
+    {
+      "cphNumber": "03/094/0042",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "05/402/0062",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "37/220/0185",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "42/058/0074",
+      "parcelNumbers": [
+        "SZ8595 1915",
+        "SZ8595 0545",
+        "SZ8597 9024",
+        "SZ8697 6972"
+      ]
+    },
+    {
+      "cphNumber": "26/115/8005",
+      "parcelNumbers": [
+        "TQ5181 4507",
+        "TQ5180 5576"
+      ]
+    },
+    {
+      "cphNumber": "41/002/8004",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "48/895/0012",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "09/228/0164",
       "parcelNumbers": [
@@ -3229,10 +3544,25 @@
         "SK2675 3731"
       ]
     },
-    { "cphNumber": "24/340/0176", "parcelNumbers": [] },
-    { "cphNumber": "08/418/7003", "parcelNumbers": ["NY5012 0904", "NY5115 0606"] },
-    { "cphNumber": "28/028/0049", "parcelNumbers": [] },
-    { "cphNumber": "10/475/0199", "parcelNumbers": [] },
+    {
+      "cphNumber": "24/340/0176",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "08/418/7003",
+      "parcelNumbers": [
+        "NY5012 0904",
+        "NY5115 0606"
+      ]
+    },
+    {
+      "cphNumber": "28/028/0049",
+      "parcelNumbers": []
+    },
+    {
+      "cphNumber": "10/475/0199",
+      "parcelNumbers": []
+    },
     {
       "cphNumber": "32/274/0109",
       "parcelNumbers": [
@@ -3269,8 +3599,19 @@
         "SY0692 2261"
       ]
     },
-    { "cphNumber": "35/280/0369", "parcelNumbers": ["SJ4815 7842", "SJ4815 6283", "SJ4915 0462", "SJ4815 8669"] },
-    { "cphNumber": "45/221/0287", "parcelNumbers": [] }
+    {
+      "cphNumber": "35/280/0369",
+      "parcelNumbers": [
+        "SJ4815 7842",
+        "SJ4815 6283",
+        "SJ4915 0462",
+        "SJ4815 8669"
+      ]
+    },
+    {
+      "cphNumber": "45/221/0287",
+      "parcelNumbers": []
+    }
   ],
   "success": true,
   "errorString": null
