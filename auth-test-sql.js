@@ -9,9 +9,13 @@ console.log(databaseName, serverUsername, serverPassword)
 
 const sequelizeMSSQL = new Sequelize(databaseName, serverUsername, serverPassword, {
   host: serverHost,
-  dialect: 'mssql'
+  dialect: 'mssql',
+  dialectOptions: {
+    options: {
+      encrypt: false
+    }
+  }
 })
-
-const [results] = await sequelizeMSSQL.query("SELECT * FROM INFORMATION_SCHEMA.TABLES;");
+const [results] = await sequelizeMSSQL.query('SELECT * FROM INFORMATION_SCHEMA.TABLES;')
 
 console.log(results)
