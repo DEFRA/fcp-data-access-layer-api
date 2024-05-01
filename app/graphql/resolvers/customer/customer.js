@@ -32,11 +32,14 @@ export const CustomerBusiness = {
   },
 
   async messages ({ id, customerId }, { pagination, showOnlyDeleted }, { dataSources }) {
+    const defaultPaginationPage = 1
+    const defaultPaginationPerPage = 5
+
     const notifications = await dataSources.ruralPaymentsPortalApi.getNotificationsByOrganisationIdAndPersonId(
       id,
       customerId,
-      pagination?.page || 1,
-      pagination?.perPage || 5
+      pagination?.page || defaultPaginationPage,
+      pagination?.perPage || defaultPaginationPerPage
     )
 
     return transformNotificationsToMessages(notifications, showOnlyDeleted)
