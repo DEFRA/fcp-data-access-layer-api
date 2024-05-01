@@ -1,6 +1,6 @@
-export function transformOrganisationAuthorisationToCustomerBusinessPermissionLevel (permissions, authorisation) {
+export function transformOrganisationAuthorisationToCustomerBusinessPermissionLevel (customerId, permissions, authorisation) {
   permissions.reverse()
-  const privilegeNames = authorisation.flatMap((personPrivileges) => personPrivileges.privilegeNames)
+  const privilegeNames = authorisation.flatMap(({ personId, privilegeNames }) => personId === customerId ? privilegeNames : [])
 
   for (const permission of permissions) {
     if (privilegeNames.some(privilege => permission.privilegeNames.includes(privilege))) {

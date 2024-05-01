@@ -44,8 +44,7 @@ export const CustomerBusiness = {
 
 export const CustomerBusinessPermissionGroup = {
   async level ({ businessId, customerId, permissions }, __, { dataSources }) {
-    const authorisation = await dataSources.ruralPaymentsPortalApi.getAuthorisationByOrganisationIdAndPersonId(businessId, customerId)
-    return transformOrganisationAuthorisationToCustomerBusinessPermissionLevel(permissions, authorisation)
+    const authorisation = await dataSources.ruralPaymentsPortalApi.getAuthorisationByOrganisationId(businessId)
+    return transformOrganisationAuthorisationToCustomerBusinessPermissionLevel(customerId, permissions, authorisation.personPrivileges)
   }
-
 }
