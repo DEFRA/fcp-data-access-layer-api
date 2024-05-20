@@ -13,11 +13,6 @@ const dataSources = {
     getCustomerByCRN () {
       return personFixture._data
     },
-    getPersonByPersonId () {
-      return [
-        personFixture._data
-      ]
-    },
     getAuthorisationByOrganisationId () {
       return authorisationOrganisation.data
     },
