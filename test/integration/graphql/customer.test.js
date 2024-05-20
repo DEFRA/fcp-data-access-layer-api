@@ -70,8 +70,8 @@ describe('Query.customer', () => {
     expect(result).toEqual({
       data: {
         customer: {
-          crn: '0866159801',
-          customerId: '5007136',
+          crn: personFixture._data.customerReferenceNumber,
+          customerId: personFixture._data.id.toString(),
           info: customerInfo
         }
       }

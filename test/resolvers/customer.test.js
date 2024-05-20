@@ -4,12 +4,14 @@ import pick from 'lodash.pick'
 import { Customer, CustomerBusiness, CustomerBusinessPermissionGroup } from '../../app/graphql/resolvers/customer/customer.js'
 import { sitiAgriAuthorisationOrganisation } from '../../mocks/fixtures/authorisation.js'
 
+import personMock from '../../mocks/fixtures/personId/5007136/detail.json'
+
 const authorisationOrganisation = sitiAgriAuthorisationOrganisation({ organisationId: '4309257' })
 const personId = authorisationOrganisation.data.personRoles[0].personId
 const dataSources = {
   ruralPaymentsPortalApi: {
     getCustomerByCRN () {
-      return { id: '5007136' }
+      return personMock._data
     },
     getPersonByPersonId () {
       return [
@@ -92,7 +94,7 @@ describe('Customer', () => {
         businessId: '123',
         name: 'Ratke, Grant and Keebler',
         sbi: 265774479,
-        customerId: '5007136'
+        customerId: 5007136
       }
     ])
   })
