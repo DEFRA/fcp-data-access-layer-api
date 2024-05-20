@@ -46,11 +46,11 @@ export const ruralPaymentsPortalCustomerTransformer = data => {
 }
 
 export function transformPersonRolesToCustomerAuthorisedBusinessesRoles (customerId, personRoles) {
-  return personRoles.filter(({ personId }) => personId.toString() === customerId).map(({ role }) => role)
+  return personRoles.filter(({ personId }) => personId === customerId).map(({ role }) => role)
 }
 
 export function transformPersonPrivilegesToCustomerAuthorisedBusinessesPrivileges (customerId, personPrivileges) {
-  return personPrivileges.filter(({ personId }) => personId.toString() === customerId).map(({ privilegeNames }) => privilegeNames[0])
+  return personPrivileges.filter(({ personId }) => personId === customerId).map(({ privilegeNames }) => privilegeNames[0])
 }
 
 export function transformPersonSummaryToCustomerAuthorisedBusinesses (customerId, summary) {

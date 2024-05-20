@@ -1,5 +1,6 @@
 import { transformAuthenticateQuestionsAnswers } from '../../../transformers/authenticate/question-answers.js'
 import {
+  ruralPaymentsPortalCustomerTransformer,
   transformNotificationsToMessages,
   transformPersonRolesToCustomerAuthorisedBusinessesRoles,
   transformPersonSummaryToCustomerAuthorisedBusinesses,
@@ -8,17 +9,31 @@ import {
 import { transformOrganisationAuthorisationToCustomerBusinessPermissionLevel } from '../../../transformers/rural-payments-portal/permissions.js'
 
 export const Customer = {
-  async business ({ customerId }, { sbi }, { dataSources }) {
+  async customerId ({ crn }, __, { dataSources }) {
+    const { id } = await dataSources.ruralPaymentsPortalApi.getCustomerByCRN(crn)
+    return id
+  },
+
+  async info ({ crn }, __, { dataSources }) {
+    const response = await dataSources.ruralPaymentsPortalApi.getCustomerByCRN(crn)
+    return ruralPaymentsPortalCustomerTransformer(response).info
+  },
+
+  async business ({ crn }, { sbi }, { dataSources }) {
+    const { id } = await dataSources.ruralPaymentsPortalApi.getCustomerByCRN(crn)
     return transformPersonSummaryToCustomerAuthorisedFilteredBusiness(
-      customerId,
+      id,
       sbi,
-      await dataSources.ruralPaymentsPortalApi.getPersonSummaryByPersonId(customerId, sbi)
+      await dataSources.ruralPaymentsPortalApi.getPersonSummaryByPersonId(id, sbi)
     )
   },
-  async businesses ({ customerId }, __, { dataSources }) {
-    const summary = await dataSources.ruralPaymentsPortalApi.getPersonSummaryByPersonId(customerId)
-    return transformPersonSummaryToCustomerAuthorisedBusinesses(customerId, summary)
+
+  async businesses ({ crn }, __, { dataSources }) {
+    const { id } = await dataSources.ruralPaymentsPortalApi.getCustomerByCRN(crn)
+    const summary = await dataSources.ruralPaymentsPortalApi.getPersonSummaryByPersonId(id)
+    return transformPersonSummaryToCustomerAuthorisedBusinesses(id, summary)
   },
+
   async authenticationQuestions ({ crn }, __, { dataSources }) {
     const results = await dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN(crn)
     return transformAuthenticateQuestionsAnswers(results)

@@ -8,6 +8,9 @@ const authorisationOrganisation = sitiAgriAuthorisationOrganisation({ organisati
 const personId = authorisationOrganisation.data.personRoles[0].personId
 const dataSources = {
   ruralPaymentsPortalApi: {
+    getCustomerByCRN () {
+      return { id: '5007136' }
+    },
     getPersonByPersonId () {
       return [
         {
