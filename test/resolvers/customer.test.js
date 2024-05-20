@@ -3,31 +3,19 @@ import { jest } from '@jest/globals'
 import pick from 'lodash.pick'
 import { Customer, CustomerBusiness, CustomerBusinessPermissionGroup } from '../../app/graphql/resolvers/customer/customer.js'
 import { sitiAgriAuthorisationOrganisation } from '../../mocks/fixtures/authorisation.js'
+import { personById } from '../../mocks/fixtures/person.js'
 
-import personMock from '../../mocks/fixtures/personId/5007136/detail.json'
-
+const personFixture = personById({ id: '5007136' })
 const authorisationOrganisation = sitiAgriAuthorisationOrganisation({ organisationId: '4309257' })
 const personId = authorisationOrganisation.data.personRoles[0].personId
 const dataSources = {
   ruralPaymentsPortalApi: {
     getCustomerByCRN () {
-      return personMock._data
+      return personFixture._data
     },
     getPersonByPersonId () {
       return [
-        {
-          id: '4309257',
-          name: 'company name',
-          sbi: 123123123,
-          additionalSbiIds: [],
-          confirmed: true,
-          lastUpdatedOn: null,
-          landConfirmed: null,
-          deactivated: false,
-          locked: true,
-          unreadNotificationCount: 3,
-          readNotificationCount: 0
-        }
+        personFixture._data
       ]
     },
     getAuthorisationByOrganisationId () {
