@@ -16,7 +16,7 @@ export const Customer = {
 
   async info ({ crn }, __, { dataSources }) {
     const response = await dataSources.ruralPaymentsPortalApi.getCustomerByCRN(crn)
-    return ruralPaymentsPortalCustomerTransformer(response).info
+    return ruralPaymentsPortalCustomerTransformer(response)
   },
 
   async business ({ crn }, { sbi }, { dataSources }) {
