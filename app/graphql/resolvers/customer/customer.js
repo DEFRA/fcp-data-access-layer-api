@@ -21,6 +21,7 @@ export const Customer = {
 
   async business ({ crn }, { sbi }, { dataSources }) {
     const { id: customerId } = await dataSources.ruralPaymentsPortalApi.getCustomerByCRN(crn)
+
     return transformPersonSummaryToCustomerAuthorisedFilteredBusiness(
       customerId,
       sbi,
