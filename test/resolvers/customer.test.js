@@ -4,6 +4,7 @@ import pick from 'lodash.pick'
 import { Customer, CustomerBusiness, CustomerBusinessPermissionGroup } from '../../app/graphql/resolvers/customer/customer.js'
 import { sitiAgriAuthorisationOrganisation } from '../../mocks/fixtures/authorisation.js'
 import { personById } from '../../mocks/fixtures/person.js'
+import { ruralPaymentsPortalCustomerTransformer } from '../../app/transformers/rural-payments-portal/customer.js'
 
 const personFixture = personById({ id: '5007136' })
 const authorisationOrganisation = sitiAgriAuthorisationOrganisation({ organisationId: '4309257' })
@@ -68,6 +69,11 @@ describe('Customer', () => {
         }
       ]
     })
+  })
+
+  test('Customer.info', async () => {
+    const response = await Customer.info({ crn: personFixture._data.customerReferenceNumber }, undefined, { dataSources })
+    expect(response).toEqual(ruralPaymentsPortalCustomerTransformer(personFixture._data))
   })
 
   test('Customer.businesses', async () => {
