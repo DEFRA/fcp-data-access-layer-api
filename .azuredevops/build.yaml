@@ -36,7 +36,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: main
+      ref: sm/393370/WhitelistingofLogicAppsIP
 
 extends:
   template: /pipelines/common-app-build.yaml@DEFRA-ADPPipelineCommon
@@ -45,6 +45,7 @@ extends:
     serviceName: 'fcp-data-access-layer-api'
     deployFromFeature: ${{ parameters.deployFromFeature }}
     deployConfigOnly: ${{ parameters.deployConfigOnly }}
+    includePlatformEnvs: true
     appBuildConfig:
       appFrameworkType: 'nodejs'
       projectPath: './package.json'
