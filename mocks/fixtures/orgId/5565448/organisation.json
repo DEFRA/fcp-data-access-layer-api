@@ -42,7 +42,7 @@
     "correspondenceLandline": null,
     "correspondenceMobile": null,
     "correspondenceFax": null,
-    "taxRegistrationNumber": null,
+    "taxRegistrationNumber": "GB123456789",
     "businessType": { "id": 101443, "type": "Not Specified" },
     "businessReference": "1102179604",
     "legalStatus": { "id": 102111, "type": "Sole Proprietorship" },

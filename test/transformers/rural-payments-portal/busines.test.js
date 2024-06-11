@@ -35,7 +35,7 @@ describe('Business transformer', () => {
         registrationNumbers: { charityCommission: null, companiesHouse: null },
         traderNumber: '010203040506070880980',
         type: { code: 101443, type: 'Not Specified' },
-        vat: null,
+        vat: 'GB123456789',
         vendorNumber: '694523'
       },
       sbi: '107183280'
