@@ -1,6 +1,8 @@
 import { graphql } from 'graphql'
 import { Permissions } from '../../../app/data-sources/static/permissions.js'
 import { schema } from '../../../app/graphql/server.js'
+import { transformPayments } from '../../../app/transformers/payments/payments.js'
+import { transformOrganisationCSApplicationToBusinessApplications } from '../../../app/transformers/rural-payments-portal/applications-cs.js'
 import {
   transformOrganisationCPH,
   transformOrganisationCPHCoordinates
@@ -14,17 +16,36 @@ import {
 import { transformPrivilegesListToBusinessCustomerPermissions } from '../../../app/transformers/rural-payments-portal/permissions.js'
 import { coversSummary, landCovers, landParcels, parcelSummary } from '../../../mocks/fixtures/lms.js'
 import { organisationCPH, organisationCPHInfo } from '../../../mocks/fixtures/organisation-cph.js'
-import { organisationByOrgId, organisationPeopleByOrgId } from '../../../mocks/fixtures/organisation.js'
+import { organisationApplicationsByOrgId, organisationByOrgId, organisationPeopleByOrgId } from '../../../mocks/fixtures/organisation.js'
 import { fakeContext } from '../../test-setup.js'
 
 const organisationFixture = organisationByOrgId('5565448')._data
 const { totalArea, totalParcels } = parcelSummary('5565448')
 const organisationCPHInfoFixture = organisationCPHInfo('5565448').data
 const organisationCPHFixture = organisationCPH('5565448').data
+const organisationApplicationsFixture = organisationApplicationsByOrgId('5565448').applications
+
+const paymentsFixture = [
+  {
+    firm_reference_number: 'some reference number',
+    bacs_ref: 'some bacs ref',
+    payment_date: 'some payment date',
+    agreement_claim_no: 'some agreement claim number',
+    scheme: 'some scheme',
+    marketing_year: 'some marketing year',
+    description: 'some description',
+    transaction_amount: 'some transaction amount',
+    transaction_currency: 'some transaction currency'
+  }
+]
 
 describe('Query.business', () => {
   it('should return business data', async () => {
+    fakeContext.dataSources.paymentsDatabase.getPaymentsByApplicationId.mockResolvedValue(paymentsFixture)
+
     const transformedOrganisation = transformOrganisationToBusiness(organisationFixture)
+    const transformedApplications = transformOrganisationCSApplicationToBusinessApplications(organisationApplicationsFixture)
+    transformedApplications.forEach(application => (application.payments = transformPayments(paymentsFixture)))
 
     const result = await graphql({
       source: `#graphql
@@ -75,6 +96,35 @@ describe('Query.business', () => {
                 companiesHouse
                 charityCommission
               }
+            },
+            applications {
+              applicationId
+              applicationStatus {
+                  open
+                  status
+                  type
+                  sector
+                  year
+                  frn
+                  office
+              }
+              csClaim {
+                  schemaYear
+                  type
+                  status
+                  lastMovement
+              }
+              payments {
+                  firmReferenceNumber
+                  bacsRef
+                  paymentDate
+                  agreementClaimNumber
+                  scheme
+                  marketingYear
+                  description
+                  transactionAmount
+                  transactionCurrency
+              }
             }
           }
         }
@@ -85,7 +135,10 @@ describe('Query.business', () => {
 
     expect(result).toEqual({
       data: {
-        business: transformedOrganisation
+        business: {
+          ...transformedOrganisation,
+          applications: transformedApplications
+        }
       }
     })
   })

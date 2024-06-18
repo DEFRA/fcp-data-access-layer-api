@@ -158,7 +158,7 @@ export const organisationApplicationsByOrgId = orgId => {
   try {
     return getJSON(`./orgId/${orgId}/organisation-applications.json`)
   } catch (error) {
-    logger.debug('#Mock #Fixtures #organisationApplicationsByOrgId - Generating mock data')
+    logger.debug(`#Mock #Fixtures #organisationApplicationsByOrgId - Generating mock data for org ${orgId}`)
     faker.seed(+orgId)
     return {
       applications: [...Array(faker.number.int(5))].map(createOrganisationApplicationMock)

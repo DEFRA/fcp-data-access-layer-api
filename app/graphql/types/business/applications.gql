@@ -3,11 +3,6 @@ Represents the status of a business application.
 """
 type BusinessApplicationStatus {
   """
-  The unique identifier of the business application status.
-  """
-  id: ID
-
-  """
   The open status of the business application.
   """
   open: String
@@ -69,11 +64,66 @@ type BusinessApplicationClaim {
 }
 
 """
+Represents the payment details of a business.
+"""
+type BusinessApplicationPayment {
+  """
+  The Firm Reference number of the payment.
+  """
+  firmReferenceNumber: String
+
+  """
+  The BACS reference of the payment.
+  """
+  bacsRef: String
+
+  """
+  The payment date of the payment.
+  """
+  paymentDate: String
+
+  """
+  The agreement claim number of the payment.
+  """
+  agreementClaimNumber: String
+
+  """
+  The scheme of the payment.
+  """
+  scheme: String
+
+  """
+  The marketing year of the payment.
+  """
+  marketingYear: String
+
+  """
+  The description of the payment.
+  """
+  description: String
+
+  """
+  The transaction amount of the payment.
+  """
+  transactionAmount: String
+
+  """
+  The transaction currency of the payment.
+  """
+  transactionCurrency: String
+}
+
+"""
 Represents a business application.
 
 Data Source: Rural Payments Portal (PRR)
 """
 type BusinessApplication {
+  """
+  The agreement claim number of the payment.
+  """
+  applicationId: ID
+
   """
   The status of the business application.
   """
@@ -83,4 +133,9 @@ type BusinessApplication {
   The claim of the business application.
   """
   csClaim: BusinessApplicationClaim
+
+  """
+  The payments of the business application.
+  """
+  payments: [BusinessApplicationPayment]
 }

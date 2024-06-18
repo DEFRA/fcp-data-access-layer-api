@@ -25,7 +25,7 @@ export class RuralPaymentsPortalApi extends RuralPaymentsPortalBase {
     return organisationResponse._data
   }
 
-  async getOrganisationBySBI (sbi) {
+  async searchOrganisationBySBI (sbi) {
     const body = JSON.stringify({
       searchFieldType: 'SBI',
       primarySearchPhrase: sbi,
@@ -40,9 +40,13 @@ export class RuralPaymentsPortalApi extends RuralPaymentsPortalBase {
       }
     })
 
-    const response = organisationResponse?._data?.pop() || {}
+    return organisationResponse?._data?.pop() || {}
+  }
 
-    return this.getOrganisationById(response.id)
+  async getOrganisationBySBI (sbi) {
+    const organisation = await this.searchOrganisationBySBI(sbi)
+
+    return this.getOrganisationById(organisation?.id)
   }
 
   async getPersonSummaryByPersonId (personId, sbi) {
@@ -68,8 +72,16 @@ export class RuralPaymentsPortalApi extends RuralPaymentsPortalBase {
     return response._data
   }
 
-  async getApplicationsCountrysideStewardshipBySbi (sbi) {
-    const response = await this.get(`injected-screens-mt/api/organisation/${sbi}/applications/appslist`)
+  async getApplicationsCountrysideStewardshipBySBI (sbi) {
+    const organisation = await this.searchOrganisationBySBI(sbi)
+
+    const response = await this.get(`injected-screens-mt/api/organisation/${organisation?.id}/applications/appslist`)
+
+    return response._data
+  }
+
+  async getApplicationsCountrysideStewardshipOrganisationId (organisationId) {
+    const response = await this.get(`injected-screens-mt/api/organisation/${organisationId}/applications/appslist`)
     return response._data
   }
 

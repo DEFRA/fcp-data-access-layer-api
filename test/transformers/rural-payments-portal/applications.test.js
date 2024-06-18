@@ -1,6 +1,4 @@
-import {
-  transformOrganisationCSApplicationToBusinessApplications
-} from '../../../app/transformers/rural-payments-portal/applications-cs.js'
+import { transformOrganisationCSApplicationToBusinessApplications } from '../../../app/transformers/rural-payments-portal/applications-cs.js'
 
 describe('transformOrganisationCSApplicationToBusinessApplications Test', () => {
   const systemUnderTest = transformOrganisationCSApplicationToBusinessApplications
@@ -54,14 +52,14 @@ describe('transformOrganisationCSApplicationToBusinessApplications Test', () => 
     test('it should return an enrich JSON with applications populated', () => {
       expect(actual).toEqual([
         {
+          applicationId: '1648168',
           applicationStatus: {
-            id: 1648168,
             open: null,
             status: 'Withdrawn',
             type: 'Countryside Stewardship (MT) Module 2023',
             sector: null,
             year: 2023,
-            frn: 0,
+            frn: '0',
             office: null
           },
           csClaim: {
@@ -72,14 +70,14 @@ describe('transformOrganisationCSApplicationToBusinessApplications Test', () => 
           }
         },
         {
+          applicationId: '1649461',
           applicationStatus: {
-            id: 1649461,
             open: null,
             status: 'Checking Application',
             type: 'Countryside Stewardship (MT) Module 2023',
             sector: 'STANDA',
             year: 2023,
-            frn: 0,
+            frn: '0',
             office: null
           },
           csClaim: {
