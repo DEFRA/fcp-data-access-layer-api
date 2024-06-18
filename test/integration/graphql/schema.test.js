@@ -1,9 +1,4 @@
-import {
-  graphql,
-  getIntrospectionQuery,
-  buildSchema,
-  findBreakingChanges
-} from 'graphql'
+import { buildSchema, findBreakingChanges, getIntrospectionQuery, graphql } from 'graphql'
 
 describe('schema', () => {
   beforeEach(() => {
@@ -20,7 +15,10 @@ describe('schema', () => {
     delete process.env.ALL_SCHEMA_ON
     const { schema } = await import(`../../../app/graphql/server.js?test=${Math.random()}`)
 
-    expect(findBreakingChanges(schema, buildSchema(`#graphql
+    expect(
+      findBreakingChanges(
+        schema,
+        buildSchema(`#graphql
       scalar Int
       scalar Float
       scalar Date
@@ -41,12 +39,17 @@ describe('schema', () => {
         crn: ID!
         authenticationQuestions: CustomerAuthenticationQuestions
       }
-   `))).toHaveLength(0)
+   `)
+      )
+    ).toHaveLength(0)
   })
 
   it('should contain all fields if process.env.ALL_SCHEMA is set', async () => {
     const { schema } = await import(`../../../app/graphql/server.js?test=${Math.random()}`)
-    expect(findBreakingChanges(schema, buildSchema(`#graphql
+    expect(
+      findBreakingChanges(
+        schema,
+        buildSchema(`#graphql
       type Query {
         business(sbi: ID!): Business
         businessApplications(sbi: ID!): [BusinessApplication]
@@ -90,7 +93,6 @@ describe('schema', () => {
       scalar Date
       
       type BusinessApplicationStatus {
-        id: ID
         open: String
         status: String
         type: String
@@ -107,9 +109,23 @@ describe('schema', () => {
         lastMovement: String
       }
       
+      type BusinessApplicationPayment {
+        firmReferenceNumber: String
+        bacsRef: String
+        paymentDate: String
+        agreementClaimNumber: String
+        scheme: String
+        marketingYear: String
+        description: String
+        transactionAmount: String
+        transactionCurrency: String
+      }
+      
       type BusinessApplication {
+        applicationId: ID
         applicationStatus: BusinessApplicationStatus
         csClaim: BusinessApplicationClaim
+        payments: [BusinessApplicationPayment]
       }
       
       type BusinessInfo {
@@ -300,6 +316,8 @@ describe('schema', () => {
         functions: [String]
         active(customerId: String!, businessId: String!): Boolean
       }
-    `))).toHaveLength(0)
+    `)
+      )
+    ).toHaveLength(0)
   })
 })

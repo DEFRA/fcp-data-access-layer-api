@@ -4,12 +4,27 @@ import { fakeContext } from '../../test-setup.js'
 
 describe('Query businessApplications', () => {
   it('should return application data', async () => {
+    const paymentsResponse = [
+      {
+        firm_reference_number: 'some reference number',
+        bacs_ref: 'some bacs ref',
+        payment_date: 'some payment date',
+        agreement_claim_no: 'some agreement claim number',
+        scheme: 'some scheme',
+        marketing_year: 'some marketing year',
+        description: 'some description',
+        transaction_amount: 'some transaction amount',
+        transaction_currency: 'some transaction currency'
+      }
+    ]
+    fakeContext.dataSources.paymentsDatabase.getPaymentsByApplicationId.mockResolvedValue(paymentsResponse)
+
     const result = await graphql({
       source: `#graphql
       query BusinessApplications {
-          businessApplications(sbi: "5444918") {
+          businessApplications(sbi: "107183280") {
+              applicationId
               applicationStatus {
-                  id
                   open
                   status
                   type
@@ -23,6 +38,17 @@ describe('Query businessApplications', () => {
                   type
                   status
                   lastMovement
+              }
+              payments {
+                  firmReferenceNumber
+                  bacsRef
+                  paymentDate
+                  agreementClaimNumber
+                  scheme
+                  marketingYear
+                  description
+                  transactionAmount
+                  transactionCurrency
               }
           }
       }
@@ -38,8 +64,8 @@ describe('Query businessApplications', () => {
       data: {
         businessApplications: [
           {
+            applicationId: expect.any(String),
             applicationStatus: {
-              id: expect.any(String),
               open: null,
               status: 'Withdrawn',
               type: expect.any(String),
@@ -53,15 +79,28 @@ describe('Query businessApplications', () => {
               type: expect.any(String),
               status: 'WTHDRW',
               lastMovement: expect.any(String)
-            }
+            },
+            payments: [
+              {
+                firmReferenceNumber: expect.any(String),
+                bacsRef: expect.any(String),
+                paymentDate: expect.any(String),
+                agreementClaimNumber: expect.any(String),
+                scheme: expect.any(String),
+                marketingYear: expect.any(String),
+                description: expect.any(String),
+                transactionAmount: expect.any(String),
+                transactionCurrency: expect.any(String)
+              }
+            ]
           },
           {
+            applicationId: expect.any(String),
             applicationStatus: {
-              id: expect.any(String),
               open: null,
-              status: 'Withdrawn',
+              status: 'Agreement Live',
               type: expect.any(String),
-              sector: null,
+              sector: 'STANDA',
               year: 2023,
               frn: expect.any(String),
               office: null
@@ -69,9 +108,22 @@ describe('Query businessApplications', () => {
             csClaim: {
               schemaYear: 2023,
               type: expect.any(String),
-              status: 'WTHDRW',
+              status: 'AGRLIV',
               lastMovement: expect.any(String)
-            }
+            },
+            payments: [
+              {
+                firmReferenceNumber: expect.any(String),
+                bacsRef: expect.any(String),
+                paymentDate: expect.any(String),
+                agreementClaimNumber: expect.any(String),
+                scheme: expect.any(String),
+                marketingYear: expect.any(String),
+                description: expect.any(String),
+                transactionAmount: expect.any(String),
+                transactionCurrency: expect.any(String)
+              }
+            ]
           }
         ]
       }
