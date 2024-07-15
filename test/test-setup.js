@@ -11,6 +11,9 @@ export const fakeContext = {
     ...contextObject.dataSources,
     authenticateDatabase: {
       getAuthenticateQuestionsAnswersByCRN: jest.fn()
+    },
+    paymentsDatabase: {
+      getPaymentsByApplicationId: jest.fn()
     }
   },
   authorize: { checkAuthGroup: () => [process.env.ADMIN] }

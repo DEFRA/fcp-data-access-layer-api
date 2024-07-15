@@ -1,3 +1,4 @@
+import { transformOrganisationCSApplicationToBusinessApplications } from '../../../transformers/rural-payments-portal/applications-cs.js'
 import { transformOrganisationCPH } from '../../../transformers/rural-payments-portal/business-cph.js'
 import { transformOrganisationCustomers } from '../../../transformers/rural-payments-portal/business.js'
 import { transformPrivilegesListToBusinessCustomerPermissions } from '../../../transformers/rural-payments-portal/permissions.js'
@@ -13,6 +14,12 @@ export const Business = {
 
   async customers ({ businessId }, _, { dataSources }) {
     return transformOrganisationCustomers(await dataSources.ruralPaymentsPortalApi.getOrganisationCustomersByOrganisationId(businessId))
+  },
+
+  async applications ({ businessId }, _, { dataSources }) {
+    const response = await dataSources.ruralPaymentsPortalApi.getApplicationsCountrysideStewardshipOrganisationId(businessId)
+
+    return transformOrganisationCSApplicationToBusinessApplications(response.applications)
   }
 }
 

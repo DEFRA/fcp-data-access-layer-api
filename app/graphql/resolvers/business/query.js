@@ -13,7 +13,7 @@ export const Query = {
   },
 
   async businessApplications (_, { sbi }, { dataSources }) {
-    const response = await dataSources.ruralPaymentsPortalApi.getApplicationsCountrysideStewardshipBySbi(sbi)
+    const response = await dataSources.ruralPaymentsPortalApi.getApplicationsCountrysideStewardshipBySBI(sbi)
 
     return transformOrganisationCSApplicationToBusinessApplications(response.applications)
   }
