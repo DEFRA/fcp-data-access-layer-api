@@ -1,7 +1,5 @@
 - key: Sentinel
   value: '1'
-- key: ENABLE_MOCK_SERVER
-  value: 'false'
 - key: RURAL_PAYMENTS_AGENCY_LAND_API_URL
   value: 'https://environment.data.gov.uk'
 - key: RURAL_PAYMENTS_PORTAL_EMAIL
@@ -11,9 +9,6 @@
 - key: RURAL_PAYMENTS_PROXY_URL
   value: ''
 # Secrets
-- key: RURAL_PAYMENTS_PORTAL_PASSWORD
-  value: '{{servicename}}-RURAL-PAYMENTS-PORTAL-PASSWORD'
-  type: 'keyvault'
 - key: API_TENANT_ID
   value: '{{servicename}}-API-TENANT-ID'
   type: 'keyvault'
@@ -29,6 +24,21 @@
 - key: AUTHENTICATE_DB_USERNAME
   value: '{{servicename}}-AUTHENTICATE-DB-USERNAME'
   type: 'keyvault'
-- key: AUTHENTICATE_DB_PASSWORD
-  value: '{{servicename}}-AUTHENTICATE-DB-PASSWORD'
+- key: RP_INTERNAL_APIM_CLIENT_ID
+  value: '{{servicename}}-RP-INTERNAL-APIM-CLIENT-ID'
+  type: 'keyvault'
+- key: RP_INTERNAL_APIM_CLIENT_SECRET
+  value: '{{servicename}}-RP-INTERNAL-APIM-CLIENT-SECRET'
+  type: 'keyvault'
+- key: RP_INTERNAL_APIM_SUBSCRIPTION_KEY
+  value: '{{servicename}}-RP-INTERNAL-APIM-SUBSCRIPTION-KEY'
+  type: 'keyvault'
+- key: RP_INTERNAL_APIM_SCOPE
+  value: '{{servicename}}-RP-INTERNAL-APIM-SCOPE'
+  type: 'keyvault'
+- key: RP_INTERNAL_APIM_ACCESS_TOKEN_URL
+  value: '{{servicename}}-RP-INTERNAL-APIM-ACCESS-TOKEN-URL'
+  type: 'keyvault'
+- key: RP_INTERNAL_APIM_URL
+  value: '{{servicename}}-RP-INTERNAL-APIM-URL'
   type: 'keyvault'

@@ -1,6 +1,6 @@
 import { transformOrganisationCPH } from '../../../transformers/rural-payments-portal/business-cph.js'
-import { transformOrganisationCustomers } from '../../../transformers/rural-payments-portal/business.js'
-import { transformPrivilegesListToBusinessCustomerPermissions } from '../../../transformers/rural-payments-portal/permissions.js'
+import { transformBusinessCustomerPrivilegesToPermissionGroups, transformOrganisationCustomers } from '../../../transformers/version-one/business.js'
+import { transformOrganisationCSApplicationToBusinessApplications } from '../../../transformers/rural-payments-portal/applications-cs.js'
 
 export const Business = {
   land ({ businessId }) {
@@ -12,12 +12,17 @@ export const Business = {
   },
 
   async customers ({ businessId }, _, { dataSources }) {
-    return transformOrganisationCustomers(await dataSources.ruralPaymentsPortalApi.getOrganisationCustomersByOrganisationId(businessId))
+    return transformOrganisationCustomers(await dataSources.versionOneBusiness.getOrganisationCustomersByOrganisationId(businessId))
+  },
+
+  async applications ({ businessId }, __, { dataSources }) {
+    const response = await dataSources.ruralPaymentsPortalApi.getApplicationsCountrysideStewardship(businessId)
+    return transformOrganisationCSApplicationToBusinessApplications(response?.applications)
   }
 }
 
 export const BusinessCustomer = {
-  permissions ({ privileges }, __, { dataSources }) {
-    return transformPrivilegesListToBusinessCustomerPermissions(privileges, dataSources.permissions.getPermissionGroups())
+  async permissionGroups ({ privileges }, __, { dataSources }) {
+    return transformBusinessCustomerPrivilegesToPermissionGroups(privileges, dataSources.permissions.getPermissionGroups())
   }
 }
