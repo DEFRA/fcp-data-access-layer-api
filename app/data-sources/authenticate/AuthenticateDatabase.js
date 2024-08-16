@@ -1,21 +1,25 @@
 import Sequelize, { DataTypes } from 'sequelize'
 
 const databaseName = process.env.AUTHENTICATE_DB_SCHEMA
-const serverUsername = process.env.AUTHENTICATE_DB_USERNAME
-const serverPassword = process.env.AUTHENTICATE_DB_PASSWORD
 const serverHost = process.env.AUTHENTICATE_DB_HOST
 
-const sequelize = new Sequelize(databaseName, serverUsername, serverPassword, {
+const readUsername = process.env.AUTHENTICATE_DB_USERNAME
+const readPassword = process.env.AUTHENTICATE_DB_PASSWORD
+const sequelizeRead = new Sequelize(databaseName, readUsername, readPassword, {
   host: serverHost,
   dialect: 'mssql',
-  dialectOptions: {
-    options: {
-      encrypt: false
-    }
-  }
+  dialectOptions: { options: { encrypt: false } }
 })
 
-const Answer = sequelize.define('Answers', {
+const writeUsername = process.env.AUTHENTICATE_DB_USERNAME_WRITE
+const writePassword = process.env.AUTHENTICATE_DB_PASSWORD_WRITE
+const sequelizeWrite = new Sequelize(databaseName, writeUsername, writePassword, {
+  host: serverHost,
+  dialect: 'mssql',
+  dialectOptions: { options: { encrypt: false } }
+})
+
+const Answer = sequelizeRead.define('Answers', {
   CRN: {
     type: DataTypes.STRING,
     primaryKey: true
@@ -27,7 +31,7 @@ const Answer = sequelize.define('Answers', {
   Updated: DataTypes.DATE
 })
 
-const Audit = sequelize.define(
+const Audit = sequelizeWrite.define(
   'Audits',
   {
     Date: DataTypes.STRING,
