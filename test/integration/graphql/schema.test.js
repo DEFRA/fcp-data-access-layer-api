@@ -24,6 +24,7 @@ describe('schema', () => {
       scalar Int
       scalar Float
       scalar Date
+      scalar UUID
 
       type Query {
         customer(crn: ID!): Customer
@@ -39,7 +40,7 @@ describe('schema', () => {
 
       type Customer {
         crn: ID!
-        authenticationQuestions: CustomerAuthenticationQuestions
+        authenticationQuestions(csaUserId: UUID!): CustomerAuthenticationQuestions
       }
    `))).toHaveLength(0)
   })
@@ -47,6 +48,8 @@ describe('schema', () => {
   it('should contain all fields if process.env.ALL_SCHEMA is set', async () => {
     const { schema } = await import(`../../../app/graphql/server.js?test=${Math.random()}`)
     expect(findBreakingChanges(schema, buildSchema(`#graphql
+      scalar UUID
+
       type Query {
         business(sbi: ID!): Business
         businessApplications(sbi: ID!): [BusinessApplication]
@@ -243,7 +246,7 @@ describe('schema', () => {
         customerId: ID!
         crn: ID!
         info: CustomerInfo
-        authenticationQuestions: CustomerAuthenticationQuestions
+        authenticationQuestions(csaUserId: UUID!): CustomerAuthenticationQuestions
         businesses: [CustomerBusiness]
         business(sbi: ID!): CustomerBusiness
       }

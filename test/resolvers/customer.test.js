@@ -4,6 +4,7 @@ import pick from 'lodash.pick'
 import { Customer, CustomerBusiness, CustomerBusinessPermissionGroup } from '../../app/graphql/resolvers/customer/customer.js'
 import { sitiAgriAuthorisationOrganisation } from '../../mocks/fixtures/authorisation.js'
 import { personById } from '../../mocks/fixtures/person.js'
+import { GraphQLError } from 'graphql'
 
 const personFixture = personById({ id: '5007136' })
 const authorisationOrganisation = sitiAgriAuthorisationOrganisation({ organisationId: '4309257' })
@@ -45,8 +46,12 @@ const dataSources = {
         Location: 'some location'
       }
     }
+  },
+  entraIdApi: {
+    getEmployeeId: jest.fn()
   }
 }
+const authorize = { checkAuthGroup: jest.fn() }
 
 describe('Customer', () => {
   beforeEach(() => {
@@ -136,7 +141,17 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions', async () => {
-    const response = await Customer.authenticationQuestions({ id: 'mockCustomerId' }, undefined, { dataSources })
+    dataSources.entraIdApi.getEmployeeId.mockResolvedValue({ employeeId: 'x123456' })
+
+    const response = await Customer.authenticationQuestions(
+      { id: 'mockCustomerId' },
+      { csaUserId: 'mockCsaUserId' },
+      { dataSources, authorize }
+    )
+
+    expect(dataSources.entraIdApi.getEmployeeId).toHaveBeenCalledWith('mockCsaUserId')
+    expect(authorize.checkAuthGroup).toHaveBeenCalledWith('ADMIN')
+
     expect(response).toEqual({
       isFound: true,
       memorableDate: 'some date',
@@ -144,6 +159,18 @@ describe('Customer', () => {
       memorablePlace: 'some location',
       updatedAt: undefined
     })
+  })
+
+  test('Customer.authenticationQuestions - error', async () => {
+    dataSources.entraIdApi.getEmployeeId.mockResolvedValue(null)
+
+    expect(Customer.authenticationQuestions(
+      { id: 'mockCustomerId' },
+      { csaUserId: 'mockCsaUserId' },
+      { dataSources, authorize }
+    )).rejects.toThrow(GraphQLError)
+
+    expect(authorize.checkAuthGroup).toHaveBeenCalledWith('ADMIN')
   })
 })
 

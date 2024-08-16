@@ -1,3 +1,4 @@
+import { GraphQLError } from 'graphql'
 import { transformAuthenticateQuestionsAnswers } from '../../../transformers/authenticate/question-answers.js'
 import {
   ruralPaymentsPortalCustomerTransformer,
@@ -35,8 +36,16 @@ export const Customer = {
     return transformPersonSummaryToCustomerAuthorisedBusinesses(customerId, summary)
   },
 
-  async authenticationQuestions ({ crn }, __, { dataSources }) {
-    const results = await dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN(crn)
+  async authenticationQuestions ({ crn }, { csaUserId }, { dataSources, authorize }) {
+    authorize.checkAuthGroup('ADMIN')
+
+    const employeeId = await dataSources.entraIdApi.getEmployeeId(csaUserId)
+
+    if (!employeeId) {
+      throw new GraphQLError('could not retrieve employee id')
+    }
+
+    const results = await dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN(crn, employeeId)
     return transformAuthenticateQuestionsAnswers(results)
   }
 }

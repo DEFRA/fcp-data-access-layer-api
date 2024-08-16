@@ -78,7 +78,9 @@ describe('Query.customer', () => {
     }
     )
   })
+})
 
+describe('Query.customer.authenticationQuestions', () => {
   it('should return customer authenticate questions', async () => {
     const authenticateQuestionsResponse = {
       CRN: '123',
@@ -93,7 +95,7 @@ describe('Query.customer', () => {
       source: `#graphql
         query Customer {
           customer(crn: "123") {
-            authenticationQuestions {
+            authenticationQuestions(csaUserId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
               memorablePlace
@@ -103,9 +105,6 @@ describe('Query.customer', () => {
           }
         }
       `,
-      variableValues: {
-        customerId: '123'
-      },
       schema,
       contextValue: fakeContext
     })
@@ -126,7 +125,7 @@ describe('Query.customer', () => {
       source: `#graphql
         query Customer {
           customer(crn: "123") {
-            authenticationQuestions {
+            authenticationQuestions(csaUserId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
               memorablePlace
@@ -171,7 +170,7 @@ describe('Query.customer', () => {
       source: `#graphql
         query Customer {
           customer(crn: "123") {
-            authenticationQuestions {
+            authenticationQuestions(csaUserId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
               memorablePlace

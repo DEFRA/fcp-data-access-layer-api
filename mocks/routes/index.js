@@ -4,5 +4,6 @@ import rppOrganisation from './rpp/organisation.js'
 import rppPerson from './rpp/person.js'
 import rppSitiAgri from './rpp/siti-agri.js'
 import rppMessages from './rpp/messages.js'
+import entra from './entra.js'
 
-export const routes = [...rppAuthenticate, ...rppLms, ...rppOrganisation, ...rppPerson, ...rppSitiAgri, ...rppMessages]
+export const routes = [...rppAuthenticate, ...rppLms, ...rppOrganisation, ...rppPerson, ...rppSitiAgri, ...rppMessages, ...entra]
