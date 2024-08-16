@@ -15,7 +15,7 @@ export class EntraIdApi extends RESTDataSource {
         { headers: { Authorization: await this.getToken() }, cacheOptions: { ttl: this.ttl } }
       )
       return employeeId
-    } catch () {
+    } catch {
       return null
     }
   }
