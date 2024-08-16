@@ -36,10 +36,10 @@ export const Customer = {
     return transformPersonSummaryToCustomerAuthorisedBusinesses(customerId, summary)
   },
 
-  async authenticationQuestions ({ crn }, { csaUserId }, { dataSources, authorize }) {
+  async authenticationQuestions ({ crn }, { entraIdUserObjectId }, { dataSources, authorize }) {
     authorize.checkAuthGroup('ADMIN')
 
-    const employeeId = await dataSources.entraIdApi.getEmployeeId(csaUserId)
+    const employeeId = await dataSources.entraIdApi.getEmployeeId(entraIdUserObjectId)
 
     if (!employeeId) {
       throw new GraphQLError('could not retrieve employee id')

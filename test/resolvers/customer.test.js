@@ -145,11 +145,11 @@ describe('Customer', () => {
 
     const response = await Customer.authenticationQuestions(
       { id: 'mockCustomerId' },
-      { csaUserId: 'mockCsaUserId' },
+      { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
       { dataSources, authorize }
     )
 
-    expect(dataSources.entraIdApi.getEmployeeId).toHaveBeenCalledWith('mockCsaUserId')
+    expect(dataSources.entraIdApi.getEmployeeId).toHaveBeenCalledWith('mockEntraIdUserObjectId')
     expect(authorize.checkAuthGroup).toHaveBeenCalledWith('ADMIN')
 
     expect(response).toEqual({
@@ -166,7 +166,7 @@ describe('Customer', () => {
 
     expect(Customer.authenticationQuestions(
       { id: 'mockCustomerId' },
-      { csaUserId: 'mockCsaUserId' },
+      { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
       { dataSources, authorize }
     )).rejects.toThrow(GraphQLError)
 

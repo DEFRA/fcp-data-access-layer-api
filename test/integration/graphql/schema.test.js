@@ -40,7 +40,7 @@ describe('schema', () => {
 
       type Customer {
         crn: ID!
-        authenticationQuestions(csaUserId: UUID!): CustomerAuthenticationQuestions
+        authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions
       }
    `))).toHaveLength(0)
   })
@@ -246,7 +246,7 @@ describe('schema', () => {
         customerId: ID!
         crn: ID!
         info: CustomerInfo
-        authenticationQuestions(csaUserId: UUID!): CustomerAuthenticationQuestions
+        authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions
         businesses: [CustomerBusiness]
         business(sbi: ID!): CustomerBusiness
       }

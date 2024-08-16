@@ -95,7 +95,7 @@ describe('Query.customer.authenticationQuestions', () => {
       source: `#graphql
         query Customer {
           customer(crn: "123") {
-            authenticationQuestions(csaUserId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
               memorablePlace
@@ -125,7 +125,7 @@ describe('Query.customer.authenticationQuestions', () => {
       source: `#graphql
         query Customer {
           customer(crn: "123") {
-            authenticationQuestions(csaUserId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
               memorablePlace
@@ -170,7 +170,7 @@ describe('Query.customer.authenticationQuestions', () => {
       source: `#graphql
         query Customer {
           customer(crn: "123") {
-            authenticationQuestions(csaUserId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
               memorablePlace

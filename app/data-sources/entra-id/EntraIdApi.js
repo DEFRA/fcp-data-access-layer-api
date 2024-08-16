@@ -8,10 +8,10 @@ export class EntraIdApi extends RESTDataSource {
     this.ttl = ttl
   }
 
-  async getEmployeeId (csaUserId) {
+  async getEmployeeId (entraIdUserObjectId) {
     try {
       const { employeeId } = await this.get(
-        `v1.0/users/${csaUserId}?$select=employeeId`,
+        `v1.0/users/${entraIdUserObjectId}?$select=employeeId`,
         { headers: { Authorization: await this.getToken() }, cacheOptions: { ttl: this.ttl } }
       )
       return employeeId

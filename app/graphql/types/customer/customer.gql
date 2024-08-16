@@ -136,7 +136,7 @@ type Customer {
   """
   The security questions of the customer.
   """
-  authenticationQuestions(csaUserId: UUID!): CustomerAuthenticationQuestions @on
+  authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions @on
 
   """
   The businesses associated with the customer.
