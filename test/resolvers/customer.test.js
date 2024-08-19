@@ -162,7 +162,7 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions - error', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockResolvedValue(null)
+    dataSources.entraIdApi.getEmployeeId.mockRejectedValue(GraphQLError)
 
     expect(Customer.authenticationQuestions(
       { id: 'mockCustomerId' },
