@@ -36,10 +36,9 @@
 - key: AUTHENTICATE_DB_PASSWORD
   value: '{{servicename}}-AUTHENTICATE-DB-PASSWORD'
   type: 'keyvault'
-- key: AUTHENTICATE_DB_USERNAME_AUDIT
-  value: '{{servicename}}-AUTHENTICATE-DB-USERNAME-AUDIT'
+- key: AUTHENTICATE_DB_USERNAME_AUDIT_WRITE
+  value: '{{servicename}}-AUTHENTICATE-DB-USERNAME-AUDIT-WRITE'
   type: 'keyvault'
-- key: AUTHENTICATE_DB_PASSWORD_AUDIT
-  value: '{{servicename}}-AUTHENTICATE-DB-PASSWORD-AUDIT'
+- key: AUTHENTICATE_DB_PASSWORD_AUDIT_WRITE
+  value: '{{servicename}}-AUTHENTICATE-DB-PASSWORD-AUDIT-WRITE'
   type: 'keyvault'
-
