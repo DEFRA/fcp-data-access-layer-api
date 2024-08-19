@@ -11,9 +11,9 @@ const sequelizeRead = new Sequelize(databaseName, readUsername, readPassword, {
   dialectOptions: { options: { encrypt: false } }
 })
 
-const writeUsername = process.env.AUTHENTICATE_DB_USERNAME_WRITE
-const writePassword = process.env.AUTHENTICATE_DB_PASSWORD_WRITE
-const sequelizeWrite = new Sequelize(databaseName, writeUsername, writePassword, {
+const auditUsername = process.env.AUTHENTICATE_DB_USERNAME_AUDIT
+const auditPassword = process.env.AUTHENTICATE_DB_PASSWORD_AUDIT
+const sequelizeWrite = new Sequelize(databaseName, auditUsername, auditPassword, {
   host: serverHost,
   dialect: 'mssql',
   dialectOptions: { options: { encrypt: false } }

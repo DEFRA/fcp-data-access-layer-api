@@ -10,6 +10,10 @@
   value: 'http://127.0.0.1:3100/rpp/'
 - key: RURAL_PAYMENTS_PROXY_URL
   value: ''
+- key: ENTRA_ID_TTL_IN_SECONDS
+  value: '60'
+- key: ENTRA_ID_URL
+  value: 'https://graph.microsoft.com'
 # Secrets
 - key: RURAL_PAYMENTS_PORTAL_PASSWORD
   value: '{{servicename}}-RURAL-PAYMENTS-PORTAL-PASSWORD'
@@ -32,3 +36,10 @@
 - key: AUTHENTICATE_DB_PASSWORD
   value: '{{servicename}}-AUTHENTICATE-DB-PASSWORD'
   type: 'keyvault'
+- key: AUTHENTICATE_DB_USERNAME_AUDIT
+  value: '{{servicename}}-AUTHENTICATE-DB-USERNAME-AUDIT'
+  type: 'keyvault'
+- key: AUTHENTICATE_DB_PASSWORD_AUDIT
+  value: '{{servicename}}-AUTHENTICATE-DB-PASSWORD-AUDIT'
+  type: 'keyvault'
+
