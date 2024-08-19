@@ -1,4 +1,6 @@
 import { graphql } from 'graphql'
+import { DefaultAzureCredential } from '@azure/identity'
+import { RESTDataSource } from '@apollo/datasource-rest'
 
 import { schema } from '../../../app/graphql/server.js'
 import { transformAuthenticateQuestionsAnswers } from '../../../app/transformers/authenticate/question-answers.js'
@@ -81,6 +83,15 @@ describe('Query.customer', () => {
 })
 
 describe('Query.customer.authenticationQuestions', () => {
+  beforeEach(() => {
+    jest.spyOn(DefaultAzureCredential.prototype, 'getToken').mockImplementation(() => ({ token: 'mockToken' }))
+    jest.spyOn(RESTDataSource.prototype, 'get').mockImplementation(() => ({ employeeId: 'x123456' }))
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
   it('should return customer authenticate questions', async () => {
     const authenticateQuestionsResponse = {
       CRN: '123',

@@ -39,14 +39,13 @@ export const Customer = {
   async authenticationQuestions ({ crn }, { entraIdUserObjectId }, { dataSources, authorize }) {
     authorize.checkAuthGroup('ADMIN')
 
-    const employeeId = await dataSources.entraIdApi.getEmployeeId(entraIdUserObjectId)
-
-    if (!employeeId) {
-      throw new GraphQLError('could not retrieve employee id')
+    try {
+      const employeeId = await dataSources.entraIdApi.getEmployeeId(entraIdUserObjectId)
+      const results = await dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN(crn, employeeId)
+      return transformAuthenticateQuestionsAnswers(results)
+    } catch (err) {
+      throw new GraphQLError(err.message)
     }
-
-    const results = await dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN(crn, employeeId)
-    return transformAuthenticateQuestionsAnswers(results)
   }
 }
 

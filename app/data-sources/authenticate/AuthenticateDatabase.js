@@ -8,7 +8,8 @@ const readPassword = process.env.AUTHENTICATE_DB_PASSWORD
 const sequelizeRead = new Sequelize(databaseName, readUsername, readPassword, {
   host: serverHost,
   dialect: 'mssql',
-  dialectOptions: { options: { encrypt: false } }
+  dialectOptions: { options: { encrypt: false } },
+  logging: false
 })
 
 const auditWriteUsername = process.env.AUTHENTICATE_DB_USERNAME_AUDIT_WRITE
@@ -16,7 +17,8 @@ const auditWritePassword = process.env.AUTHENTICATE_DB_PASSWORD_AUDIT_WRITE
 const sequelizeWrite = new Sequelize(databaseName, auditWriteUsername, auditWritePassword, {
   host: serverHost,
   dialect: 'mssql',
-  dialectOptions: { options: { encrypt: false } }
+  dialectOptions: { options: { encrypt: false } },
+  logging: false
 })
 
 const Answer = sequelizeRead.define('Answers', {
