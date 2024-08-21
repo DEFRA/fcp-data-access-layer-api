@@ -80,6 +80,7 @@
   "overrides": {
     "latest-version": {
       "got": "11.8.5"
-    }
+    },
+    "micromatch": "4.0.6"
   }
 }
