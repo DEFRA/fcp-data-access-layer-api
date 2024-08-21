@@ -70,7 +70,7 @@ let format = winston.format.combine(
 )
 
 if (process.env.APPINSIGHTS_CONNECTIONSTRING) {
-  format = format.json()
+  format = winston.format.json()
   transports.push(
     new AzureApplicationInsightsLogger({
       key: process.env.APPINSIGHTS_CONNECTIONSTRING
