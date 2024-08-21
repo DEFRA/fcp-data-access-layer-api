@@ -80,10 +80,8 @@ if (process.env.APPINSIGHTS_CONNECTIONSTRING) {
   transports.push(new winston.transports.Console())
 }
 
-const log = winston.createLogger({
+export const logger = winston.createLogger({
   level,
   transports,
   format
 })
-
-export default log
