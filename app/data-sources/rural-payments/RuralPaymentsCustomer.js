@@ -1,4 +1,4 @@
-import { logger } from '../../utils/logger.js'
+import { logger, sampleResponse } from '../../utils/logger.js'
 import { RuralPayments } from './RuralPayments.js'
 
 export class RuralPaymentsCustomer extends RuralPayments {
