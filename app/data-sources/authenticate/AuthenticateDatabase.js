@@ -1,4 +1,5 @@
 import Sequelize, { DataTypes } from 'sequelize'
+import { logger } from '../../utils/logger.js'
 
 const databaseName = process.env.AUTHENTICATE_DB_SCHEMA
 const serverHost = process.env.AUTHENTICATE_DB_HOST
@@ -56,11 +57,17 @@ export class AuthenticateDatabase {
       Value: crn
     }, { returning: false })
 
-    return Answer.findOne({
+    logger.info(`getAuthenticateQuestionsAnswersByCRN: audit record created for ${employeeId}`)
+
+    logger.info(`getAuthenticateQuestionsAnswersByCRN: getting answers for ${crn}`)
+    const answers = await Answer.findOne({
       attributes: ['CRN', 'Date', 'Event', 'Location', 'Updated'],
       where: {
         CRN: crn
       }
     })
+
+    logger.info(`getAuthenticateQuestionsAnswersByCRN: got answers for ${crn}`)
+    return answers
   }
 }
