@@ -60,6 +60,7 @@ export const Customer = {
       const results = await dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN(crn, employeeId)
       return transformAuthenticateQuestionsAnswers(results)
     } catch (err) {
+      logger.error(err)
       throw new GraphQLError(err.message)
     }
   }
