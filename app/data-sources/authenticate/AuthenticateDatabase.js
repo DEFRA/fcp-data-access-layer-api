@@ -54,7 +54,7 @@ export class AuthenticateDatabase {
       User: employeeId,
       Action: 'Search',
       Value: crn
-    })
+    }, { returning: false })
 
     return Answer.findOne({
       attributes: ['CRN', 'Date', 'Event', 'Location', 'Updated'],

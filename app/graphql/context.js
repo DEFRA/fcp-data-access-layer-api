@@ -19,7 +19,7 @@ export async function context ({ request }) {
       permissions: new Permissions(),
       ruralPaymentsBusiness: new RuralPaymentsBusiness(),
       ruralPaymentsCustomer: new RuralPaymentsCustomer(),
-      ruralPaymentsPortalApi: new RuralPaymentsPortalApi(),
+      ruralPaymentsPortalApi: new RuralPaymentsPortalApi()
     }
   }
 }
