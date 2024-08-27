@@ -153,16 +153,24 @@ describe('schema', () => {
             FULL_PERMISSION
           }
 
-          enum PermissionGroupId {
-            BASIC_PAYMENT_SCHEME
-            BUSINESS_DETAILS
-            COUNTRYSIDE_STEWARDSHIP_AGREEMENTS
-            COUNTRYSIDE_STEWARDSHIP_APPLICATIONS
-            ENTITLEMENTS
-            ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS
-            LAND_DETAILS
-          }
-   `))).toHaveLength(0)
+      enum PermissionGroupId {
+        BASIC_PAYMENT_SCHEME
+        BUSINESS_DETAILS
+        COUNTRYSIDE_STEWARDSHIP_AGREEMENTS
+        COUNTRYSIDE_STEWARDSHIP_APPLICATIONS
+        ENTITLEMENTS
+        ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS
+        LAND_DETAILS
+      }
+
+      enum AuthRole {
+        ADMIN
+      }
+
+      directive @auth(requires: AuthRole = ADMIN) on OBJECT | FIELD_DEFINITION
+   `)
+      )
+    ).toHaveLength(0)
   })
 
   it('should contain all fields if process.env.ALL_SCHEMA is set', async () => {
@@ -716,6 +724,13 @@ describe('schema', () => {
             """Check if this level is active for given customer and business."""
             active(crn: ID!, sbi: ID!): Boolean
           }
+      
+
+      enum AuthRole {
+        ADMIN
+      }
+
+      directive @auth(requires: AuthRole = ADMIN) on OBJECT | FIELD_DEFINITION
     `)
       )
     ).toHaveLength(0)
