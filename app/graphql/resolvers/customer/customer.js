@@ -1,3 +1,4 @@
+import { GraphQLError } from 'graphql'
 import { transformAuthenticateQuestionsAnswers } from '../../../transformers/authenticate/question-answers.js'
 import {
   ruralPaymentsPortalCustomerTransformer,
