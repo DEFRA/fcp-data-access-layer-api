@@ -11,7 +11,6 @@ import {
   organisationPersonSummary
 } from '../../mocks/fixtures/organisation.js'
 import { personById } from '../../mocks/fixtures/person.js'
-import { GraphQLError } from 'graphql'
 
 const orgId = '5565448'
 const personId = '5007136'
@@ -47,7 +46,6 @@ const dataSources = {
     getEmployeeId: jest.fn()
   }
 }
-const authorize = { checkAuthGroup: jest.fn() }
 
 describe('Customer', () => {
   beforeEach(() => {
@@ -140,11 +138,10 @@ describe('Customer', () => {
     const response = await Customer.authenticationQuestions(
       { id: 'mockCustomerId' },
       { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
-      { dataSources, authorize }
+      { dataSources }
     )
 
     expect(dataSources.entraIdApi.getEmployeeId).toHaveBeenCalledWith('mockEntraIdUserObjectId')
-    expect(authorize.checkAuthGroup).toHaveBeenCalledWith('ADMIN')
 
     expect(response).toEqual({
       isFound: true,
@@ -156,15 +153,13 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions - error', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockRejectedValue(GraphQLError)
+    dataSources.entraIdApi.getEmployeeId.mockRejectedValue(new Error())
 
     expect(Customer.authenticationQuestions(
       { id: 'mockCustomerId' },
       { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
-      { dataSources, authorize }
-    )).rejects.toThrow(GraphQLError)
-
-    expect(authorize.checkAuthGroup).toHaveBeenCalledWith('ADMIN')
+      { dataSources }
+    )).rejects.toThrow(Error)
   })
 })
 

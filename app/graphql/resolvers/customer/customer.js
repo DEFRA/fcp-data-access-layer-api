@@ -1,4 +1,3 @@
-import { GraphQLError } from 'graphql'
 import { transformAuthenticateQuestionsAnswers } from '../../../transformers/authenticate/question-answers.js'
 import {
   ruralPaymentsPortalCustomerTransformer,
@@ -57,8 +56,6 @@ export const Customer = {
     { entraIdUserObjectId },
     { dataSources, authorize }
   ) {
-    authorize.checkAuthGroup('ADMIN')
-
     const employeeId = await dataSources.entraIdApi.getEmployeeId(
       entraIdUserObjectId
     )
