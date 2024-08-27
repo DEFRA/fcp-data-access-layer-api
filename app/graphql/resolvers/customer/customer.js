@@ -54,7 +54,7 @@ export const Customer = {
   async authenticationQuestions (
     { crn },
     { entraIdUserObjectId },
-    { dataSources, authorize }
+    { dataSources }
   ) {
     const employeeId = await dataSources.entraIdApi.getEmployeeId(
       entraIdUserObjectId
