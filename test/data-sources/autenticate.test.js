@@ -14,6 +14,10 @@ const { AuthenticateDatabase } = await import(
 )
 
 describe('AuthenticateDatabase', () => {
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
   test('creates two Sequelize instances', () => {
     Sequelize.mockImplementation(() => ({
       define: jest.fn(),
