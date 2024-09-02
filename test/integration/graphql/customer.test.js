@@ -1,4 +1,3 @@
-import { RESTDataSource } from '@apollo/datasource-rest'
 import { DefaultAzureCredential } from '@azure/identity'
 import { graphql, GraphQLError } from 'graphql'
 
@@ -9,6 +8,7 @@ import { personById } from '../../../mocks/fixtures/person.js'
 import { fakeContext } from '../../test-setup.js'
 
 import mockServer from '../../../mocks/server'
+import { EntraIdApi } from '../../../app/data-sources/entra-id/EntraIdApi.js'
 
 const personFixture = personById({ id: '5007136' })
 
@@ -147,7 +147,7 @@ describe('Query.customer', () => {
 describe('Query.customer.authenticationQuestions', () => {
   beforeEach(() => {
     jest.spyOn(DefaultAzureCredential.prototype, 'getToken').mockImplementation(() => ({ token: 'mockToken' }))
-    jest.spyOn(RESTDataSource.prototype, 'get').mockImplementation(() => ({ employeeId: 'x123456' }))
+    jest.spyOn(EntraIdApi.prototype, 'get').mockImplementation(() => ({ employeeId: 'x123456' }))
   })
 
   afterEach(() => {
@@ -170,7 +170,7 @@ describe('Query.customer.authenticationQuestions', () => {
     const result = await graphql({
       source: `#graphql
         query Customer {
-          customer(crn: "123") {
+          customer(crn: "0866159801") {
             authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
@@ -204,7 +204,7 @@ describe('Query.customer.authenticationQuestions', () => {
     const result = await graphql({
       source: `#graphql
         query Customer {
-          customer(crn: "123") {
+          customer(crn: "0866159801") {
             authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
@@ -251,7 +251,7 @@ describe('Query.customer.authenticationQuestions', () => {
     const result = await graphql({
       source: `#graphql
         query Customer {
-          customer(crn: "123") {
+          customer(crn: "0866159801") {
             authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
               memorableDate
               memorableEvent
@@ -292,11 +292,8 @@ describe('Query.customer.businesses', () => {
         query TestCustomerBusinesses($crn: ID!) {
           customer(crn: $crn) {
             businesses {
-              role
-              permissionGroups {
-                id
-                level
-              }
+              sbi
+              organisationId
             }
           }
         }
@@ -313,41 +310,8 @@ describe('Query.customer.businesses', () => {
         customer: {
           businesses: [
             {
-              role: 'Agent',
-              permissionGroups: [
-                {
-                  id: 'BASIC_PAYMENT_SCHEME',
-                  level: 'SUBMIT'
-                },
-                {
-                  id: 'BUSINESS_DETAILS',
-                  level: 'FULL_PERMISSION'
-                },
-                {
-                  id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS',
-                  level: 'SUBMIT'
-                },
-                {
-                  id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS',
-                  level: 'SUBMIT'
-                },
-                {
-                  id: 'ENTITLEMENTS',
-                  level: 'AMEND'
-                },
-                {
-                  id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
-                  level: 'AMEND'
-                },
-                {
-                  id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
-                  level: 'SUBMIT'
-                },
-                {
-                  id: 'LAND_DETAILS',
-                  level: 'AMEND'
-                }
-              ]
+              organisationId: '5625145',
+              sbi: '107591843'
             }
           ]
         }
@@ -490,11 +454,9 @@ describe('Query.customer.businesses.messages', () => {
 
     expect(result).toEqual({
       data: {
-        customer: {
-          businesses: null
-        }
+        customer: null
       },
-      errors: [new GraphQLError('404: Not Found')]
+      errors: [new GraphQLError('Customer not found', { extensions: { code: 'NOT_FOUND' } })]
     })
   })
 })
