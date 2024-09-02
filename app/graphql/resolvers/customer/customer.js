@@ -10,13 +10,6 @@ import {
 import { logger } from '../../../utils/logger.js'
 
 export const Customer = {
-  async personId ({ crn }, __, { dataSources }) {
-    const { id: personId } =
-      await dataSources.ruralPaymentsCustomer.getCustomerByCRN(crn)
-    logger.debug('Get customer id from crn', { crn, personId })
-    return personId
-  },
-
   async info ({ crn }, __, { dataSources }) {
     const response = await dataSources.ruralPaymentsCustomer.getCustomerByCRN(
       crn
