@@ -1,4 +1,4 @@
-import { graphql } from 'graphql'
+import { graphql, GraphQLError } from 'graphql'
 import { Permissions } from '../../../app/data-sources/static/permissions.js'
 import { schema } from '../../../app/graphql/server.js'
 import {
@@ -101,6 +101,28 @@ describe('Query.business', () => {
       data: {
         business: transformedOrganisation
       }
+    })
+  })
+
+  it('should return NOT_FOUND if business not found', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query Business {
+          business(sbi: "XXX") {
+            sbi
+            organisationId
+          }
+        }
+      `,
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result).toEqual({
+      data: { business: null },
+      errors: [
+        new GraphQLError('Business not found', { extensions: { code: 'NOT_FOUND' } })
+      ]
     })
   })
 })
