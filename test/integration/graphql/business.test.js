@@ -1,4 +1,4 @@
-import { graphql, GraphQLError } from 'graphql'
+import { graphql } from 'graphql'
 import { Permissions } from '../../../app/data-sources/static/permissions.js'
 import { schema } from '../../../app/graphql/server.js'
 import {
@@ -29,6 +29,7 @@ import {
   transformBusinessCustomerPrivilegesToPermissionGroups,
   transformOrganisationToBusiness
 } from '../../../app/transformers/rural-payments/business.js'
+import { NotFound } from '../../../app/errors/graphql.js'
 
 const organisationFixture = organisationByOrgId('5565448')._data
 const { totalArea, totalParcels } = parcelSummary('5565448')
@@ -121,7 +122,7 @@ describe('Query.business', () => {
     expect(result).toEqual({
       data: { business: null },
       errors: [
-        new GraphQLError('Business not found', { extensions: { code: 'NOT_FOUND' } })
+        new NotFound('Business not found')
       ]
     })
   })

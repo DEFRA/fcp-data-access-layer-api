@@ -1,14 +1,14 @@
 import { DefaultAzureCredential } from '@azure/identity'
 import { graphql, GraphQLError } from 'graphql'
 
+import { EntraIdApi } from '../../../app/data-sources/entra-id/EntraIdApi.js'
+import { fakeContext } from '../../test-setup.js'
+import { NotFound } from '../../../app/errors/graphql.js'
+import { personById } from '../../../mocks/fixtures/person.js'
+import { ruralPaymentsPortalCustomerTransformer } from '../../../app/transformers/rural-payments/customer.js'
 import { schema } from '../../../app/graphql/server.js'
 import { transformAuthenticateQuestionsAnswers } from '../../../app/transformers/authenticate/question-answers.js'
-import { ruralPaymentsPortalCustomerTransformer } from '../../../app/transformers/rural-payments/customer.js'
-import { personById } from '../../../mocks/fixtures/person.js'
-import { fakeContext } from '../../test-setup.js'
-
 import mockServer from '../../../mocks/server'
-import { EntraIdApi } from '../../../app/data-sources/entra-id/EntraIdApi.js'
 
 const personFixture = personById({ id: '5007136' })
 
@@ -90,7 +90,9 @@ describe('Query.customer', () => {
     })
 
     it('should retry request if 500 error', async () => {
-      await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-crn:error')
+      await mockServer.server.mock.useRouteVariant(
+        'rural-payments-person-get-by-crn:error'
+      )
 
       const result = await graphql({
         source: `#graphql
@@ -117,7 +119,9 @@ describe('Query.customer', () => {
     })
 
     it('should throw an error after 3 retries', async () => {
-      await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-crn:error-indefinite')
+      await mockServer.server.mock.useRouteVariant(
+        'rural-payments-person-get-by-crn:error-indefinite'
+      )
 
       const result = await graphql({
         source: `#graphql
@@ -146,8 +150,12 @@ describe('Query.customer', () => {
 
 describe('Query.customer.authenticationQuestions', () => {
   beforeEach(() => {
-    jest.spyOn(DefaultAzureCredential.prototype, 'getToken').mockImplementation(() => ({ token: 'mockToken' }))
-    jest.spyOn(EntraIdApi.prototype, 'get').mockImplementation(() => ({ employeeId: 'x123456' }))
+    jest
+      .spyOn(DefaultAzureCredential.prototype, 'getToken')
+      .mockImplementation(() => ({ token: 'mockToken' }))
+    jest
+      .spyOn(EntraIdApi.prototype, 'get')
+      .mockImplementation(() => ({ employeeId: 'x123456' }))
   })
 
   afterEach(() => {
@@ -294,6 +302,11 @@ describe('Query.customer.businesses', () => {
             businesses {
               sbi
               organisationId
+              role
+               permissionGroups {
+                 id
+                 level
+               }
             }
           }
         }
@@ -310,8 +323,25 @@ describe('Query.customer.businesses', () => {
         customer: {
           businesses: [
             {
+              sbi: '107591843',
               organisationId: '5625145',
-              sbi: '107591843'
+              role: 'Agent',
+              permissionGroups: [
+                { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+                { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+                { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+                { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+                { id: 'ENTITLEMENTS', level: 'AMEND' },
+                {
+                  id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
+                  level: 'AMEND'
+                },
+                {
+                  id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
+                  level: 'SUBMIT'
+                },
+                { id: 'LAND_DETAILS', level: 'AMEND' }
+              ]
             }
           ]
         }
@@ -456,7 +486,9 @@ describe('Query.customer.businesses.messages', () => {
       data: {
         customer: null
       },
-      errors: [new GraphQLError('Customer not found', { extensions: { code: 'NOT_FOUND' } })]
+      errors: [
+        new NotFound('Customer not found')
+      ]
     })
   })
 })

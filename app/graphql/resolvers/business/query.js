@@ -1,16 +1,14 @@
-import { GraphQLError } from 'graphql'
 import { transformOrganisationToBusiness } from '../../../transformers/rural-payments/business.js'
+import { NotFound } from '../../../errors/graphql.js'
+import { logger } from '../../../utils/logger.js'
 
 export const Query = {
   async business (__, { sbi }, { dataSources }) {
     const response = await dataSources.ruralPaymentsBusiness.getOrganisationBySBI(sbi)
 
     if (!response) {
-      throw new GraphQLError('Business not found', {
-        extensions: {
-          code: 'NOT_FOUND'
-        }
-      })
+      logger.info(`Business not found for SBI: ${sbi}`)
+      throw new NotFound('Business not found')
     }
 
     const business = transformOrganisationToBusiness(response)
