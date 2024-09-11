@@ -152,7 +152,7 @@ describe('Customer transformer', () => {
       ])
     })
 
-    test.each([
+    const cases = [
       ['NO ACCESS - BPS - SA', { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' }],
       ['NO ACCESS - BPS', { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' }],
       ['VIEW - BPS - SA', { id: 'BASIC_PAYMENT_SCHEME', level: 'VIEW' }],
@@ -197,7 +197,9 @@ describe('Customer transformer', () => {
       ['View - land', { id: 'LAND_DETAILS', level: 'VIEW' }],
       ['AMEND - LAND - SA', { id: 'LAND_DETAILS', level: 'AMEND' }],
       ['Amend - land', { id: 'LAND_DETAILS', level: 'AMEND' }]
-    ])(
+    ]
+
+    test.each(cases)(
       'given %p in customer.privileges, should return %p',
       (privilegeName, expectedResult) => {
         expect(transformBusinessCustomerToCustomerPermissionGroups(
@@ -207,5 +209,11 @@ describe('Customer transformer', () => {
         )).toContainEqual(expectedResult)
       }
     )
+
+    test('should cover all privilege names', () => {
+      const privilegeNames = permissionGroups.flatMap(({ permissions }) => permissions).flatMap(({ privilegeNames }) => privilegeNames)
+      const privilegeNameCases = cases.map(([privilegeName]) => privilegeName)
+      expect(privilegeNames).toEqual(privilegeNameCases)
+    })
   })
 })
