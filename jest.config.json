@@ -13,12 +13,8 @@
     "cobertura",
     "lcov"
   ],
-  "setupFiles": [
-    "<rootDir>/test/test-setup.js"
-  ],
-  "setupFilesAfterEnv": [
-    "<rootDir>/jest.init.js"
-  ],
+  "globalSetup": "<rootDir>/test/setup.js",
+  "globalTeardown": "<rootDir>/test/teardown.js",
   "reporters": [
     "default",
     [
