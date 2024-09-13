@@ -293,6 +293,62 @@ describe('Query.customer.authenticationQuestions', () => {
   })
 })
 
+describe('Query.customer.business', () => {
+  it('should return a customer business', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query TestCustomerBusiness($crn: ID!, $sbi: ID!) {
+          customer(crn: $crn) {
+            business(sbi: $sbi) {
+              sbi
+              organisationId
+              role
+              permissionGroups {
+                 id
+                 level
+               }
+            }
+          }
+        }
+      `,
+      variableValues: {
+        crn: '1103020285', // personId: 5007136
+        sbi: '107591843'   // orgId:    5625145
+      },
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result).toEqual({
+      data: {
+        customer: {
+          business: {
+            sbi: '107591843',
+            organisationId: '5625145',
+            role: 'Employee',
+            permissionGroups: [
+              { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+              { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+              { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+              { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+              { id: 'ENTITLEMENTS', level: 'AMEND' },
+              {
+                id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
+                level: 'AMEND'
+              },
+              {
+                id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
+                level: 'SUBMIT'
+              },
+              { id: 'LAND_DETAILS', level: 'AMEND' }
+            ]
+          }
+        }
+      }
+    })
+  })
+})
+
 describe('Query.customer.businesses', () => {
   it('should return customer businesses', async () => {
     const result = await graphql({

@@ -10,9 +10,18 @@ import { CookieJar } from 'tough-cookie'
 import { URL } from 'url'
 import { logger } from '../../utils/logger.js'
 
+const hostFromEnv = () => {
+  try {
+    return new URL(process.env.RURAL_PAYMENTS_PORTAL_API_URL).hostname
+  } catch (err) {
+    logger.error(`Failed to parse the Rural Payments URL: ${process.env.RURAL_PAYMENTS_PORTAL_API_URL}`)
+    throw err
+  }
+}
+
 const defaultHeaders = {
   'Accept-Encoding': 'gzip, deflate, br',
-  Host: new URL(process.env.RURAL_PAYMENTS_PORTAL_API_URL).hostname,
+  Host: hostFromEnv(),
   Origin: process.env.RURAL_PAYMENTS_PORTAL_API_URL.slice(0, -1),
   Referer: `${process.env.RURAL_PAYMENTS_PORTAL_API_URL}login`,
   'User-Agent':

@@ -1,0 +1,33 @@
+services:
+  fcp-data-access-layer-api:
+    build:
+      dockerfile: ./dal-entra.Dockerfile
+    image: dal-entra
+    container_name: fcp-data-access-layer-api
+    env_file:
+      - ../../.env.test
+    networks:
+      - test-network
+
+  jmeter-test:
+    container_name: jmeter-test
+    image: justb4/jmeter:5.5
+    depends_on:
+      - fcp-data-access-layer-api
+    command: "-t /perf-tests/fcp-dal.test-plan.jmx"
+    environment:
+      DISPLAY: ${DISPLAY}
+      ## enable the following option to force IPv4 proxy address
+      # JVM_ARGS: "-Djava.net.preferIPv4Stack=true"
+    ports:
+      - 8888:8888
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ../../test-output:/test-output
+      - .:/perf-tests
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge

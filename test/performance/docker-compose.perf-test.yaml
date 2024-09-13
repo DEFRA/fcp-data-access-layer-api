@@ -1,0 +1,26 @@
+services:
+  fcp-data-access-layer-api:
+    build:
+      dockerfile: ./dal-entra.Dockerfile
+    image: fcp-data-access-layer-api
+    container_name: fcp-data-access-layer-api
+    env_file:
+      - ../../.env.test
+    networks:
+      - test-network
+
+  jmeter-test:
+    container_name: jmeter-test
+    image: justb4/jmeter:5.5
+    depends_on:
+      - fcp-data-access-layer-api
+    command: "-Jgroup1.threads=8 -Jgroup1.loops=10 -Jgroup1.ramp=2 -n -t /perf-tests/fcp-dal.test-plan.jmx -q /perf-tests/fcp-dal.perf-test.properties -l /test-output/performance/testresults.jtl -e -o /test-output/performance -f"
+    volumes:
+      - ../../test-output:/test-output
+      - .:/perf-tests
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
