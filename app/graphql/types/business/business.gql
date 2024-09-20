@@ -168,7 +168,7 @@ type Business {
   """
   The CPH (County Parish Holding) numbers of the business.
   """
-  cph: [CPH]
+  cph: [CPH] @on
 
   """
   The customers associated with the business.

@@ -85,6 +85,9 @@ describe('schema', () => {
             """The Single Business Identifier (SBI) of the business."""
             sbi: ID!
 
+            """The CPH (County Parish Holding) numbers of the business."""
+            cph: [CPH]
+
             """The customers associated with the business."""
             customers: [BusinessCustomer]
 
@@ -92,6 +95,43 @@ describe('schema', () => {
             The customer associated with the business.
             """
             customer(crn: ID!): BusinessCustomer
+          }
+
+          """Represents a coordinate with x and y values."""
+          type CPHCoordinate {
+            """The x value of the coordinate."""
+            x: Int
+
+            """The y value of the coordinate."""
+            y: Int
+          }
+
+          """
+          Represents a County Parish Holding (CPH) number.
+
+          Data Source: Rural Payments Portal (PRR)
+          """
+          type CPH {
+            """The CPH number."""
+            number: String
+
+            """The parcel numbers associated with the CPH number."""
+            parcelNumbers: [String]
+
+            """The parish associated with the CPH number."""
+            parish: String
+
+            """The start date of the CPH number."""
+            startDate: Int
+
+            """The expiry date of the CPH number."""
+            expiryDate: Int
+
+            """The species associated with the CPH number."""
+            species: [String]
+
+            """The coordinate of the CPH number."""
+            coordinate: CPHCoordinate
           }
 
           """Represents the security questions of a customer."""
