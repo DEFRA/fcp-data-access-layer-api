@@ -5,12 +5,12 @@ type CPHCoordinate {
   """
   The x value of the coordinate.
   """
-  x: Int
+  x: Int @on
 
   """
   The y value of the coordinate.
   """
-  y: Int
+  y: Int @on
 }
 
 """
@@ -22,35 +22,35 @@ type CPH {
   """
   The CPH number.
   """
-  number: String
+  number: String @on
 
   """
   The parcel numbers associated with the CPH number.
   """
-  parcelNumbers: [String]
+  parcelNumbers: [String] @on
 
   """
   The parish associated with the CPH number.
   """
-  parish: String
+  parish: String @on
 
   """
   The start date of the CPH number.
   """
-  startDate: Int
+  startDate: Int @on
 
   """
   The expiry date of the CPH number.
   """
-  expiryDate: Int
+  expiryDate: Int @on
 
   """
   The species associated with the CPH number.
   """
-  species: [String]
+  species: [String] @on
 
   """
   The coordinate of the CPH number.
   """
-  coordinate: CPHCoordinate
+  coordinate: CPHCoordinate @on
 }
