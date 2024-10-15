@@ -3,31 +3,31 @@ import { Permissions } from '../../../../app/data-sources/static/permissions.js'
 import { NotFound } from '../../../../app/errors/graphql.js'
 import { schema } from '../../../../app/graphql/server.js'
 import {
-    transformOrganisationCPH,
-    transformOrganisationCPHCoordinates
+  transformOrganisationCPH,
+  transformOrganisationCPHCoordinates
 } from '../../../../app/transformers/rural-payments/business-cph.js'
 import {
-    transformBusinessCustomerPrivilegesToPermissionGroups,
-    transformOrganisationToBusiness
+  transformBusinessCustomerPrivilegesToPermissionGroups,
+  transformOrganisationToBusiness
 } from '../../../../app/transformers/rural-payments/business.js'
 import {
-    transformLandCovers,
-    transformLandCoversToArea,
-    transformLandParcels
+  transformLandCovers,
+  transformLandCoversToArea,
+  transformLandParcels
 } from '../../../../app/transformers/rural-payments/lms.js'
 import {
-    coversSummary,
-    landCovers,
-    landParcels,
-    parcelSummary
+  coversSummary,
+  landCovers,
+  landParcels,
+  parcelSummary
 } from '../../../../mocks/fixtures/lms.js'
 import {
-    organisationCPH,
-    organisationCPHInfo
+  organisationCPH,
+  organisationCPHInfo
 } from '../../../../mocks/fixtures/organisation-cph.js'
 import {
-    organisationByOrgId,
-    organisationPeopleByOrgId
+  organisationByOrgId,
+  organisationPeopleByOrgId
 } from '../../../../mocks/fixtures/organisation.js'
 import mockServer from '../../../../mocks/server.js'
 import { fakeContext } from '../../../test-setup.js'

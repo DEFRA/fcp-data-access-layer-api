@@ -1,12 +1,12 @@
 import { Permissions } from '../../../../app/data-sources/static/permissions.js'
 import {
-    transformBusinessCustomerToCustomerPermissionGroups,
-    transformBusinessCustomerToCustomerRole,
-    transformPersonSummaryToCustomerAuthorisedBusinesses
+  transformBusinessCustomerToCustomerPermissionGroups,
+  transformBusinessCustomerToCustomerRole,
+  transformPersonSummaryToCustomerAuthorisedBusinesses
 } from '../../../../app/transformers/rural-payments/customer.js'
 import {
-    organisationPeopleByOrgId,
-    organisationPersonSummary
+  organisationPeopleByOrgId,
+  organisationPersonSummary
 } from '../../../../mocks/fixtures/organisation.js'
 
 describe('Customer transformer', () => {

@@ -1,8 +1,8 @@
 import { transformAuthenticateQuestionsAnswers } from '../../../../app/transformers/authenticate/question-answers.js'
 import {
-    transformNotificationsToMessages,
-    transformPersonSummaryToCustomerAuthorisedBusinesses,
-    transformPersonSummaryToCustomerAuthorisedFilteredBusiness
+  transformNotificationsToMessages,
+  transformPersonSummaryToCustomerAuthorisedBusinesses,
+  transformPersonSummaryToCustomerAuthorisedFilteredBusiness
 } from '../../../../app/transformers/rural-payments/customer.js'
 import { organisationPeopleByOrgId } from '../../../../mocks/fixtures/organisation.js'
 

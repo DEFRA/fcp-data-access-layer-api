@@ -1,7 +1,7 @@
 import { Permissions } from '../../../../app/data-sources/static/permissions.js'
 import {
-    transformOrganisationAuthorisationToCustomerBusinessPermissionLevel,
-    transformPrivilegesListToBusinessCustomerPermissions
+  transformOrganisationAuthorisationToCustomerBusinessPermissionLevel,
+  transformPrivilegesListToBusinessCustomerPermissions
 } from '../../../../app/transformers/rural-payments/permissions.js'
 import { organisationPeopleByOrgId } from '../../../../mocks/fixtures/organisation.js'
 
