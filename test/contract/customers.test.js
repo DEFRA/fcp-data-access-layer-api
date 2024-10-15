@@ -15,7 +15,7 @@ describe('customers contract', () => {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    const response = await fetch(`${process.env.RP_INTERNAL_APIM_ACCESS_TOKEN_URL}/${process.env.API_TENANT_ID}/oauth2/v2.0/token`, {
+    const response = await fetch(`${process.env.RP_INTERNAL_APIM_ACCESS_TOKEN_URL}${process.env.API_TENANT_ID}/oauth2/v2.0/token`, {
       method: 'POST',
       body,
       redirect: 'follow',
