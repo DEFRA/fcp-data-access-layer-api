@@ -1,7 +1,7 @@
 import {
-    transformLandCovers,
-    transformLandCoversToArea,
-    transformLandParcels
+  transformLandCovers,
+  transformLandCoversToArea,
+  transformLandParcels
 } from '../../../../app/transformers/rural-payments/lms.js'
 
 describe('LMS transformer', () => {
