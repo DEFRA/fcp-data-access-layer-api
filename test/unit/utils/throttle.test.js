@@ -1,5 +1,5 @@
 import { afterAll, jest } from '@jest/globals'
-import { throttle } from '../../app/utils/throttle.js'
+import { throttle } from '../../../app/utils/throttle.js'
 
 describe('throttle function', () => {
   jest.useFakeTimers()
