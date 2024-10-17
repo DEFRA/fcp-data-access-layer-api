@@ -2,7 +2,7 @@
 # that test output is saved to the host
 
 services:
-  fcp-data-access-layer-api:
+  fcp-data-access-layer-api-test-runner:
     build:
       context: .
       target: development
