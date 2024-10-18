@@ -9,5 +9,5 @@ services:
     image: fcp-data-access-layer-api-development
     container_name: fcp-data-access-layer-api-test
     command: npm run test:contract
-    env_file:
-      - .env.test
+    environment:
+      RP_INTERNAL_APIM_ACCESS_TOKEN_URL: testing-token
