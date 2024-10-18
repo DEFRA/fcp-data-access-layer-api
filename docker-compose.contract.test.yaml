@@ -9,5 +9,3 @@ services:
     image: fcp-data-access-layer-api-development
     container_name: fcp-data-access-layer-api-test
     command: npm run test:contract
-    environment:
-      RP_INTERNAL_APIM_ACCESS_TOKEN_URL: ${RP_INTERNAL_APIM_ACCESS_TOKEN_URL}
