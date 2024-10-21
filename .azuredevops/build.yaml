@@ -57,6 +57,6 @@ extends:
       filepath: "./appConfig"
       filetype: "yaml"
       variableGroups:
-        - fcp-data-access-layer-api-snd4
+        - fcp-data-access-layer-api-<environment>
     includePlatformEnvs: false
     includePocEnv: true
