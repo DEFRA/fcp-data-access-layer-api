@@ -12,4 +12,4 @@ services:
     env_file:
       - .env.test
     environment:
-      RP_INTERNAL_APIM_ACCESS_TOKEN_URL: http://127.0.0.1:4101/apim/
+      RP_INTERNAL_APIM_ACCESS_TOKEN_URL: ${fcp-data-access-layer-api-RP-INTERNAL-APIM-ACCESS-TOKEN-URL}
