@@ -21,7 +21,8 @@
     "test:integration": "NODE_OPTIONS=--experimental-vm-modules jest --testPathPattern=test/integration  --setupFiles dotenv/config",
     "test:local": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand --setupFiles dotenv/config",
     "test:unit": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --coverage --setupFiles dotenv/config",
-    "test:changedsince": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --changedSince=main --coverage --onlyChanged --setupFiles dotenv/config"
+    "test:changedsince": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --changedSince=main --coverage --onlyChanged --setupFiles dotenv/config",
+    "prepare": "[ ${CI} ] || husky"
   },
   "author": "Defra",
   "contributors": [],
@@ -56,6 +57,7 @@
     "@mocks-server/core": "^4.0.2",
     "dotenv": "^16.3.1",
     "eslint": "^8.52.0",
+    "husky": "^9.1.6",
     "jest": "^29.6.4",
     "jest-junit": "^16.0.0",
     "mock-jwks": "^3.2.2",
