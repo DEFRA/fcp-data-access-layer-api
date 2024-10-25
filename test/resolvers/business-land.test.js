@@ -4,14 +4,6 @@ import {
 } from '../../app/graphql/resolvers/business/business-land.js'
 
 const dataSources = {
-  ruralPaymentsPortalApi: {
-    getParcelsSummaryByOrganisationId () {
-      return {
-        totalParcels: 1000,
-        totalArea: 2000
-      }
-    }
-  },
   ruralPaymentsBusiness: {
     getParcelsByOrganisationId () {
       return [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000 }]
@@ -55,7 +47,7 @@ describe('BusinessLandSummary', () => {
       await BusinessLandSummary.totalParcels({ id: 'mockId' }, null, {
         dataSources
       })
-    ).toEqual(1000)
+    ).toEqual(1)
   })
 
   it('totalArea', async () => {
@@ -63,7 +55,7 @@ describe('BusinessLandSummary', () => {
       await BusinessLandSummary.totalArea({ id: 'mockId' }, null, {
         dataSources
       })
-    ).toEqual(2000)
+    ).toEqual(6000)
   })
 
   it('arableLandArea', async () => {
