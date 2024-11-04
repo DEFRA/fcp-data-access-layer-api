@@ -1,0 +1,23 @@
+set +e
+
+changes=$( git diff --cached --name-only --diff-filter=ACMR )
+gqlChanges=$( echo ${changes} | tr ' ' '\n' | grep "app/graphql/types/.*.gql" )
+jsChanges=$( echo ${changes} | tr ' ' '\n' | grep ".*.js$" )
+errors=0
+
+if [ -n "${gqlChanges}" ] ; then
+    npx eslint ${gqlChanges}
+    errors=$?
+    npx prettier --check ${gqlChanges}
+    errors=$(( ${errors} + $? ))
+fi
+[ -z "${jsChanges}" ] || npx standard ${jsChanges}
+errors=$(( ${errors} + $? ))
+
+if [ ${errors} -gt 0 ] ; then
+    echo "\n\033[31mERROR\033[0m: linting or formatting errors were detected!
+Try auto fixing with:
+
+    \033[34mnpm run format\033[0m\n"
+    exit 1
+fi
