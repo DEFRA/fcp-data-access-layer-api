@@ -6,7 +6,7 @@
   "main": "app/index.js",
   "type": "module",
   "scripts": {
-    "format:gql": "prettier \"app/graphql/types/**/*.gql\" --write",
+    "format:gql": "prettier \"app/graphql/types/**/*.gql\" --write --log-level warn",
     "format:js": "standard --fix",
     "format": "npm run format:js && npm run format:gql",
     "lint:gql": "eslint \"app/graphql/types\" && prettier \"app/graphql/types/**/*.gql\" --check",
