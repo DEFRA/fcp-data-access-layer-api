@@ -1,3 +1,6 @@
+
+[ ${STRICT_DEV_MODE} ] || exit 0 # developer opt-in
+
 set +e
 
 changes=$( git diff --cached --name-only --diff-filter=ACMR )
