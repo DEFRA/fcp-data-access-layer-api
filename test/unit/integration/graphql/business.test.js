@@ -19,7 +19,7 @@ import {
   coversSummary,
   landCovers,
   landParcels
-} from '../../../mocks/fixtures/lms.js'
+} from '../../../../mocks/fixtures/lms.js'
 import {
   organisationCPH,
   organisationCPHInfo

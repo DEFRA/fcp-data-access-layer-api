@@ -4,6 +4,14 @@ import {
 } from '../../../app/graphql/resolvers/business/business-land.js'
 
 const dataSources = {
+  ruralPaymentsPortalApi: {
+    getParcelsSummaryByOrganisationId () {
+      return {
+        totalParcels: 1000,
+        totalArea: 2000
+      }
+    }
+  },
   ruralPaymentsBusiness: {
     getParcelsByOrganisationId () {
       return [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000 }]

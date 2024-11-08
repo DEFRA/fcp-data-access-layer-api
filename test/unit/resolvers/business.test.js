@@ -3,15 +3,20 @@ import { NotFound } from '../../../app/errors/graphql.js'
 import {
   Business,
   BusinessCustomerDetail
-} from '../../app/graphql/resolvers/business/business.js'
-import { transformOrganisationCPH } from '../../app/transformers/rural-payments/business-cph.js'
+} from '../../../app/graphql/resolvers/business/business.js'
+import { transformOrganisationCPH } from '../../../app/transformers/rural-payments/business-cph.js'
 import {
   transformBusinessCustomerPrivilegesToPermissionGroups,
   transformOrganisationCustomer,
   transformOrganisationCustomers
-} from '../../app/transformers/rural-payments/business.js'
-import { organisationCPH } from '../../mocks/fixtures/organisation-cph.js'
-import { organisationPeopleByOrgId } from '../../mocks/fixtures/organisation.js'
+} from '../../../app/transformers/rural-payments/business.js'
+import {
+  organisationCPH
+} from '../../../mocks/fixtures/organisation-cph.js'
+import {
+  organisationApplicationsByOrgId,
+  organisationPeopleByOrgId
+} from '../../../mocks/fixtures/organisation.js'
 
 const permissionGroups = createRequire(import.meta.url)(
   '../../../app/data-sources/static/permission-groups.json'
@@ -30,6 +35,11 @@ const dataSources = {
     getOrganisationCustomersByOrganisationId () {
       return organisationPeopleByOrgId('5565448')._data
     }
+  },
+  ruralPaymentsPortalApi: {
+    getApplicationsCountrysideStewardship () {
+      return organisationApplicationsByOrgId('5565448')
+    }
   }
 }
 
@@ -42,19 +52,12 @@ describe('Business', () => {
 
   it('cph', async () => {
     const cph = organisationCPH('5565448').data
-    const transformed = transformOrganisationCPH(
-      mockBusiness.organisationId,
-      cph
-    )
-    expect(await Business.cph(mockBusiness, null, { dataSources })).toEqual(
-      transformed
-    )
+    const transformed = transformOrganisationCPH(mockBusiness.organisationId, cph)
+    expect(await Business.cph(mockBusiness, null, { dataSources })).toEqual(transformed)
   })
 
   it('customers', async () => {
-    const transformedData = transformOrganisationCustomers(
-      organisationPeopleByOrgId('5565448')._data
-    )
+    const transformedData = transformOrganisationCustomers(organisationPeopleByOrgId('5565448')._data)
     expect(
       await Business.customers(mockBusiness, null, { dataSources })
     ).toEqual(transformedData)
@@ -74,9 +77,13 @@ describe('Business', () => {
   })
 
   it('handle customer not found', async () => {
-    await expect(() =>
-      Business.customer(mockBusiness, { crn: 'not-found' }, { dataSources })
-    ).rejects.toEqual(new NotFound('Customer not found'))
+    await expect(() => Business.customer(
+      mockBusiness,
+      { crn: 'not-found' },
+      { dataSources }
+    )).rejects.toEqual(
+      new NotFound('Customer not found')
+    )
   })
 })
 
@@ -84,10 +91,7 @@ describe('BusinessCustomerDetail', () => {
   it('permissionGroups', async () => {
     const customers = organisationPeopleByOrgId('5565448')._data
     for (const customer of customers) {
-      const transformed = transformBusinessCustomerPrivilegesToPermissionGroups(
-        customer.privileges,
-        dataSources.permissions.getPermissionGroups()
-      )
+      const transformed = transformBusinessCustomerPrivilegesToPermissionGroups(customer.privileges, dataSources.permissions.getPermissionGroups())
 
       expect(
         await BusinessCustomerDetail.permissionGroups(
