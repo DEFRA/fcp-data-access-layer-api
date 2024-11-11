@@ -19,7 +19,7 @@ const ruralPaymentsAPIMHealthCheck = async () => {
   const ruralPaymentsBusiness = new RuralPaymentsBusiness({ logger }, {
     headers: { email: process.env.RURAL_PAYMENTS_PORTAL_EMAIL }
   })
-  return ruralPaymentsBusiness.getOrganisationById(process.env.RP_INTERNAL_HEALTH_CHECK_ORGANISATION_ID)
+  return ruralPaymentsBusiness.getOrganisationById(process.env.HEALTH_CHECK_RP_INTERNAL_ORGANISATION_ID)
 }
 const ruralPaymentsAPIMHealthCheckThrottled = throttle(ruralPaymentsAPIMHealthCheck, process.env.HEALTH_CHECK_RURAL_PAYMENTS_APIM_THROTTLE_TIME_MS || fiveMinutes)
 
@@ -40,10 +40,10 @@ export const healthyRoute = {
         Entra: 'up'
       }
       if (process.env.HEALTH_CHECK_ENABLED === 'true') {
-        if (process.env.RP_INTERNAL_HEALTH_CHECK_ORGANISATION_ID && process.env.RURAL_PAYMENTS_PORTAL_EMAIL) {
+        if (process.env.HEALTH_CHECK_RP_INTERNAL_ORGANISATION_ID && process.env.RURAL_PAYMENTS_PORTAL_EMAIL) {
           services.RuralPaymentsPortal = await ruralPaymentsAPIMHealthCheckThrottled() ? 'up' : 'down'
         } else {
-          logger.error('#health check - missing environment variable "RP_INTERNAL_HEALTH_CHECK_ORGANISATION_ID"', { code: DAL_HEALTH_CHECK_001 })
+          logger.error('#health check - missing environment variable "HEALTH_CHECK_RP_INTERNAL_ORGANISATION_ID"', { code: DAL_HEALTH_CHECK_001 })
         }
 
         if (process.env.ENTRA_HEALTH_CHECK_USER_OBJECT_ID) {
