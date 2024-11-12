@@ -25,7 +25,7 @@ const ruralPaymentsAPIMHealthCheckThrottled = throttle(ruralPaymentsAPIMHealthCh
 
 const entraHealthCheck = async () => {
   const entraIdApi = new EntraIdApi({ logger })
-  return entraIdApi.getEmployeeId(process.env.ENTRA_HEALTH_CHECK_USER_OBJECT_ID)
+  return entraIdApi.getEmployeeId(process.env.HEALTH_CHECK_ENTRA_USER_OBJECT_ID)
 }
 const entraHealthCheckThrottled = throttle(entraHealthCheck, process.env.HEALTH_CHECK_ENTRA_THROTTLE_TIME_MS || fiveMinutes)
 
@@ -46,10 +46,10 @@ export const healthyRoute = {
           logger.error('#health check - missing environment variable "HEALTH_CHECK_RP_INTERNAL_ORGANISATION_ID"', { code: DAL_HEALTH_CHECK_001 })
         }
 
-        if (process.env.ENTRA_HEALTH_CHECK_USER_OBJECT_ID) {
+        if (process.env.HEALTH_CHECK_ENTRA_USER_OBJECT_ID) {
           services.Entra = await entraHealthCheckThrottled() ? 'up' : 'down'
         } else {
-          logger.error('#health check - missing environment variable "ENTRA_HEALTH_CHECK_USER_OBJECT_ID"', { code: DAL_HEALTH_CHECK_001 })
+          logger.error('#health check - missing environment variable "HEALTH_CHECK_ENTRA_USER_OBJECT_ID"', { code: DAL_HEALTH_CHECK_001 })
         }
 
         if (

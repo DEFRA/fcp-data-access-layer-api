@@ -67,8 +67,8 @@
 - key: HEALTH_CHECK_RP_INTERNAL_ORGANISATION_ID
   value: "{{servicename}}-HEALTH-CHECK-RP-INTERNAL-ORGANISATION-ID"
   type: "keyvault"
-- key: ENTRA_HEALTH_CHECK_USER_OBJECT_ID
-  value: "{{servicename}}-ENTRA-HEALTH-CHECK-USER-OBJECT-ID"
+- key: HEALTH_CHECK_ENTRA_USER_OBJECT_ID
+  value: "{{servicename}}-HEALTH-CHECK-ENTRA-USER-OBJECT-ID"
   type: "keyvault"
 - key: EVENT_HUB_NAME
   value: "{{servicename}}-EVENT-HUB-NAME"
