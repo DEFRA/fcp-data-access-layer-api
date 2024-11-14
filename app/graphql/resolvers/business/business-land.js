@@ -1,7 +1,8 @@
+import { BadRequest } from '../../../errors/graphql.js'
 import {
   transformLandCovers,
   transformLandCoversToArea,
-  transformLandParcels,
+  transformLandParcelsWithGeometry,
   transformTotalArea,
   transformTotalParcels
 } from '../../../transformers/rural-payments/lms.js'
@@ -11,10 +12,15 @@ export const BusinessLand = {
     return { organisationId }
   },
 
-  async parcels ({ organisationId }, __, { dataSources }) {
-    return transformLandParcels(
-      await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationId(
-        organisationId
+  async parcels ({ organisationId }, { date }, { dataSources }) {
+    const dateObject = new Date(date)
+    if (isNaN(dateObject.getTime())) {
+      throw new BadRequest(`Invalid date format: "${date}" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01`)
+    }
+
+    return transformLandParcelsWithGeometry(
+      await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationIdAndDate(
+        organisationId, date
       )
     )
   },

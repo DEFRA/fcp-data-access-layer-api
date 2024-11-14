@@ -33,9 +33,19 @@ type BusinessLandParcel {
   sheetId: String
 
   """
+  The parcel ID of the land parcel.
+  """
+  parcelId: String
+
+  """
   The area of the land parcel.
   """
   area: Float
+
+  """
+  Whether the parcel is pending digitisation.
+  """
+  pendingDigitisation: Boolean
 }
 
 """
@@ -102,7 +112,7 @@ type BusinessLand {
   """
   The parcels of the business land.
   """
-  parcels: [BusinessLandParcel]
+  parcels(date: Date): [BusinessLandParcel] @on
 
   """
   The summary of the business land.

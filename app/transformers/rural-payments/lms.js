@@ -23,6 +23,19 @@ export function transformLandParcels (landParcels) {
   }))
 }
 
+export function transformLandParcelsWithGeometry (landParcels) {
+  const { features } = landParcels
+  return features.map(parcel => {
+    return {
+      id: parcel.id,
+      parcelId: parcel.properties.parcelId,
+      sheetId: parcel.properties.sheetId,
+      area: parcel.properties.area,
+      pendingDigitisation: parcel.properties.pendingDigitisation === 'true'
+    }
+  })
+}
+
 export function transformTotalParcels (landParcels) {
   return new Set(landParcels.map(parcel => parcel.id)).size
 }
