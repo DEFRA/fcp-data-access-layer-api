@@ -13,3 +13,7 @@ export const landCovers = orgId => {
 export const landParcels = orgId => {
   return getJSON(`./orgId/${orgId}/land-parcels.json`)
 }
+
+export const landParcelsGeometry = orgId => {
+  return getJSON(`./orgId/${orgId}/land-parcels-geometry.json`)
+}
