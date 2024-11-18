@@ -1,13 +1,14 @@
-export function transformLandCovers (landCovers) {
-  return landCovers.map(({ id, info }) => {
-    const { area, name } = info.find(item => item.area !== 0)
-
-    return {
-      id,
-      area,
-      name: name.toUpperCase().split(' ').join('_')
-    }
-  })
+export function transformLandCovers (landCover) {
+  return landCover.info
+    .filter(item => item.area !== 0)
+    .map(({ code, area, name }) => {
+      return {
+        id: landCover.id,
+        code,
+        area,
+        name: name.toUpperCase().split(' ').join('_')
+      }
+    })
 }
 
 export function transformLandCoversToArea (name, landCovers) {
@@ -23,10 +24,11 @@ export function transformLandParcels (landParcels) {
   }))
 }
 
-export function transformLandParcelsWithGeometry (landParcels) {
+export function transformLandParcelsWithGeometry (organisationId, landParcels) {
   const { features } = landParcels
   return features.map(parcel => {
     return {
+      organisationId,
       id: parcel.id,
       parcelId: parcel.properties.parcelId,
       sheetId: parcel.properties.sheetId,
