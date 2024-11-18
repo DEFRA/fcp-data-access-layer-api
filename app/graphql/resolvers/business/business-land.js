@@ -41,7 +41,7 @@ export const BusinessLand = {
       )
     )
   },
-  
+
   async parcelCovers ({ organisationId }, { date, parcelId }, { dataSources }) {
     const dateObject = new Date(date)
     if (isNaN(dateObject.getTime())) {

@@ -76,7 +76,7 @@ export class RuralPaymentsBusiness extends RuralPayments {
     return this.get(`lms/organisation/${organisationId}/land-covers`)
   }
 
-  getCoversByOrgSheetParcelId(organisationId, sheetId, parcelId) {
+  getCoversByOrgSheetParcelId (organisationId, sheetId, parcelId) {
     this.logger.silly('Getting organisation covers by sheet ID and parcel ID', { organisationId, sheetId, parcelId })
 
     return this.get(`lms/organisation/${organisationId}/parcel/sheet-id/${sheetId}/parcel-id/${parcelId}/land-covers`)
