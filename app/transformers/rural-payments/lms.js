@@ -1,5 +1,5 @@
 export function transformLandCovers (landCover) {
-  return landCover.info
+  return landCover?.info
     .filter(item => item.area !== 0)
     .map(({ code, area, name }) => {
       return {
