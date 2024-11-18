@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, jest } from '@jest/globals'
-import { redactSensitiveData, safeSerialise, safeStructuredClone, sampleResponseBodyData, serialize } from '../../app/logger/winstonFormatters'
+import { redactSensitiveData, safeSerialise, safeStructuredClone, sampleResponseBodyData, serialize } from '../../../app/logger/winstonFormatters'
 import { HeaderMap } from '@apollo/server'
 
 const someURL = new URL('http://localhost/path')
