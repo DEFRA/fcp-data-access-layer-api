@@ -1,13 +1,13 @@
 import {
   transformLandCovers,
   transformLandCoversToArea,
-  transformLandParcels
+  transformLandParcelsWithGeometry
 } from '../../../../app/transformers/rural-payments/lms.js'
 
 describe('LMS transformer', () => {
   test('transformLandCovers', () => {
-    const input = [{ id: 'mockId', info: [{ area: 1000, name: 'Mock Name' }] }]
-    const output = [{ area: 1000, id: 'mockId', name: 'MOCK_NAME' }]
+    const input = { id: 'mockId', info: [{ area: 1000, name: 'Mock Name', code: 'mockId' }] }
+    const output = [{ area: 1000, id: 'mockId', name: 'MOCK_NAME', code: 'mockId' }]
     expect(transformLandCovers(input)).toEqual(output)
   })
 
@@ -17,11 +17,14 @@ describe('LMS transformer', () => {
     expect(transformLandCoversToArea(...input)).toEqual(output)
   })
 
-  test('transformLandParcels', () => {
-    const input = [
-      { id: 'mockId', sheetId: 'mockSheetId', area: 1000, otherField: 'mock' }
-    ]
-    const output = [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000 }]
-    expect(transformLandParcels(input)).toEqual(output)
+  test('transformLandParcelsWithGeometry', () => {
+    const organisationId = 'mockOrganisationId'
+    const input = {
+      features: [
+        { id: 'mockId', properties: { sheetId: 'mockSheetId', area: 1000, parcelId: 'mockParcelId', pendingDigitisation: 'false' } }
+      ]
+    }
+    const output = [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000, parcelId: 'mockParcelId', pendingDigitisation: false }]
+    expect(transformLandParcelsWithGeometry(organisationId, input)).toEqual(output)
   })
 })

@@ -495,14 +495,30 @@ describe('schema', () => {
 
           """Represents a parcel of a business land."""
           type BusinessLandParcel {
-            """The unique identifier of the land parcel."""
+            """
+            The unique identifier of the land parcel.
+            """
             id: ID!
 
-            """The sheet ID of the land parcel."""
+            """
+            The sheet ID of the land parcel.
+            """
             sheetId: String
 
-            """The area of the land parcel."""
+            """
+            The parcel ID of the land parcel.
+            """
+            parcelId: String
+
+            """
+            The area of the land parcel.
+            """
             area: Float
+
+            """
+            Whether the parcel is pending digitisation.
+            """
+            pendingDigitisation: Boolean
           }
 
           """Represents a summary of a business land."""
@@ -533,6 +549,11 @@ describe('schema', () => {
 
             """The area of the land cover."""
             area: Float
+
+            """
+            The code of the land cover.
+            """
+            code: String
           }
 
           """
@@ -541,13 +562,24 @@ describe('schema', () => {
           Data Source: Rural Payments Portal (PRR)
           """
           type BusinessLand {
-            """The covers of the business land."""
-            covers: [BusinessLandCover]
+            """
+            The parcels of the business land.
+            """
+            parcels(date: Date): [BusinessLandParcel]
 
-            """The parcels of the business land."""
-            parcels: [BusinessLandParcel]
+            """
+            A single parcel of the business land.
+            """
+            parcel(date: Date, parcelId: ID!): BusinessLandParcel
 
-            """The summary of the business land."""
+            """
+            The covers of a single parcel of the business land.
+            """
+            parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
+
+            """
+            The summary of the business land.
+            """
             summary(historicDate: Date): BusinessLandSummary
           }
 

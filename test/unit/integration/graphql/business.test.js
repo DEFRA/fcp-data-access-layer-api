@@ -13,12 +13,12 @@ import {
 import {
   transformLandCovers,
   transformLandCoversToArea,
-  transformLandParcels
+  transformLandParcelsWithGeometry
 } from '../../../../app/transformers/rural-payments/lms.js'
 import {
   coversSummary,
-  landCovers,
-  landParcels
+  landCover,
+  landParcelsGeometry
 } from '../../../../mocks/fixtures/lms.js'
 import {
   organisationCPH,
@@ -233,15 +233,18 @@ describe('Query.business.land', () => {
   })
 
   it('parcels', async () => {
+    const organisationId = '5565448'
     const result = await graphql({
       source: `#graphql
         query BusinessLandParcels {
           business(sbi: "107183280") {
             land {
-              parcels {
+              parcels(date: "2021-01-01") {
                 id
-                sheetId
-                area
+                sheetId,
+                parcelId,
+                area,
+                pendingDigitisation
               }
             }
           }
@@ -255,7 +258,7 @@ describe('Query.business.land', () => {
       data: {
         business: {
           land: {
-            parcels: transformLandParcels(landParcels(5565448))
+            parcels: transformLandParcelsWithGeometry(organisationId, landParcelsGeometry(5565448))
           }
         }
       }
@@ -268,10 +271,11 @@ describe('Query.business.land', () => {
         query BusinessLandCovers {
           business(sbi: "107183280") {
             land {
-              covers {
+              parcelCovers(date: "2022-01-01", parcelId: "8194") {
                 id
                 name
                 area
+                code
               }
             }
           }
@@ -285,7 +289,7 @@ describe('Query.business.land', () => {
       data: {
         business: {
           land: {
-            covers: transformLandCovers(landCovers('5565448'))
+            parcelCovers: transformLandCovers(landCover('5565448', '', '8194'))
           }
         }
       }
