@@ -54,21 +54,13 @@ export class RuralPayments extends RESTDataSource {
 
   didEncounterError (error, request, url) {
     request.path = url
-    if (!error?.extensions?.response) {
-      this.logger.error('#datasource - Rural payments - Unable to determine error location', {
-        error,
-        request,
-        code: RURALPAYMENTS_API_REQUEST_001
-      })
-      return
-    }
-    const { response } = error.extensions
 
     // response is text, then the error is from RuralPayments
-    const isRuralPaymentsError = response?.headers?.get('Content-Type')?.includes('text/html')
+    const isRuralPaymentsError = error.extensions?.response?.headers?.get('Content-Type')?.includes('text/html')
 
     // If response is text, then the error is from RuralPayments
     if (isRuralPaymentsError) {
+      const { response } = error.extensions
       if (response?.status === StatusCodes.FORBIDDEN) {
         // If user does not have access log a warning
         this.logger.warn('#datasource - Rural payments - user does not have permission to resource', {
@@ -88,7 +80,7 @@ export class RuralPayments extends RESTDataSource {
       this.logger.error('#datasource - apim - request error', {
         error,
         request,
-        response,
+        response: error?.extensions?.response,
         code: APIM_APIM_REQUEST_001
       })
     }
