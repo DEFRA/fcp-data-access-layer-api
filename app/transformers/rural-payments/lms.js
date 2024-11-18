@@ -16,23 +16,14 @@ export function transformLandCoversToArea (name, landCovers) {
   return area
 }
 
-export function transformLandParcels (landParcels) {
-  return landParcels.map(({ id, sheetId, area }) => ({
-    id: `${id}`,
-    sheetId,
-    area
-  }))
-}
-
 export function transformLandParcelsWithGeometry (organisationId, landParcels) {
   const { features } = landParcels
   return features.map(parcel => {
     return {
-      organisationId,
-      id: parcel.id,
+      id: String(parcel.id),
       parcelId: parcel.properties.parcelId,
       sheetId: parcel.properties.sheetId,
-      area: parcel.properties.area,
+      area: parseFloat(parcel.properties.area),
       pendingDigitisation: parcel.properties.pendingDigitisation === 'true'
     }
   })
