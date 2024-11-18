@@ -96,6 +96,8 @@ type BusinessLandCover {
   The area of the land cover.
   """
   area: Float
+
+  code: String
 }
 
 """
@@ -104,15 +106,20 @@ Represents a business land.
 Data Source: Rural Payments Portal (PRR)
 """
 type BusinessLand {
-  """
-  The covers of the business land.
-  """
-  covers: [BusinessLandCover]
+  # """
+  # The covers of the business land.
+  # """
+  # covers: [BusinessLandCover]
+
 
   """
   The parcels of the business land.
   """
   parcels(date: Date): [BusinessLandParcel] @on
+
+  parcel(date: Date, parcelId: ID!): BusinessLandParcel @on
+
+  parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
 
   """
   The summary of the business land.
