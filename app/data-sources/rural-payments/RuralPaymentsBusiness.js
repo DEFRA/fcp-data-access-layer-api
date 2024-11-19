@@ -70,12 +70,6 @@ export class RuralPaymentsBusiness extends RuralPayments {
     return this.get(`lms/organisation/${organisationId}/geometries?bbox=0,0,0,0&historicDate=${formattedDate}`)
   }
 
-  getCoversByOrganisationId (organisationId) {
-    this.logger.silly('Getting organisation covers by organisation ID', { organisationId })
-
-    return this.get(`lms/organisation/${organisationId}/land-covers`)
-  }
-
   getCoversByOrgSheetParcelId (organisationId, sheetId, parcelId) {
     this.logger.silly('Getting organisation covers by sheet ID and parcel ID', { organisationId, sheetId, parcelId })
 
