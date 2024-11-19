@@ -233,7 +233,6 @@ describe('Query.business.land', () => {
   })
 
   it('parcels', async () => {
-    const organisationId = '5565448'
     const result = await graphql({
       source: `#graphql
         query BusinessLandParcels {
@@ -258,7 +257,7 @@ describe('Query.business.land', () => {
       data: {
         business: {
           land: {
-            parcels: transformLandParcelsWithGeometry(organisationId, landParcelsGeometry(5565448))
+            parcels: transformLandParcelsWithGeometry(landParcelsGeometry(5565448))
           }
         }
       }
