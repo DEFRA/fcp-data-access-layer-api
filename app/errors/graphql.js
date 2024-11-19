@@ -28,6 +28,15 @@ export class Forbidden extends GraphQLError {
   }
 }
 
+export class BadRequest extends GraphQLError {
+  constructor (message, options) {
+    super(message, options)
+
+    this.extensions.code = StatusCodes.getStatusText(StatusCodes.BAD_REQUEST).toUpperCase()
+    this.extensions.http = { status: StatusCodes.BAD_REQUEST }
+  }
+}
+
 export class HttpError extends GraphQLError {
   constructor (statusCode, options) {
     const statusText = StatusCodes.getStatusText(statusCode)

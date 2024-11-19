@@ -61,10 +61,19 @@ export class RuralPaymentsBusiness extends RuralPayments {
     return this.get(`lms/organisation/${organisationId}/parcels`)
   }
 
-  getCoversByOrganisationId (organisationId) {
-    this.logger.silly('Getting organisation covers by organisation ID', { organisationId })
+  getParcelsByOrganisationIdAndDate (organisationId, date) {
+    this.logger.silly('Getting organisation parcels by organisation ID and date', { organisationId, date })
 
-    return this.get(`lms/organisation/${organisationId}/land-covers`)
+    // Convert 'YYYY-MM-DD' to 'DDMMYYYY, e.g. 012223
+    const formattedDate = new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '')
+
+    return this.get(`lms/organisation/${organisationId}/geometries?bbox=0,0,0,0&historicDate=${formattedDate}`)
+  }
+
+  getCoversByOrgSheetParcelId (organisationId, sheetId, parcelId) {
+    this.logger.silly('Getting organisation covers by sheet ID and parcel ID', { organisationId, sheetId, parcelId })
+
+    return this.get(`lms/organisation/${organisationId}/parcel/sheet-id/${sheetId}/parcel-id/${parcelId}/land-covers`)
   }
 
   getCoversSummaryByOrganisationIdAndDate (organisationId, historicDate) {

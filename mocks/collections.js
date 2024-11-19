@@ -10,7 +10,9 @@ const routes = [
 
   'rural-payments-lms-get-covers-summary:default',
   'rural-payments-lms-get-land-covers:default',
+  'rural-payments-lms-get-land-covers-by-sheet-id-and-parcel-id:default',
   'rural-payments-lms-get-parcels:default',
+  'rural-payments-lms-get-parcels-geometry:default',
 
   'rural-payments-messages:default',
 
