@@ -1,4 +1,4 @@
-import { BadRequest, NotFound } from '../../../errors/graphql.js'
+import { NotFound } from '../../../errors/graphql.js'
 import {
   transformLandCovers,
   transformLandCoversToArea,
@@ -6,6 +6,7 @@ import {
   transformTotalArea,
   transformTotalParcels
 } from '../../../transformers/rural-payments/lms.js'
+import { validateDate } from '../../../utils/date.js'
 
 export const BusinessLand = {
   summary ({ organisationId }) {
@@ -13,10 +14,7 @@ export const BusinessLand = {
   },
 
   async parcel ({ organisationId }, { date, parcelId }, { dataSources }) {
-    const dateObject = new Date(date)
-    if (isNaN(dateObject.getTime())) {
-      throw new BadRequest(`Invalid date format: "${date}" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01`)
-    }
+    validateDate(date)
 
     const parcels = await BusinessLand.parcels({ organisationId }, { date }, { dataSources })
 
@@ -29,10 +27,7 @@ export const BusinessLand = {
   },
 
   async parcels ({ organisationId }, { date }, { dataSources }) {
-    const dateObject = new Date(date)
-    if (isNaN(dateObject.getTime())) {
-      throw new BadRequest(`Invalid date format: "${date}" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01`)
-    }
+    validateDate(date)
 
     return transformLandParcelsWithGeometry(
       await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationIdAndDate(
@@ -42,10 +37,7 @@ export const BusinessLand = {
   },
 
   async parcelCovers ({ organisationId }, { date, parcelId }, { dataSources }) {
-    const dateObject = new Date(date)
-    if (isNaN(dateObject.getTime())) {
-      throw new BadRequest(`Invalid date format: "${date}" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01`)
-    }
+    validateDate(date)
 
     const parcel = await BusinessLand.parcel({ organisationId }, { date, parcelId }, { dataSources })
 
