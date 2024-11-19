@@ -264,6 +264,132 @@ describe('Query.business.land', () => {
     })
   })
 
+  it('handles invalidate date for parcels', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query BusinessLandCovers {
+          business(sbi: "107183280") {
+            land {
+              parcels(date: "2020/20/01") {
+                id
+              }
+            }
+          }
+        }
+      `,
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result).toEqual({
+      data: {
+        business: {
+          land: {
+            parcels: null
+          }
+        }
+      },
+      errors: [new GraphQLError('Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01')]
+    })
+  })
+
+  it('parcel', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query BusinessLandParcels {
+          business(sbi: "107183280") {
+            land {
+              parcel(date: "2021-01-01", parcelId: "8194") {
+                id
+                sheetId,
+                parcelId,
+                area,
+                pendingDigitisation
+              }
+            }
+          }
+        }
+      `,
+      schema,
+      contextValue: fakeContext
+    })
+
+    const parcels = transformLandParcelsWithGeometry(landParcelsGeometry(5565448))
+    const parcel = parcels.find(parcel => parcel.parcelId === '8194')
+
+    expect(result).toEqual({
+      data: {
+        business: {
+          land: {
+            parcel
+          }
+        }
+      }
+    })
+  })
+
+  it('handles parcel not found', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query BusinessLandParcels {
+          business(sbi: "107183280") {
+            land {
+              parcel(date: "2021-01-01", parcelId: "9999") {
+                id
+              }
+            }
+          }
+        }
+      `,
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result).toEqual({
+      data: {
+        business: {
+          land: {
+            parcel: null
+          }
+        }
+      },
+      errors: [new GraphQLError('No parcel found for parcelId: 9999')]
+    })
+  })
+
+  it('handles invalidate date for parcel', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query BusinessLandParcels {
+          business(sbi: "107183280") {
+            land {
+              parcel(date: "2020/20/01", parcelId: "8194") {
+                id
+                sheetId,
+                parcelId,
+                area,
+                pendingDigitisation
+              }
+            }
+          }
+        }
+      `,
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result).toEqual({
+      data: {
+        business: {
+          land: {
+            parcel: null
+          }
+        }
+      },
+      errors: [new GraphQLError('Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01')]
+    })
+  })
+
   it('covers', async () => {
     const result = await graphql({
       source: `#graphql
@@ -292,6 +418,35 @@ describe('Query.business.land', () => {
           }
         }
       }
+    })
+  })
+
+  it('handles invalidate date for parcel covers', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query BusinessLandCovers {
+          business(sbi: "107183280") {
+            land {
+              parcelCovers(date: "2020/20/01", parcelId: "8194") {
+                id
+              }
+            }
+          }
+        }
+      `,
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result).toEqual({
+      data: {
+        business: {
+          land: {
+            parcelCovers: null
+          }
+        }
+      },
+      errors: [new GraphQLError('Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01')]
     })
   })
 })
