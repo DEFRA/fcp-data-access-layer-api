@@ -16,7 +16,7 @@ export function transformLandCoversToArea (name, landCovers) {
   return area
 }
 
-export function transformLandParcelsWithGeometry (organisationId, landParcels) {
+export function transformLandParcelsWithGeometry (landParcels) {
   const { features } = landParcels
   return features.map(parcel => {
     return {

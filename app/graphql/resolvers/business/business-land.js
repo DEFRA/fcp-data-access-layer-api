@@ -35,7 +35,6 @@ export const BusinessLand = {
     }
 
     return transformLandParcelsWithGeometry(
-      organisationId,
       await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationIdAndDate(
         organisationId, date
       )

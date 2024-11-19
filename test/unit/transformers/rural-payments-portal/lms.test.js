@@ -18,13 +18,12 @@ describe('LMS transformer', () => {
   })
 
   test('transformLandParcelsWithGeometry', () => {
-    const organisationId = 'mockOrganisationId'
     const input = {
       features: [
         { id: 'mockId', properties: { sheetId: 'mockSheetId', area: 1000, parcelId: 'mockParcelId', pendingDigitisation: 'false' } }
       ]
     }
     const output = [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000, parcelId: 'mockParcelId', pendingDigitisation: false }]
-    expect(transformLandParcelsWithGeometry(organisationId, input)).toEqual(output)
+    expect(transformLandParcelsWithGeometry(input)).toEqual(output)
   })
 })
