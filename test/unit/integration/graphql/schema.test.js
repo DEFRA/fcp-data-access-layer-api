@@ -14,7 +14,7 @@ describe('schema', () => {
     process.env.ALL_SCHEMA_ON = true
   })
 
-  it('should not include custom @on directive in final schema output', async () => {
+  it('should not include custom directive in final schema output', async () => {
     const { schema } = await import(
       `../../../../app/graphql/server.js?test=${Math.random()}`
     )
@@ -24,7 +24,7 @@ describe('schema', () => {
     ).toBe(undefined)
   })
 
-  it('should only contain fields that have the @on directive', async () => {
+  it('should only contain fields that have the directive', async () => {
     delete process.env.ALL_SCHEMA_ON
     const { schema } = await import(
       `../../../../app/graphql/server.js?test=${Math.random()}`
@@ -110,6 +110,126 @@ describe('schema', () => {
             The customer associated with the business.
             """
             customer(crn: ID!): BusinessCustomerDetail
+
+            """
+            The land details of the business.
+            """
+            land: BusinessLand
+          }
+
+          """
+          Represents a business land.
+
+          Data Source: Rural Payments Portal (PRR)
+          """
+          type BusinessLand {
+            """
+            The parcels of the business land.
+            """
+            parcels(date: Date): [BusinessLandParcel]
+
+            """
+            A single parcel of the business land.
+            """
+            parcel(date: Date, parcelId: ID!): BusinessLandParcel
+
+            """
+            The covers of a single parcel of the business land.
+            """
+            parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
+          }
+
+          """
+          Represents the name of a business land cover.
+          """
+          enum BusinessLandCoverName {
+            """
+            Represents permanent grassland.
+            """
+            PERMANENT_GRASSLAND
+
+            """
+            Represents permanent crops.
+            """
+            PERMANENT_CROPS
+
+            """
+            Represents arable land.
+            """
+            ARABLE_LAND
+          }
+
+          """
+          Represents a parcel of a business land.
+          """
+          type BusinessLandParcel {
+            """
+            The unique identifier of the land parcel.
+            """
+            id: ID!
+
+            """
+            The sheet ID of the land parcel.
+            """
+            sheetId: String
+
+            """
+            The parcel ID of the land parcel.
+            """
+            parcelId: String
+
+            """
+            The area of the land parcel.
+            """
+            area: Float
+
+            """
+            Whether the parcel is pending digitisation.
+            """
+            pendingDigitisation: Boolean
+          }
+
+          """
+          Represents a cover of a business land.
+          """
+          type BusinessLandCover {
+            """
+            The unique identifier of the land cover.
+            """
+            id: ID!
+
+            """
+            The name of the land cover.
+            """
+            name: BusinessLandCoverName
+
+            """
+            The area of the land cover.
+            """
+            area: Float
+
+            """
+            The code of the land cover.
+            """
+            code: String
+          }
+
+          """Represents a summary of a business land."""
+          type BusinessLandSummary {
+            """The area of arable land."""
+            arableLandArea: Float
+
+            """The area of permanent crops."""
+            permanentCropsArea: Float
+
+            """The area of permanent grassland."""
+            permanentGrasslandArea: Float
+
+            """The total area of the business land."""
+            totalArea: Float
+
+            """The total number of parcels in the business land."""
+            totalParcels: Float
           }
 
           """Represents the security questions of a customer."""

@@ -25,27 +25,27 @@ type BusinessLandParcel {
   """
   The unique identifier of the land parcel.
   """
-  id: ID!
+  id: ID! @on
 
   """
   The sheet ID of the land parcel.
   """
-  sheetId: String
+  sheetId: String @on
 
   """
   The parcel ID of the land parcel.
   """
-  parcelId: String
+  parcelId: String @on
 
   """
   The area of the land parcel.
   """
-  area: Float
+  area: Float @on
 
   """
   Whether the parcel is pending digitisation.
   """
-  pendingDigitisation: Boolean
+  pendingDigitisation: Boolean @on
 }
 
 """
@@ -85,22 +85,22 @@ type BusinessLandCover {
   """
   The unique identifier of the land cover.
   """
-  id: ID!
+  id: ID! @on
 
   """
   The name of the land cover.
   """
-  name: BusinessLandCoverName
+  name: BusinessLandCoverName @on
 
   """
   The area of the land cover.
   """
-  area: Float
+  area: Float @on
 
   """
   The code of the land cover.
   """
-  code: String
+  code: String @on
 }
 
 """
@@ -122,7 +122,7 @@ type BusinessLand {
   """
   The covers of a single parcel of the business land.
   """
-  parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
+  parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover] @on
 
   """
   The summary of the business land.
