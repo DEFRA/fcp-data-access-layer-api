@@ -189,7 +189,7 @@ type Business {
   """
   The land details of the business.
   """
-  land: BusinessLand
+  land: BusinessLand @on
 
   """
   The CPH (County Parish Holding) numbers of the business.

@@ -1,4 +1,4 @@
-import { BadRequest } from '../errors/graphql'
+import { BadRequest } from '../errors/graphql.js'
 
 export const validateDate = (dateString) => {
   const dateObject = new Date(dateString)
