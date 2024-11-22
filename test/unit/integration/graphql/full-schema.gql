@@ -403,12 +403,12 @@ type CPH {
   """
   The start date of the CPH number.
   """
-  startDate: Int
+  startDate: Date
 
   """
   The expiry date of the CPH number.
   """
-  expiryDate: Int
+  expiryDate: Date
 
   """
   The species associated with the CPH number.

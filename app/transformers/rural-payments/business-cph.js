@@ -1,3 +1,5 @@
+import { validateDate } from '../../utils/date.js'
+
 export function transformOrganisationCPH (organisationId, data = []) {
   if (!organisationId) {
     return null
@@ -23,8 +25,8 @@ export function transformCPHInfo (cphNumber, list = [], info = {}) {
     species: info.species,
     parcelNumbers: list.find((cph) => cph.cphNumber === cphNumber)?.parcelNumbers,
     number: cphNumber,
-    startDate: parseInt(info.startDate) / 1000,
-    expiryDate: parseInt(info.expiryDate) / 1000,
+    startDate: validateDate(info.startDate).toISOString(),
+    expiryDate: validateDate(info.expiryDate).toISOString(),
     coordinate: {
       y: info.yCoordinate,
       x: info.xCoordinate
