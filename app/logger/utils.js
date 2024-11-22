@@ -53,7 +53,7 @@ export const sampleArray = (array, sampleSize = 5) => {
   return array.slice(0, sampleSize)
 }
 
-export const sampleResponse = response => {
+export const sampleResponse = (response) => {
   if (Array.isArray(response)) {
     return sampleArray(response)
   }

@@ -11,19 +11,21 @@ import {
   transformLandCoversToArea,
   transformLandParcelsWithGeometry
 } from '../../../../app/transformers/rural-payments/lms.js'
-import {
-  coversSummary,
-  landCover,
-  landParcelsGeometry
-} from '../../../../mocks/fixtures/lms.js'
+import { coversSummary, landCover, landParcelsGeometry } from '../../../../mocks/fixtures/lms.js'
 import {
   organisationCPH,
   organisationCPHInfo
 } from '../../../../mocks/fixtures/organisation-cph.js'
 import mockServer from '../../../../mocks/server'
 import { fakeContext } from '../../../test-setup.js'
-import { transformCPHInfo, transformOrganisationCPH } from '../../../../app/transformers/rural-payments/business-cph.js'
-import { organisationByOrgId, organisationPeopleByOrgId } from '../../../../mocks/fixtures/organisation.js'
+import {
+  transformCPHInfo,
+  transformOrganisationCPH
+} from '../../../../app/transformers/rural-payments/business-cph.js'
+import {
+  organisationByOrgId,
+  organisationPeopleByOrgId
+} from '../../../../mocks/fixtures/organisation.js'
 
 const organisationFixture = organisationByOrgId('5565448')._data
 const organisationCPHInfoFixture = organisationCPHInfo('5565448').data
@@ -38,8 +40,7 @@ describe('Query.business', () => {
   })
 
   it('should return business data', async () => {
-    const transformedOrganisation =
-      transformOrganisationToBusiness(organisationFixture)
+    const transformedOrganisation = transformOrganisationToBusiness(organisationFixture)
 
     const result = await graphql({
       source: `#graphql
@@ -121,16 +122,12 @@ describe('Query.business', () => {
 
     expect(result).toEqual({
       data: { business: null },
-      errors: [
-        new NotFound('Rural payments organisation not found')
-      ]
+      errors: [new NotFound('Rural payments organisation not found')]
     })
   })
 
   it('should handle error from rpp', async () => {
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-organisation-get-by-id:rpp-error'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-organisation-get-by-id:rpp-error')
 
     const result = await graphql({
       source: `#graphql
@@ -152,9 +149,7 @@ describe('Query.business', () => {
   })
 
   it('should handle error from apim', async () => {
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-organisation-get-by-id:apim-error'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-organisation-get-by-id:apim-error')
 
     const result = await graphql({
       source: `#graphql
@@ -205,14 +200,8 @@ describe('Query.business.land', () => {
         business: {
           land: {
             summary: {
-              arableLandArea: transformLandCoversToArea(
-                'Arable Land',
-                coversSummaryData
-              ),
-              permanentCropsArea: transformLandCoversToArea(
-                'Permanent Crops',
-                coversSummaryData
-              ),
+              arableLandArea: transformLandCoversToArea('Arable Land', coversSummaryData),
+              permanentCropsArea: transformLandCoversToArea('Permanent Crops', coversSummaryData),
               permanentGrasslandArea: transformLandCoversToArea(
                 'Permanent Grassland',
                 coversSummaryData
@@ -283,7 +272,11 @@ describe('Query.business.land', () => {
           }
         }
       },
-      errors: [new GraphQLError('Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01')]
+      errors: [
+        new GraphQLError(
+          'Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01'
+        )
+      ]
     })
   })
 
@@ -309,7 +302,7 @@ describe('Query.business.land', () => {
     })
 
     const parcels = transformLandParcelsWithGeometry(landParcelsGeometry(5565448))
-    const parcel = parcels.find(parcel => parcel.parcelId === '8194')
+    const parcel = parcels.find((parcel) => parcel.parcelId === '8194')
 
     expect(result).toEqual({
       data: {
@@ -380,7 +373,11 @@ describe('Query.business.land', () => {
           }
         }
       },
-      errors: [new GraphQLError('Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01')]
+      errors: [
+        new GraphQLError(
+          'Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01'
+        )
+      ]
     })
   })
 
@@ -440,7 +437,11 @@ describe('Query.business.land', () => {
           }
         }
       },
-      errors: [new GraphQLError('Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01')]
+      errors: [
+        new GraphQLError(
+          'Invalid date format: "2020/20/01" is not a valid date. Date should be supplied in ISO 8601 format, e.g. 2020-01-01'
+        )
+      ]
     })
   })
 })
@@ -462,7 +463,9 @@ describe('Query.business.cphList', () => {
       contextValue: fakeContext
     })
 
-    expect(result.data.business.cphList).toEqual(transformOrganisationCPH('5565448', organisationCPHFixture))
+    expect(result.data.business.cphList).toEqual(
+      transformOrganisationCPH('5565448', organisationCPHFixture)
+    )
   })
 })
 
@@ -491,7 +494,9 @@ describe('Query.business.cph', () => {
       contextValue: fakeContext
     })
 
-    expect(result.data.business.cph).toEqual(transformCPHInfo('10/327/0023', organisationCPHFixture, organisationCPHInfoFixture))
+    expect(result.data.business.cph).toEqual(
+      transformCPHInfo('10/327/0023', organisationCPHFixture, organisationCPHInfoFixture)
+    )
   })
 })
 
@@ -531,7 +536,8 @@ describe('Query.business.customers', () => {
             },
             {
               personId: '5302028',
-              firstName: 'Ingrid Jerimire Klaufichus Limouhetta Mortimious Neuekind Orpheus Perimillian Quixillotrio Reviticlese',
+              firstName:
+                'Ingrid Jerimire Klaufichus Limouhetta Mortimious Neuekind Orpheus Perimillian Quixillotrio Reviticlese',
               lastName: 'Cook',
               crn: '9477368292',
               role: 'Agent'
@@ -585,15 +591,14 @@ describe('Query.business.customers', () => {
     expect(result).toEqual({
       data: {
         business: {
-          customer: organisationPeopleByOrgId('5565448')._data.filter(person => person.id === personId).map(
-            ({ privileges }) => ({
-              permissionGroups:
-                transformBusinessCustomerPrivilegesToPermissionGroups(
-                  privileges,
-                  new Permissions().getPermissionGroups()
-                )
-            })
-          )[0]
+          customer: organisationPeopleByOrgId('5565448')
+            ._data.filter((person) => person.id === personId)
+            .map(({ privileges }) => ({
+              permissionGroups: transformBusinessCustomerPrivilegesToPermissionGroups(
+                privileges,
+                new Permissions().getPermissionGroups()
+              )
+            }))[0]
         }
       }
     })

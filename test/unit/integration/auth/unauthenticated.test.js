@@ -32,9 +32,7 @@ describe('Query.customer without authorization header', () => {
     expect(result.data.customer).toBeNull()
     expect(result.errors).toHaveLength(1)
     expect(result.errors[0]).toEqual(
-      new Unauthorized(
-        'Authorization failed, you are not in the correct AD groups'
-      )
+      new Unauthorized('Authorization failed, you are not in the correct AD groups')
     )
   })
 
@@ -60,9 +58,7 @@ describe('Query.customer without authorization header', () => {
     expect(result.data.business).toBeNull()
     expect(result.errors).toHaveLength(1)
     expect(result.errors[0]).toEqual(
-      new Unauthorized(
-        'Authorization failed, you are not in the correct AD groups'
-      )
+      new Unauthorized('Authorization failed, you are not in the correct AD groups')
     )
   })
 
@@ -92,9 +88,7 @@ describe('Query.customer without authorization header', () => {
     expect(result.data.permissionGroups).toBeNull()
     expect(result.errors).toHaveLength(1)
     expect(result.errors[0]).toEqual(
-      new Unauthorized(
-        'Authorization failed, you are not in the correct AD groups'
-      )
+      new Unauthorized('Authorization failed, you are not in the correct AD groups')
     )
   })
 })

@@ -2,7 +2,7 @@ import files from '../utils/files.js'
 
 const { getJSON } = files(import.meta.url)
 
-export const coversSummary = orgId => {
+export const coversSummary = (orgId) => {
   return getJSON(`./orgId/${orgId}/covers-summary.json`)
 }
 
@@ -12,13 +12,13 @@ export const landCovers = (orgId) => {
 
 export const landCover = (orgId, _sheetId, parcelId) => {
   const covers = landCovers(orgId)
-  return covers.find(cover => cover.id.includes(parcelId))
+  return covers.find((cover) => cover.id.includes(parcelId))
 }
 
-export const landParcels = orgId => {
+export const landParcels = (orgId) => {
   return getJSON(`./orgId/${orgId}/land-parcels.json`)
 }
 
-export const landParcelsGeometry = orgId => {
+export const landParcelsGeometry = (orgId) => {
   return getJSON(`./orgId/${orgId}/land-parcels-geometry.json`)
 }

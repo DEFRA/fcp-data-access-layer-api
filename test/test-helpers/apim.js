@@ -13,12 +13,15 @@ export const retrieveApimAccessToken = async () => {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
 
-  const response = await fetch(`${process.env.RP_INTERNAL_APIM_ACCESS_TOKEN_URL}${process.env.API_TENANT_ID}/oauth2/v2.0/token`, {
-    method: 'POST',
-    body,
-    redirect: 'follow',
-    headers
-  })
+  const response = await fetch(
+    `${process.env.RP_INTERNAL_APIM_ACCESS_TOKEN_URL}${process.env.API_TENANT_ID}/oauth2/v2.0/token`,
+    {
+      method: 'POST',
+      body,
+      redirect: 'follow',
+      headers
+    }
+  )
   const parsedResponse = await response.json()
   return parsedResponse.access_token
 }

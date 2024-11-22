@@ -51,11 +51,7 @@ describe('Test Business CPHField Transformer', () => {
 
     test('given input has coordinates populated, should return null', () => {
       expect(
-        transformCPHInfo(
-          '10/327/0023',
-          organisationCPHFixture,
-          organisationCPHInfoFixture
-        )
+        transformCPHInfo('10/327/0023', organisationCPHFixture, organisationCPHInfoFixture)
       ).toEqual({
         parish: 'FILLEIGH',
         species: ['OTHER'],

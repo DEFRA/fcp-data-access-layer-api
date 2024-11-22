@@ -14,21 +14,21 @@ import {
 
 import { authDirectiveTransformer } from '../auth/authenticate.js'
 
-async function getFiles (path) {
+async function getFiles(path) {
   return loadFiles(join(dirname(fileURLToPath(import.meta.url)), path), {
     recursive: true,
-    requireMethod: async filePath => import(pathToFileURL(filePath))
+    requireMethod: async (filePath) => import(pathToFileURL(filePath))
   })
 }
 
-export async function createSchema () {
+export async function createSchema() {
   let schema = makeExecutableSchema({
     typeDefs: await getFiles('types'),
     resolvers: mergeResolvers(await getFiles('resolvers'))
   })
   if (!process.env.ALL_SCHEMA_ON) {
     schema = mapSchema(schema, {
-      [MapperKind.FIELD] (fieldConfig) {
+      [MapperKind.FIELD](fieldConfig) {
         return getDirective(schema, fieldConfig, 'on')?.[0] ? fieldConfig : null
       }
     })
@@ -42,7 +42,7 @@ export async function createSchema () {
 
   schema = filterSchema({
     schema,
-    directiveFilter (directiveName) {
+    directiveFilter(directiveName) {
       return directiveName !== 'on'
     }
   })

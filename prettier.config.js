@@ -14,5 +14,5 @@ export default {
   // Use 2 spaces per indentation level
   tabWidth: 2,
   // Use spaces (not tabs) for indentation
-  useTabs: false,
+  useTabs: false
 }

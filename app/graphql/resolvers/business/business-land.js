@@ -9,16 +9,16 @@ import {
 import { validateDate } from '../../../utils/date.js'
 
 export const BusinessLand = {
-  summary ({ organisationId }) {
+  summary({ organisationId }) {
     return { organisationId }
   },
 
-  async parcel ({ organisationId }, { date, parcelId }, { dataSources }) {
+  async parcel({ organisationId }, { date, parcelId }, { dataSources }) {
     validateDate(date)
 
     const parcels = await BusinessLand.parcels({ organisationId }, { date }, { dataSources })
 
-    const parcel = parcels?.find(p => p.parcelId === parcelId)
+    const parcel = parcels?.find((p) => p.parcelId === parcelId)
     if (!parcel) {
       throw new NotFound(`No parcel found for parcelId: ${parcelId}`)
     }
@@ -26,46 +26,53 @@ export const BusinessLand = {
     return parcel
   },
 
-  async parcels ({ organisationId }, { date }, { dataSources }) {
+  async parcels({ organisationId }, { date }, { dataSources }) {
     validateDate(date)
 
     return transformLandParcelsWithGeometry(
       await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationIdAndDate(
-        organisationId, date
+        organisationId,
+        date
       )
     )
   },
 
-  async parcelCovers ({ organisationId }, { date, parcelId }, { dataSources }) {
+  async parcelCovers({ organisationId }, { date, parcelId }, { dataSources }) {
     validateDate(date)
 
-    const parcel = await BusinessLand.parcel({ organisationId }, { date, parcelId }, { dataSources })
+    const parcel = await BusinessLand.parcel(
+      { organisationId },
+      { date, parcelId },
+      { dataSources }
+    )
 
     return transformLandCovers(
-      await dataSources.ruralPaymentsBusiness.getCoversByOrgSheetParcelId(organisationId, parcel.sheetId, parcelId)
+      await dataSources.ruralPaymentsBusiness.getCoversByOrgSheetParcelId(
+        organisationId,
+        parcel.sheetId,
+        parcelId
+      )
     )
   }
 }
 
 export const BusinessLandSummary = {
-  async totalParcels ({ organisationId }, __, { dataSources }) {
-    return transformTotalParcels(await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationId(
-      organisationId
-    ))
+  async totalParcels({ organisationId }, __, { dataSources }) {
+    return transformTotalParcels(
+      await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationId(organisationId)
+    )
   },
 
-  async totalArea ({ organisationId, historicDate = new Date() }, __, { dataSources }) {
-    return transformTotalArea(await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
-      organisationId,
-      historicDate
-    ))
+  async totalArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
+    return transformTotalArea(
+      await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
+        organisationId,
+        historicDate
+      )
+    )
   },
 
-  async arableLandArea (
-    { organisationId, historicDate = new Date() },
-    __,
-    { dataSources }
-  ) {
+  async arableLandArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
     return transformLandCoversToArea(
       'Arable Land',
       await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
@@ -75,11 +82,7 @@ export const BusinessLandSummary = {
     )
   },
 
-  async permanentGrasslandArea (
-    { organisationId, historicDate = new Date() },
-    __,
-    { dataSources }
-  ) {
+  async permanentGrasslandArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
     return transformLandCoversToArea(
       'Permanent Grassland',
       await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
@@ -89,11 +92,7 @@ export const BusinessLandSummary = {
     )
   },
 
-  async permanentCropsArea (
-    { organisationId, historicDate = new Date() },
-    __,
-    { dataSources }
-  ) {
+  async permanentCropsArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
     return transformLandCoversToArea(
       'Permanent Crops',
       await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
