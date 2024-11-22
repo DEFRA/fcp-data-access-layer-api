@@ -1,7 +1,8 @@
-import {
-  transformOrganisationCPH,
-  transformOrganisationCPHCoordinates
-} from '../../../../app/transformers/rural-payments/business-cph.js'
+import { transformCPHInfo, transformOrganisationCPH } from '../../../../app/transformers/rural-payments/business-cph.js'
+import { organisationCPH, organisationCPHInfo } from '../../../../mocks/fixtures/organisation-cph.js'
+
+const organisationCPHInfoFixture = organisationCPHInfo('5565448').data
+const organisationCPHFixture = organisationCPH('5565448').data
 
 describe('Test Business CPHField Transformer', () => {
   describe('transformOrganisationCPH', () => {
@@ -32,7 +33,6 @@ describe('Test Business CPHField Transformer', () => {
         ])
       ).toEqual([
         {
-          organisationId: 'id',
           number: '43/060/0025',
           parcelNumbers: ['SP2936 2318']
         }
@@ -40,8 +40,8 @@ describe('Test Business CPHField Transformer', () => {
     })
   })
 
-  describe('transformOrganisationCPHCoordinates', () => {
-    const systemUnderTest = transformOrganisationCPHCoordinates
+  describe('transformCPHInfo', () => {
+    const systemUnderTest = transformCPHInfo
 
     test('given input is empty, should return null', () => {
       expect(systemUnderTest(null)).toEqual(null)
@@ -49,13 +49,19 @@ describe('Test Business CPHField Transformer', () => {
 
     test('given input has coordinates populated, should return null', () => {
       expect(
-        systemUnderTest({
-          yCoordinate: 22312,
-          xCoordinate: 42312
-        })
+        systemUnderTest(
+          '10/327/0023',
+          organisationCPHFixture,
+          organisationCPHInfoFixture
+        )
       ).toEqual({
-        x: 42312,
-        y: 22312
+        coordinate: { x: 267000, y: 128000 },
+        expiryDate: 1456876800,
+        number: '10/327/0023',
+        parcelNumbers: ['SS6927 1650'],
+        parish: 'FILLEIGH',
+        species: ['OTHER'],
+        startDate: 1381359600
       })
     })
   })

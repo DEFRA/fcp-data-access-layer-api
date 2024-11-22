@@ -18,6 +18,23 @@ Represents a County Parish Holding (CPH) number.
 
 Data Source: Rural Payments Portal (PRR)
 """
+type CPHSummary {
+  """
+  The CPH number.
+  """
+  number: String
+
+  """
+  The parcel numbers associated with the CPH number.
+  """
+  parcelNumbers: [String]
+}
+
+"""
+Represents a County Parish Holding (CPH) number.
+
+Data Source: Rural Payments Portal (PRR)
+"""
 type CPH {
   """
   The CPH number.

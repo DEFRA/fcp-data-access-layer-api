@@ -1,0 +1,399 @@
+type Query {
+  business(sbi: ID!): Business
+  customer(crn: ID!): Customer
+}
+
+scalar Int
+scalar Float
+scalar Date
+scalar UUID
+
+"""
+Represents the customer of a business.
+"""
+type BusinessCustomer {
+  """
+  The unique identifier of the customer.
+  """
+  personId: ID
+
+  """
+  First name of the customer.
+  """
+  firstName: String
+
+  """
+  Last name of the customer.
+  """
+  lastName: String
+
+  """
+  The customer reference of the customer.
+  """
+  crn: String
+
+  """
+  The role of the customer against the business.
+  """
+  role: String
+}
+
+"""
+Represents the customer of a business.
+"""
+type BusinessCustomerDetail {
+  """
+  The unique identifier of the customer.
+  """
+  personId: ID
+
+  """
+  First name of the customer.
+  """
+  firstName: String
+
+  """
+  Last name of the customer.
+  """
+  lastName: String
+
+  """
+  The customer reference of the customer.
+  """
+  crn: String
+
+  """
+  The role of the customer against the business.
+  """
+  role: String
+
+  """
+  The permissions the customer against the business.
+  """
+  permissionGroups: [BusinessCustomerPermissionGroup]
+}
+
+type BusinessCustomerPermissionGroup {
+  """
+  The permission group id.
+  """
+  id: PermissionGroupId!
+
+  """
+  The permission level customer has for the business.
+  """
+  level: PermissionLevel
+}
+
+"""
+Represents a business.
+
+Data Source: Rural Payments Portal (PRR)
+"""
+type Business {
+  """
+  The first unique identifier of the business.
+  """
+  organisationId: ID
+
+  """
+  The Single Business Identifier (SBI) of the business.
+  """
+  sbi: ID!
+
+  """
+  The customers associated with the business.
+  """
+  customers: [BusinessCustomer]
+
+  """
+  The customer associated with the business.
+  """
+  customer(crn: ID!): BusinessCustomerDetail
+
+  """
+  The land details of the business.
+  """
+  land: BusinessLand
+}
+
+"""
+Represents a business land.
+
+Data Source: Rural Payments Portal (PRR)
+"""
+type BusinessLand {
+  """
+  The parcels of the business land.
+  """
+  parcels(date: Date): [BusinessLandParcel]
+
+  """
+  A single parcel of the business land.
+  """
+  parcel(date: Date, parcelId: ID!): BusinessLandParcel
+
+  """
+  The covers of a single parcel of the business land.
+  """
+  parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
+}
+
+"""
+Represents the name of a business land cover.
+"""
+enum BusinessLandCoverName {
+  """
+  Represents permanent grassland.
+  """
+  PERMANENT_GRASSLAND
+
+  """
+  Represents permanent crops.
+  """
+  PERMANENT_CROPS
+
+  """
+  Represents arable land.
+  """
+  ARABLE_LAND
+}
+
+"""
+Represents a parcel of a business land.
+"""
+type BusinessLandParcel {
+  """
+  The unique identifier of the land parcel.
+  """
+  id: ID!
+
+  """
+  The sheet ID of the land parcel.
+  """
+  sheetId: String
+
+  """
+  The parcel ID of the land parcel.
+  """
+  parcelId: String
+
+  """
+  The area of the land parcel.
+  """
+  area: Float
+
+  """
+  Whether the parcel is pending digitisation.
+  """
+  pendingDigitisation: Boolean
+}
+
+"""
+Represents a cover of a business land.
+"""
+type BusinessLandCover {
+  """
+  The unique identifier of the land cover.
+  """
+  id: ID!
+
+  """
+  The name of the land cover.
+  """
+  name: BusinessLandCoverName
+
+  """
+  The area of the land cover.
+  """
+  area: Float
+
+  """
+  The code of the land cover.
+  """
+  code: String
+}
+
+"""
+Represents a summary of a business land.
+"""
+type BusinessLandSummary {
+  """
+  The area of arable land.
+  """
+  arableLandArea: Float
+
+  """
+  The area of permanent crops.
+  """
+  permanentCropsArea: Float
+
+  """
+  The area of permanent grassland.
+  """
+  permanentGrasslandArea: Float
+
+  """
+  The total area of the business land.
+  """
+  totalArea: Float
+
+  """
+  The total number of parcels in the business land.
+  """
+  totalParcels: Float
+}
+
+"""
+Represents the security questions of a customer.
+"""
+type CustomerAuthenticationQuestions {
+  """
+  The memorable date question.
+  """
+  memorableDate: String
+
+  """
+  The memorable event question.
+  """
+  memorableEvent: String
+
+  """
+  The memorable place question.
+  """
+  memorablePlace: String
+
+  """
+  The date the record was last updated.
+  """
+  updatedAt: Date
+
+  """
+  The indicator for customer record been found in authenticate database
+  """
+  isFound: Boolean
+}
+
+"""
+Represents a customer.
+"""
+type Customer {
+  """
+  The unique identifier of the customer.
+  """
+  personId: ID!
+
+  """
+  The CRN (Customer Reference Number) of the customer.
+  """
+  crn: ID!
+
+  """
+  The security questions of the customer.
+  """
+  authenticationQuestions(
+    entraIdUserObjectId: UUID!
+  ): CustomerAuthenticationQuestions
+
+  """
+  The businesses associated with the customer.
+  """
+  businesses: [CustomerBusiness]
+
+  """
+  The single business filtered by sbi associated with the customer.
+  """
+  business(sbi: ID!): CustomerBusinessDetail
+}
+
+"""
+Represents a business owned by a customer.
+"""
+type CustomerBusiness {
+  """
+  The unique identifier of the business.
+  """
+  organisationId: ID
+
+  """
+  The SBI (Single Business Identifier) of the business.
+  """
+  sbi: ID!
+
+  """
+  The name of the business.
+  """
+  name: String!
+
+  """
+  The role associated with the business.
+  """
+  role: String
+}
+
+"""
+Represents a business owned by a customer.
+"""
+type CustomerBusinessDetail {
+  """
+  The unique identifier of the business.
+  """
+  organisationId: ID
+
+  """
+  The SBI (Single Business Identifier) of the business.
+  """
+  sbi: ID!
+
+  """
+  The name of the business.
+  """
+  name: String!
+
+  """
+  The role associated with the business.
+  """
+  role: String
+
+  """
+  The permission groups associated with the business.
+  """
+  permissionGroups: [CustomerBusinessPermissionGroup]
+}
+
+type CustomerBusinessPermissionGroup {
+  """
+  The permission group id.
+  """
+  id: PermissionGroupId!
+
+  """
+  The permission level customer has for the business.
+  """
+  level: PermissionLevel
+}
+
+enum PermissionLevel {
+  NO_ACCESS
+  VIEW
+  AMEND
+  SUBMIT
+  MAKE_LEGAL_CHANGES
+  FULL_PERMISSION
+}
+
+enum PermissionGroupId {
+  BASIC_PAYMENT_SCHEME
+  BUSINESS_DETAILS
+  COUNTRYSIDE_STEWARDSHIP_AGREEMENTS
+  COUNTRYSIDE_STEWARDSHIP_APPLICATIONS
+  ENTITLEMENTS
+  ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS
+  LAND_DETAILS
+}
+
+enum AuthRole {
+  ADMIN
+}
+
+directive @auth(requires: AuthRole = ADMIN) on OBJECT | FIELD_DEFINITION

@@ -53,7 +53,7 @@ describe('Business', () => {
   it('cph', async () => {
     const cph = organisationCPH('5565448').data
     const transformed = transformOrganisationCPH(mockBusiness.organisationId, cph)
-    expect(await Business.cph(mockBusiness, null, { dataSources })).toEqual(transformed)
+    expect(await Business.cphList(mockBusiness, null, { dataSources })).toEqual(transformed)
   })
 
   it('customers', async () => {

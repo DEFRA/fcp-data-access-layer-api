@@ -8,19 +8,26 @@ export function transformOrganisationCPH (organisationId, data = []) {
   }
 
   return data.map(({ cphNumber, parcelNumbers }) => ({
-    organisationId,
     number: cphNumber,
     parcelNumbers
   }))
 }
 
-export function transformOrganisationCPHCoordinates (data = {}) {
-  if (!data) {
+export function transformCPHInfo (cphNumber, list = [], info = {}) {
+  if (!cphNumber) {
     return null
   }
 
   return {
-    y: data.yCoordinate,
-    x: data.xCoordinate
+    parish: info.parish,
+    species: info.species,
+    parcelNumbers: list.find((cph) => cph.cphNumber === cphNumber)?.parcelNumbers,
+    number: cphNumber,
+    startDate: parseInt(info.startDate) / 1000,
+    expiryDate: parseInt(info.expiryDate) / 1000,
+    coordinate: {
+      y: info.yCoordinate,
+      x: info.xCoordinate
+    }
   }
 }
