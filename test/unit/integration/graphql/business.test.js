@@ -3,10 +3,6 @@ import { Permissions } from '../../../../app/data-sources/static/permissions.js'
 import { NotFound } from '../../../../app/errors/graphql.js'
 import { schema } from '../../../../app/graphql/server.js'
 import {
-  transformOrganisationCPH,
-  transformOrganisationCPHCoordinates
-} from '../../../../app/transformers/rural-payments/business-cph.js'
-import {
   transformBusinessCustomerPrivilegesToPermissionGroups,
   transformOrganisationToBusiness
 } from '../../../../app/transformers/rural-payments/business.js'
@@ -24,12 +20,10 @@ import {
   organisationCPH,
   organisationCPHInfo
 } from '../../../../mocks/fixtures/organisation-cph.js'
-import {
-  organisationByOrgId,
-  organisationPeopleByOrgId
-} from '../../../../mocks/fixtures/organisation.js'
-import mockServer from '../../../../mocks/server.js'
+import mockServer from '../../../../mocks/server'
 import { fakeContext } from '../../../test-setup.js'
+import { transformCPHInfo, transformOrganisationCPH } from '../../../../app/transformers/rural-payments/business-cph.js'
+import { organisationByOrgId, organisationPeopleByOrgId } from '../../../../mocks/fixtures/organisation.js'
 
 const organisationFixture = organisationByOrgId('5565448')._data
 const organisationCPHInfoFixture = organisationCPHInfo('5565448').data
@@ -451,18 +445,34 @@ describe('Query.business.land', () => {
   })
 })
 
+describe('Query.business.cphList', () => {
+  it('cphList', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query BusinessCPHList {
+          business(sbi: "107183280") {
+            cphList {
+              number
+              parcelNumbers
+            }
+          }
+        }
+      `,
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result.data.business.cphList).toEqual(transformOrganisationCPH('5565448', organisationCPHFixture))
+  })
+})
+
 describe('Query.business.cph', () => {
-  const transformedCPH = transformOrganisationCPH(
-    '5565448',
-    organisationCPHFixture
-  )
-  delete transformedCPH[0].organisationId
   it('cph', async () => {
     const result = await graphql({
       source: `#graphql
       query BusinessCPH {
         business(sbi: "107183280") {
-          cph {
+          cph(number: "10/327/0023") {
             number
             parcelNumbers
             parish
@@ -481,16 +491,7 @@ describe('Query.business.cph', () => {
       contextValue: fakeContext
     })
 
-    expect(result.data.business.cph[0]).toEqual({
-      ...transformedCPH[0],
-      parish: organisationCPHInfoFixture.parish,
-      species: organisationCPHInfoFixture.species,
-      startDate: organisationCPHInfoFixture.startDate / 1000,
-      expiryDate: organisationCPHInfoFixture.expiryDate / 1000,
-      coordinate: transformOrganisationCPHCoordinates(
-        organisationCPHInfoFixture
-      )
-    })
+    expect(result.data.business.cph).toEqual(transformCPHInfo('10/327/0023', organisationCPHFixture, organisationCPHInfoFixture))
   })
 })
 

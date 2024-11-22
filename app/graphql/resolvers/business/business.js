@@ -1,7 +1,7 @@
 import { NotFound } from '../../../errors/graphql.js'
 import { RURALPAYMENTS_API_NOT_FOUND_001 } from '../../../logger/codes.js'
 import { logger } from '../../../logger/logger.js'
-import { transformOrganisationCPH } from '../../../transformers/rural-payments/business-cph.js'
+import { transformCPHInfo, transformOrganisationCPH } from '../../../transformers/rural-payments/business-cph.js'
 import {
   transformBusinessCustomerPrivilegesToPermissionGroups,
   transformOrganisationCustomer,
@@ -13,13 +13,25 @@ export const Business = {
     return { organisationId }
   },
 
-  async cph ({ organisationId }, _, { dataSources }) {
+  async cphList ({ organisationId }, _, { dataSources }) {
     return transformOrganisationCPH(
       organisationId,
       await dataSources.ruralPaymentsBusiness.getOrganisationCPHCollectionByOrganisationId(
         organisationId
       )
     )
+  },
+
+  async cph ({ organisationId }, { number }, { dataSources }) {
+    return transformCPHInfo(number, ...await Promise.all([
+      dataSources.ruralPaymentsBusiness.getOrganisationCPHCollectionByOrganisationId(
+        organisationId
+      ),
+      dataSources.ruralPaymentsBusiness.getOrganisationCPHInfoByOrganisationIdAndCPHNumber(
+        organisationId,
+        number
+      )
+    ]))
   },
 
   async customers ({ organisationId }, _, { dataSources }) {

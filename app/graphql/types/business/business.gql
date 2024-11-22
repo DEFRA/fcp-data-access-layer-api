@@ -194,7 +194,12 @@ type Business {
   """
   The CPH (County Parish Holding) numbers of the business.
   """
-  cph: [CPH]
+  cphList: [CPHSummary]
+
+  """
+  The CPH (County Parish Holding) numbers of the business.
+  """
+  cph(number: String!): CPH
 
   """
   The customers associated with the business.
