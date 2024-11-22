@@ -20,10 +20,26 @@ describe('LMS transformer', () => {
   test('transformLandParcelsWithGeometry', () => {
     const input = {
       features: [
-        { id: 'mockId', properties: { sheetId: 'mockSheetId', area: 1000, parcelId: 'mockParcelId', pendingDigitisation: 'false' } }
+        {
+          id: 'mockId',
+          properties: {
+            sheetId: 'mockSheetId',
+            area: 1000,
+            parcelId: 'mockParcelId',
+            pendingDigitisation: 'false'
+          }
+        }
       ]
     }
-    const output = [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000, parcelId: 'mockParcelId', pendingDigitisation: false }]
+    const output = [
+      {
+        id: 'mockId',
+        sheetId: 'mockSheetId',
+        area: 1000,
+        parcelId: 'mockParcelId',
+        pendingDigitisation: false
+      }
+    ]
     expect(transformLandParcelsWithGeometry(input)).toEqual(output)
   })
 })

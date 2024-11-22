@@ -1,5 +1,11 @@
 import { afterEach, describe, expect, it, jest } from '@jest/globals'
-import { redactSensitiveData, safeSerialise, safeStructuredClone, sampleResponseBodyData, serialize } from '../../../app/logger/winstonFormatters'
+import {
+  redactSensitiveData,
+  safeSerialise,
+  safeStructuredClone,
+  sampleResponseBodyData,
+  serialize
+} from '../../../app/logger/winstonFormatters'
 import { HeaderMap } from '@apollo/server'
 
 const someURL = new URL('http://localhost/path')
@@ -28,7 +34,10 @@ const fixture = {
     params,
     path: someURL
   },
-  response: { headers: headersMap, body: { data: 'some data', access_token: 'something super secret' } },
+  response: {
+    headers: headersMap,
+    body: { data: 'some data', access_token: 'something super secret' }
+  },
   code: 'RURALPAYMENTS_API_REQUEST_001',
   level: 'verbose',
   message: '#datasource - Rural payments - request',
@@ -164,12 +173,14 @@ describe('winstonFormatters', () => {
     it('should limit log response body data to 5 items', () => {
       const body = [1, 2, 3, 4, 5]
       const data = { ...info, response: { body } }
-      expect(sampleResponseBodyData().transform({
-        ...data,
-        response: {
-          body: [...body, 6, 7, 8, 9]
-        }
-      })).toEqual(data)
+      expect(
+        sampleResponseBodyData().transform({
+          ...data,
+          response: {
+            body: [...body, 6, 7, 8, 9]
+          }
+        })
+      ).toEqual(data)
     })
   })
 })

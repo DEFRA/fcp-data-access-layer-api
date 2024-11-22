@@ -1,7 +1,4 @@
-import {
-  Permission,
-  Query
-} from '../../../app/graphql/resolvers/permissions/query.js'
+import { Permission, Query } from '../../../app/graphql/resolvers/permissions/query.js'
 import {
   organisationBySbi,
   organisationPeopleByOrgId
@@ -10,20 +7,20 @@ import { personById } from '../../../mocks/fixtures/person.js'
 
 const dataSources = {
   ruralPaymentsBusiness: {
-    getOrganisationCustomersByOrganisationId (organisationId) {
+    getOrganisationCustomersByOrganisationId(organisationId) {
       return organisationPeopleByOrgId(organisationId)._data
     },
-    getOrganisationBySBI (sbi) {
+    getOrganisationBySBI(sbi) {
       return organisationBySbi(sbi)._data[0]
     }
   },
   ruralPaymentsCustomer: {
-    getCustomerByCRN () {
+    getCustomerByCRN() {
       return personById({ id: '5263421' })._data
     }
   },
   permissions: {
-    getPermissionGroups () {
+    getPermissionGroups() {
       return [
         {
           id: 'MOCK_PERMISSION_GROUP_ID',

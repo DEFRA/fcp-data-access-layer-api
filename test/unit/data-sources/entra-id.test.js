@@ -10,7 +10,9 @@ const missingId = 'object-id-with-missing-employee-id'
 
 describe('EntraGraphQL test - lookupEmployeeID', () => {
   beforeEach(() => {
-    jest.spyOn(DefaultAzureCredential.prototype, 'getToken').mockImplementation(() => ({ token: 'mockToken' }))
+    jest
+      .spyOn(DefaultAzureCredential.prototype, 'getToken')
+      .mockImplementation(() => ({ token: 'mockToken' }))
   })
 
   afterEach(() => {
@@ -44,7 +46,9 @@ describe('EntraGraphQL test - lookupEmployeeID', () => {
 
   it('should fail if no credential flow is available', async () => {
     const error = new Error('Could not get the employee ID for the user: ' + userId)
-    jest.spyOn(RESTDataSource.prototype, 'get').mockImplementation(() => { throw error })
+    jest.spyOn(RESTDataSource.prototype, 'get').mockImplementation(() => {
+      throw error
+    })
 
     await expect(() => new EntraIdApi({ logger }).getEmployeeId(userId)).rejects.toEqual(error)
   })

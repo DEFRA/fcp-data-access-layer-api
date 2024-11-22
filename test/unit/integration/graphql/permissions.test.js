@@ -77,10 +77,7 @@ describe('Query.permissionGroups', () => {
               { active: false, functions: [], level: 'NO_ACCESS' },
               {
                 active: false,
-                functions: [
-                  'View business details',
-                  'View people associated with the business'
-                ],
+                functions: ['View business details', 'View people associated with the business'],
                 level: 'VIEW'
               },
               {

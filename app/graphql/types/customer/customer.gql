@@ -136,9 +136,7 @@ type Customer {
   """
   The security questions of the customer.
   """
-  authenticationQuestions(
-    entraIdUserObjectId: UUID!
-  ): CustomerAuthenticationQuestions @on
+  authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions @on
 
   """
   The businesses associated with the customer.
@@ -180,10 +178,7 @@ type CustomerBusinessDetail {
   """
   The messages associated with the business.
   """
-  messages(
-    pagination: Pagination
-    showOnlyDeleted: Boolean
-  ): [CustomerBusinessMessage]
+  messages(pagination: Pagination, showOnlyDeleted: Boolean): [CustomerBusinessMessage]
 
   """
   The permission groups associated with the business.
