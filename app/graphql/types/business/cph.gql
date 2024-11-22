@@ -20,7 +20,7 @@ Data Source: Rural Payments Portal (PRR)
 """
 type CPHSummary {
   """
-  The CPH number.
+  The CPH number, example: "10/327/0023"
   """
   number: String
 
@@ -37,7 +37,7 @@ Data Source: Rural Payments Portal (PRR)
 """
 type CPH {
   """
-  The CPH number.
+  The CPH number, example: "10/327/0023"
   """
   number: String
 
