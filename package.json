@@ -1,17 +1,14 @@
 {
   "name": "fcp-data-access-layer-api",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Customer Registry GraphQL Service",
   "homepage": "https://github.com/DEFRA/fcp-data-access-layer-api",
   "main": "app/index.js",
   "type": "module",
   "scripts": {
-    "format:gql": "prettier \"app/graphql/types/**/*.gql\" --write",
-    "format:js": "standard --fix",
-    "format": "npm run format:js && npm run format:gql",
-    "lint:gql": "eslint \"app/graphql/types\" && prettier \"app/graphql/types/**/*.gql\" --check",
-    "lint:js": "standard",
-    "pretest": "npm run lint:js && npm run lint:gql",
+    "format": "eslint --fix . && prettier --write .",
+    "lint": "eslint . && prettier --check .",
+    "pretest": "npm run lint",
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext js --legacy-watch app/index.js",
     "start:dev": "nodemon -r dotenv/config --ext js,gql app/index.js",
     "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
@@ -52,28 +49,25 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.25.9",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@mocks-server/core": "^4.0.2",
     "dotenv": "^16.3.1",
-    "eslint": "^8.52.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.9.0",
     "jest": "^29.6.4",
     "jest-junit": "^16.0.0",
     "mock-jwks": "^3.2.2",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.3",
-    "standard": "^17.1.0"
+    "prettier": "^3.3.3"
   },
-  "standard": {
-    "globals": [
-      "describe",
-      "beforeEach",
-      "expect",
-      "test",
-      "afterEach",
-      "jest",
-      "beforeAll",
-      "afterAll",
-      "it"
+  "eslintConfig": {
+    "extends": [
+      "eslint-plugin-import",
+      "eslint-plugin-jest"
     ]
   },
   "nodemonConfig": {

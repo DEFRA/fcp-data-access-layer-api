@@ -1,6 +1,6 @@
 import { validateDate } from '../../utils/date.js'
 
-export function transformOrganisationCPH (organisationId, data = []) {
+export function transformOrganisationCPH(organisationId, data = []) {
   if (!organisationId) {
     return null
   }
@@ -15,7 +15,7 @@ export function transformOrganisationCPH (organisationId, data = []) {
   }))
 }
 
-export function transformCPHInfo (cphNumber, list = [], info = {}) {
+export function transformCPHInfo(cphNumber, list = [], info = {}) {
   if (!cphNumber) {
     return null
   }

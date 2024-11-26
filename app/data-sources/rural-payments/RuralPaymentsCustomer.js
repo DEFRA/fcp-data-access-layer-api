@@ -3,7 +3,7 @@ import { RURALPAYMENTS_API_NOT_FOUND_001 } from '../../logger/codes.js'
 import { RuralPayments } from './RuralPayments.js'
 
 export class RuralPaymentsCustomer extends RuralPayments {
-  async getCustomerByCRN (crn) {
+  async getCustomerByCRN(crn) {
     this.logger.silly('Getting customer by CRN', { crn })
 
     const body = JSON.stringify({
@@ -24,20 +24,28 @@ export class RuralPaymentsCustomer extends RuralPayments {
     const response = customerResponse._data.pop() || {}
 
     if (!response?.id) {
-      this.logger.warn('#datasource - Rural payments - Customer not found for CRN', { crn, code: RURALPAYMENTS_API_NOT_FOUND_001, response: { body: customerResponse } })
+      this.logger.warn('#datasource - Rural payments - Customer not found for CRN', {
+        crn,
+        code: RURALPAYMENTS_API_NOT_FOUND_001,
+        response: { body: customerResponse }
+      })
       throw new NotFound('Rural payments customer not found')
     }
 
     return this.getPersonByPersonId(response.id)
   }
 
-  async getPersonByPersonId (personId) {
+  async getPersonByPersonId(personId) {
     this.logger.silly('Getting person by person ID', { personId })
 
     const response = await this.get(`person/${personId}/summary`)
 
     if (!response?._data?.id) {
-      this.logger.warn('#datasource - Rural payments - Customer not found for Person ID', { personId, code: RURALPAYMENTS_API_NOT_FOUND_001, response: { body: response } })
+      this.logger.warn('#datasource - Rural payments - Customer not found for Person ID', {
+        personId,
+        code: RURALPAYMENTS_API_NOT_FOUND_001,
+        response: { body: response }
+      })
       throw new NotFound('Rural payments customer not found')
     }
 
@@ -45,7 +53,7 @@ export class RuralPaymentsCustomer extends RuralPayments {
     return response._data
   }
 
-  async getPersonBusinessesByPersonId (personId, sbi) {
+  async getPersonBusinessesByPersonId(personId, sbi) {
     this.logger.silly('Getting person businesses by person ID', { personId, sbi })
 
     const personBusinessSummaries = await this.get(
@@ -54,16 +62,13 @@ export class RuralPaymentsCustomer extends RuralPayments {
       `organisation/person/${personId}/summary?search=&page-size=${process.env.VERSION_1_PAGE_SIZE || 100}`
     )
 
-    this.logger.silly('Person businesses by person ID response', { response: { body: personBusinessSummaries } })
+    this.logger.silly('Person businesses by person ID response', {
+      response: { body: personBusinessSummaries }
+    })
     return personBusinessSummaries._data
   }
 
-  async getNotificationsByOrganisationIdAndPersonId (
-    organisationId,
-    personId,
-    page,
-    size
-  ) {
+  async getNotificationsByOrganisationIdAndPersonId(organisationId, personId, page, size) {
     this.logger.silly('Getting notifications by organisation ID and person ID', {
       organisationId,
       personId,

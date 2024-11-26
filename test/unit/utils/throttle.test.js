@@ -50,7 +50,9 @@ describe('throttle function', () => {
   })
 
   it('should return false if the function throws an error', async () => {
-    const errorFn = jest.fn(() => { throw new Error('error') })
+    const errorFn = jest.fn(() => {
+      throw new Error('error')
+    })
     const throttledErrorFn = throttle(errorFn, 1000)
     const result = await throttledErrorFn()
     expect(result).toBe(false)

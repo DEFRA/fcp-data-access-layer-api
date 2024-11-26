@@ -7,7 +7,7 @@ import { Permissions } from '../data-sources/static/permissions.js'
 import { logger } from '../logger/logger.js'
 import { apolloServer } from './server.js'
 
-export async function context ({ request }) {
+export async function context({ request }) {
   const auth = await getAuth(request)
 
   const requestLogger = logger.child({ requestId: request.id })

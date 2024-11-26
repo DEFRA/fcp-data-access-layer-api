@@ -1,6 +1,6 @@
-export function transformLandCovers (landCover) {
+export function transformLandCovers(landCover) {
   return landCover?.info
-    .filter(item => item.area !== 0)
+    .filter((item) => item.area !== 0)
     .map(({ code, area, name }) => {
       return {
         id: landCover.id,
@@ -11,14 +11,14 @@ export function transformLandCovers (landCover) {
     })
 }
 
-export function transformLandCoversToArea (name, landCovers) {
-  const { area } = landCovers.find(landCover => landCover.name === name)
+export function transformLandCoversToArea(name, landCovers) {
+  const { area } = landCovers.find((landCover) => landCover.name === name)
   return area
 }
 
-export function transformLandParcelsWithGeometry (landParcels) {
+export function transformLandParcelsWithGeometry(landParcels) {
   const { features } = landParcels
-  return features.map(parcel => {
+  return features.map((parcel) => {
     return {
       id: String(parcel.id),
       parcelId: parcel.properties.parcelId,
@@ -29,10 +29,10 @@ export function transformLandParcelsWithGeometry (landParcels) {
   })
 }
 
-export function transformTotalParcels (landParcels) {
-  return new Set(landParcels.map(parcel => parcel.id)).size
+export function transformTotalParcels(landParcels) {
+  return new Set(landParcels.map((parcel) => parcel.id)).size
 }
 
-export function transformTotalArea (landCovers) {
+export function transformTotalArea(landCovers) {
   return landCovers.reduce((totalArea, { area }) => totalArea + area, 0)
 }

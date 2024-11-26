@@ -2,7 +2,7 @@ import { GraphQLError } from 'graphql'
 import StatusCodes from 'http-status-codes'
 
 export class Unauthorized extends GraphQLError {
-  constructor (message, options) {
+  constructor(message, options) {
     super(message, options)
 
     this.extensions.code = StatusCodes.getStatusText(StatusCodes.UNAUTHORIZED).toUpperCase()
@@ -11,7 +11,7 @@ export class Unauthorized extends GraphQLError {
 }
 
 export class NotFound extends GraphQLError {
-  constructor (message, options) {
+  constructor(message, options) {
     super(message, options)
 
     this.extensions.code = StatusCodes.getStatusText(StatusCodes.NOT_FOUND).toUpperCase()
@@ -20,7 +20,7 @@ export class NotFound extends GraphQLError {
 }
 
 export class Forbidden extends GraphQLError {
-  constructor (message, options) {
+  constructor(message, options) {
     super(message, options)
 
     this.extensions.code = StatusCodes.getStatusText(StatusCodes.FORBIDDEN).toUpperCase()
@@ -29,7 +29,7 @@ export class Forbidden extends GraphQLError {
 }
 
 export class BadRequest extends GraphQLError {
-  constructor (message, options) {
+  constructor(message, options) {
     super(message, options)
 
     this.extensions.code = StatusCodes.getStatusText(StatusCodes.BAD_REQUEST).toUpperCase()
@@ -38,7 +38,7 @@ export class BadRequest extends GraphQLError {
 }
 
 export class HttpError extends GraphQLError {
-  constructor (statusCode, options) {
+  constructor(statusCode, options) {
     const statusText = StatusCodes.getStatusText(statusCode)
 
     super(statusText, options)

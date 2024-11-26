@@ -21,9 +21,7 @@ describe('Query.customer', () => {
   })
 
   it('should return customer data', async () => {
-    const customerInfo = ruralPaymentsPortalCustomerTransformer(
-      personFixture._data
-    )
+    const customerInfo = ruralPaymentsPortalCustomerTransformer(personFixture._data)
     const result = await graphql({
       source: `#graphql
         query Customer($crn: ID!) {
@@ -92,9 +90,7 @@ describe('Query.customer', () => {
   })
 
   it('should handle person not found error', async () => {
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-person-get-by-id:not-found'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-id:not-found')
 
     const result = await graphql({
       source: `#graphql
@@ -118,9 +114,7 @@ describe('Query.customer', () => {
   })
 
   it('should handle error', async () => {
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-person-get-by-id:error'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-id:error')
 
     const result = await graphql({
       source: `#graphql
@@ -145,9 +139,7 @@ describe('Query.customer', () => {
 
   describe('Handle 500 errors', () => {
     it('should retry request if 500 error', async () => {
-      await mockServer.server.mock.useRouteVariant(
-        'rural-payments-person-get-by-crn:error'
-      )
+      await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-crn:error')
 
       const result = await graphql({
         source: `#graphql
@@ -242,9 +234,7 @@ describe('Query.customer.authenticationQuestions', () => {
     jest
       .spyOn(DefaultAzureCredential.prototype, 'getToken')
       .mockImplementation(() => ({ token: 'mockToken' }))
-    jest
-      .spyOn(EntraIdApi.prototype, 'get')
-      .mockImplementation(() => ({ employeeId: 'x123456' }))
+    jest.spyOn(EntraIdApi.prototype, 'get').mockImplementation(() => ({ employeeId: 'x123456' }))
   })
 
   afterEach(() => {
@@ -262,8 +252,9 @@ describe('Query.customer.authenticationQuestions', () => {
     fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
       authenticateQuestionsResponse
     )
-    const transformedAuthenticateQuestions =
-      transformAuthenticateQuestionsAnswers(authenticateQuestionsResponse)
+    const transformedAuthenticateQuestions = transformAuthenticateQuestionsAnswers(
+      authenticateQuestionsResponse
+    )
     const result = await graphql({
       source: `#graphql
         query Customer {
@@ -285,9 +276,7 @@ describe('Query.customer.authenticationQuestions', () => {
     expect(result).toEqual({
       data: {
         customer: {
-          authenticationQuestions: JSON.parse(
-            JSON.stringify(transformedAuthenticateQuestions)
-          )
+          authenticationQuestions: JSON.parse(JSON.stringify(transformedAuthenticateQuestions))
         }
       }
     })
@@ -480,28 +469,36 @@ describe('Query.customer.business', () => {
         customer: {
           business: {
             role: 'Employee',
-            permissionGroups: [{
-              id: 'BASIC_PAYMENT_SCHEME',
-              level: 'NO_ACCESS'
-            }, {
-              id: 'BUSINESS_DETAILS',
-              level: 'AMEND'
-            }, {
-              id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS',
-              level: 'SUBMIT'
-            }, {
-              id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS',
-              level: 'SUBMIT'
-            }, {
-              id: 'ENTITLEMENTS',
-              level: 'NO_ACCESS'
-            }, {
-              id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
-              level: 'NO_ACCESS'
-            }, {
-              id: 'LAND_DETAILS',
-              level: 'VIEW'
-            }]
+            permissionGroups: [
+              {
+                id: 'BASIC_PAYMENT_SCHEME',
+                level: 'NO_ACCESS'
+              },
+              {
+                id: 'BUSINESS_DETAILS',
+                level: 'AMEND'
+              },
+              {
+                id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS',
+                level: 'SUBMIT'
+              },
+              {
+                id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS',
+                level: 'SUBMIT'
+              },
+              {
+                id: 'ENTITLEMENTS',
+                level: 'NO_ACCESS'
+              },
+              {
+                id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
+                level: 'NO_ACCESS'
+              },
+              {
+                id: 'LAND_DETAILS',
+                level: 'VIEW'
+              }
+            ]
           }
         }
       }
@@ -638,9 +635,7 @@ describe('Query.customer.business', () => {
           businesses: null
         }
       },
-      errors: [
-        new NotFound('Rural payments customer not found')
-      ]
+      errors: [new NotFound('Rural payments customer not found')]
     })
   })
 })

@@ -87,12 +87,7 @@ describe('AuthenticateDatabase', () => {
       VALUES(?, ?, ?, ?);
     `,
       {
-        replacements: [
-          '2024-08-28T00:00:00.000Z',
-          'mockEmployeeId',
-          'Search',
-          'mockCrn'
-        ]
+        replacements: ['2024-08-28T00:00:00.000Z', 'mockEmployeeId', 'Search', 'mockCrn']
       }
     )
   })
@@ -170,7 +165,9 @@ describe('AuthenticateDatabase', () => {
 
   test('health check error', async () => {
     const error = new Error('Database error')
-    const authenticateMock = jest.fn().mockImplementation(() => { throw error })
+    const authenticateMock = jest.fn().mockImplementation(() => {
+      throw error
+    })
     Sequelize.mockImplementation(() => ({
       define: jest.fn(),
       authenticate: authenticateMock

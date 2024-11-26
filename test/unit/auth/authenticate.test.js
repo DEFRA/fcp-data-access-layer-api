@@ -136,9 +136,7 @@ describe('checkAuthGroup', () => {
 
   it('checkAuthGroup should throw Unauthorized when user is not in specified AD group', () => {
     const testGroup = 'NON_EXISTENT_GROUP'
-    expect(() => checkAuthGroup([testGroup], adminGroupId)).toThrow(
-      Unauthorized
-    )
+    expect(() => checkAuthGroup([testGroup], adminGroupId)).toThrow(Unauthorized)
   })
 })
 

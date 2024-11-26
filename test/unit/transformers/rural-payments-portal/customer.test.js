@@ -19,8 +19,7 @@ const mockMessages = [
     archivedAt: null,
     archive: null,
     createdAt: 8247074489993,
-    title:
-      'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
+    title: 'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
     body: '<p>Adversus crastinus suggero caste adhuc vomer accusamus acies iure.</p>',
     category: 'OrganisationLevel',
     bespokeNotificationId: null
@@ -34,8 +33,7 @@ const mockMessages = [
     archivedAt: 8818544780296,
     archive: null,
     createdAt: 8818544780296,
-    title:
-      'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
+    title: 'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
     body: '<p>Cruentus venia dedecor beatus vinco cultellus clarus.</p>',
     category: 'OrganisationLevel',
     bespokeNotificationId: null
@@ -52,10 +50,7 @@ const parsedMessages = mockMessages.map(({ id, title, body, archivedAt, createdA
 
 describe('Customer transformer', () => {
   test('transformPersonRolesToCustomerAuthorisedBusinessesRoles', () => {
-    const result = transformPersonSummaryToCustomerAuthorisedBusinesses(
-      {},
-      personSummary._data
-    )
+    const result = transformPersonSummaryToCustomerAuthorisedBusinesses({}, personSummary._data)
 
     expect(result).toEqual([
       { organisationId: 5263421 },
@@ -119,9 +114,7 @@ describe('Customer transformer', () => {
       Location: 'some location'
     }
 
-    const result = transformAuthenticateQuestionsAnswers(
-      mockAuthenticateQuestionsResponse
-    )
+    const result = transformAuthenticateQuestionsAnswers(mockAuthenticateQuestionsResponse)
 
     expect(result).toEqual({
       isFound: true,

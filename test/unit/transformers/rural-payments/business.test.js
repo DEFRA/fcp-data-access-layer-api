@@ -9,7 +9,7 @@ describe('Business transformer', () => {
   test('#transformOrganisationCustomers', () => {
     const { _data: customers } = organisationPeopleByOrgId(5565448)
 
-    const transformedCustomers = customers.map(customer => {
+    const transformedCustomers = customers.map((customer) => {
       return {
         personId: customer.id,
         firstName: customer.firstName,
@@ -20,16 +20,14 @@ describe('Business transformer', () => {
       }
     })
 
-    expect(transformOrganisationCustomers(customers)).toEqual(
-      transformedCustomers
-    )
+    expect(transformOrganisationCustomers(customers)).toEqual(transformedCustomers)
   })
 
   test('#transformBusinessCustomerPrivilegesToPermissionGroups', () => {
     const permissionGroups = new Permissions().getPermissionGroups()
     const { _data: customers } = organisationPeopleByOrgId(5565448)
 
-    const transformedPermissionGroups = customers.map(customer => {
+    const transformedPermissionGroups = customers.map((customer) => {
       return transformBusinessCustomerPrivilegesToPermissionGroups(
         customer.privileges,
         permissionGroups

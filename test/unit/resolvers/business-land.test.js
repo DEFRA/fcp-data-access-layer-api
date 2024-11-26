@@ -5,7 +5,7 @@ import {
 
 const dataSources = {
   ruralPaymentsPortalApi: {
-    getParcelsSummaryByOrganisationId () {
+    getParcelsSummaryByOrganisationId() {
       return {
         totalParcels: 1000,
         totalArea: 2000
@@ -13,10 +13,10 @@ const dataSources = {
     }
   },
   ruralPaymentsBusiness: {
-    getParcelsByOrganisationId () {
+    getParcelsByOrganisationId() {
       return [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000 }]
     },
-    getParcelsByOrganisationIdAndDate () {
+    getParcelsByOrganisationIdAndDate() {
       return {
         features: [
           {
@@ -31,10 +31,10 @@ const dataSources = {
         ]
       }
     },
-    getCoversByOrgSheetParcelId () {
+    getCoversByOrgSheetParcelId() {
       return { id: 'mockId', info: [{ code: 'someCode', area: 1000, name: 'Mock Name' }] }
     },
-    getCoversSummaryByOrganisationIdAndDate () {
+    getCoversSummaryByOrganisationIdAndDate() {
       return [
         { name: 'Arable Land', area: 1000 },
         { name: 'Permanent Grassland', area: 2000 },
@@ -53,20 +53,24 @@ describe('BusinessLand', () => {
   })
 
   it('parcels', async () => {
-    expect(
-      await BusinessLand.parcels(mockBusiness, mockArguments, { dataSources })
-    ).toEqual([{
-      id: 'mockId',
-      sheetId: 'mockSheetId',
-      area: 1000,
-      parcelId: 'mockParcelId',
-      pendingDigitisation: false
-    }])
+    expect(await BusinessLand.parcels(mockBusiness, mockArguments, { dataSources })).toEqual([
+      {
+        id: 'mockId',
+        sheetId: 'mockSheetId',
+        area: 1000,
+        parcelId: 'mockParcelId',
+        pendingDigitisation: false
+      }
+    ])
   })
 
   it('parcel', async () => {
     expect(
-      await BusinessLand.parcel(mockBusiness, { ...mockArguments, parcelId: 'mockParcelId' }, { dataSources })
+      await BusinessLand.parcel(
+        mockBusiness,
+        { ...mockArguments, parcelId: 'mockParcelId' },
+        { dataSources }
+      )
     ).toEqual({
       id: 'mockId',
       sheetId: 'mockSheetId',
@@ -78,7 +82,11 @@ describe('BusinessLand', () => {
 
   it('parcelCovers', async () => {
     expect(
-      await BusinessLand.parcelCovers(mockBusiness, { ...mockArguments, parcelId: 'mockParcelId' }, { dataSources })
+      await BusinessLand.parcelCovers(
+        mockBusiness,
+        { ...mockArguments, parcelId: 'mockParcelId' },
+        { dataSources }
+      )
     ).toEqual([{ id: 'mockId', area: 1000, name: 'MOCK_NAME', code: 'someCode' }])
   })
 })
