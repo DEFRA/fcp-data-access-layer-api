@@ -76,13 +76,13 @@ const getParcelEffectiveDates = async (
 
 export const BusinessLandParcel = {
   async effectiveToDate(parcel, __, { dataSources }) {
-    const { effectiveTo } = getParcelEffectiveDates(dataSources, parcel)
+    const { effectiveTo } = await getParcelEffectiveDates(dataSources, parcel)
 
     return effectiveTo
   },
 
   async effectiveFromDate(parcel, __, { dataSources }) {
-    const { effectiveFrom } = getParcelEffectiveDates(dataSources, parcel)
+    const { effectiveFrom } = await getParcelEffectiveDates(dataSources, parcel)
 
     return effectiveFrom
   }

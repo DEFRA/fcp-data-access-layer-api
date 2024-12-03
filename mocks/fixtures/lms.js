@@ -21,12 +21,16 @@ export const landParcels = (orgId) => {
 
 export const landParcelDates = (orgId, historicDate) => {
   const parcels = landParcels(orgId)
-  return parcels.map((parcel) => ({
-    sheetId: parcel.sheetId,
-    parcelId: parcel.parcelId,
-    validFrom: historicDate - Math.floor(Math.random() * 10000),
-    validTo: historicDate + Math.floor(Math.random() * 10000)
-  }))
+  const parcelsDates = getJSON(`./orgId/${orgId}/land-parcels-effective-dates.json`)
+  return parcels.map((parcel) => {
+    const parcelDates = parcelsDates.find((date) => date.parcelId === parcel.parcelId)
+    return {
+      sheetId: parcel.sheetId,
+      parcelId: parcel.parcelId,
+      validFrom: parcelDates.validFrom,
+      validTo: parcelDates.validTo
+    }
+  })
 }
 
 export const landParcelsGeometry = (orgId) => {
