@@ -1,6 +1,7 @@
 import {
   transformLandCovers,
   transformLandCoversToArea,
+  transformLandParcelsEffectiveDates,
   transformLandParcelsWithGeometry
 } from '../../../../app/transformers/rural-payments/lms.js'
 
@@ -41,5 +42,13 @@ describe('LMS transformer', () => {
       }
     ]
     expect(transformLandParcelsWithGeometry(input)).toEqual(output)
+  })
+
+  test('transformLandParcelsEffectiveDates', () => {
+    const parcelId = 'mockParcelId'
+    const sheetId = 'mockSheetId'
+    const parcels = [{ parcelId, sheetId, validFrom: '2023-01-01', validTo: '2024-01-01' }]
+    const output = { effectiveTo: '2024-01-01', effectiveFrom: '2023-01-01' }
+    expect(transformLandParcelsEffectiveDates(parcelId, sheetId, parcels)).toEqual(output)
   })
 })

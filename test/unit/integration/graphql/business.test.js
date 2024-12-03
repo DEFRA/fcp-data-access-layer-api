@@ -291,7 +291,9 @@ describe('Query.business.land', () => {
                 sheetId,
                 parcelId,
                 area,
-                pendingDigitisation
+                pendingDigitisation,
+                effectiveToDate,
+                effectiveFromDate
               }
             }
           }
@@ -308,7 +310,11 @@ describe('Query.business.land', () => {
       data: {
         business: {
           land: {
-            parcel
+            parcel: {
+              ...parcel,
+              effectiveFromDate: 1636934401682,
+              effectiveToDate: 1636934392140
+            }
           }
         }
       }

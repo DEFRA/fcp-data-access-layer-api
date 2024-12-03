@@ -137,6 +137,11 @@ type BusinessLand {
   The covers of a single parcel of the business land.
   """
   parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
+
+  """
+  The summary of the business land.
+  """
+  summary(historicDate: Date): BusinessLandSummary
 }
 
 """
@@ -187,6 +192,16 @@ type BusinessLandParcel {
   Whether the parcel is pending digitisation.
   """
   pendingDigitisation: Boolean
+
+  """
+  The effective to date of the land parcel.
+  """
+  effectiveToDate: Date
+
+  """
+  The effective from date of the land parcel.
+  """
+  effectiveFromDate: Date
 }
 
 """

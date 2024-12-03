@@ -72,7 +72,9 @@ describe('BusinessLand', () => {
         { dataSources }
       )
     ).toEqual({
+      organisationId: 'mockId',
       id: 'mockId',
+      date: mockArguments.date,
       sheetId: 'mockSheetId',
       area: 1000,
       parcelId: 'mockParcelId',
