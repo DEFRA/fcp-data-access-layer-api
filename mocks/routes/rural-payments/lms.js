@@ -130,6 +130,10 @@ export default [
           middleware: (req, res) => {
             const { orgId, historicDate } = req.params
 
+            if (req.url.includes('%20')) {
+              return badRequestResponse(res)
+            }
+
             const historicTimestamp = Date.parse(historicDate)
             const data = landParcelDates(orgId, historicTimestamp)
 

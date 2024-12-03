@@ -89,12 +89,14 @@ export class RuralPaymentsBusiness extends RuralPayments {
 
     // Convert 'YYYY-MM-DD' to 'DD-MMM-YY, e.g. 19-Jul-20
     const formattedDate = new Date(date)
-      .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })
-      .replace(/\//g, '-')
+      .toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: '2-digit'
+      })
+      .replace(/ /g, '-')
 
-    return this.get(
-      `lms/organisation/${organisationId}/parcel-details/historic/${formattedDate}`
-    )
+    return this.get(`lms/organisation/${organisationId}/parcel-details/historic/${formattedDate}`)
   }
 
   getCoversByOrgSheetParcelId(organisationId, sheetId, parcelId) {
