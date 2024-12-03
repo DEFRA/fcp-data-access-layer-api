@@ -65,27 +65,27 @@ type BusinessLandSummary {
   """
   The area of arable land.
   """
-  arableLandArea: Float
+  arableLandArea: Float @on
 
   """
   The area of permanent crops.
   """
-  permanentCropsArea: Float
+  permanentCropsArea: Float @on
 
   """
   The area of permanent grassland.
   """
-  permanentGrasslandArea: Float
+  permanentGrasslandArea: Float @on
 
   """
   The total area of the business land.
   """
-  totalArea: Float
+  totalArea: Float @on
 
   """
   The total number of parcels in the business land.
   """
-  totalParcels: Float
+  totalParcels: Float @on
 }
 
 """
@@ -137,5 +137,5 @@ type BusinessLand {
   """
   The summary of the business land.
   """
-  summary(historicDate: Date): BusinessLandSummary
+  summary(historicDate: Date): BusinessLandSummary @on
 }
