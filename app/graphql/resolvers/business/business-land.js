@@ -2,6 +2,7 @@ import { NotFound } from '../../../errors/graphql.js'
 import {
   transformLandCovers,
   transformLandCoversToArea,
+  transformLandParcelsEffectiveDates,
   transformLandParcelsWithGeometry,
   transformTotalArea,
   transformTotalParcels
@@ -23,7 +24,11 @@ export const BusinessLand = {
       throw new NotFound(`No parcel found for parcelId: ${parcelId}`)
     }
 
-    return parcel
+    return {
+      ...parcel,
+      organisationId,
+      date
+    }
   },
 
   async parcels({ organisationId }, { date }, { dataSources }) {
@@ -53,6 +58,33 @@ export const BusinessLand = {
         parcelId
       )
     )
+  }
+}
+
+const getParcelEffectiveDates = async (
+  dataSources,
+  { organisationId, date, parcelId, sheetId }
+) => {
+  const parclsWithAffectiveDates =
+    await dataSources.ruralPaymentsBusiness.getParcelEffectiveDatesByOrganisationIdAndDate(
+      organisationId,
+      date
+    )
+
+  return transformLandParcelsEffectiveDates(parcelId, sheetId, parclsWithAffectiveDates)
+}
+
+export const BusinessLandParcel = {
+  async effectiveToDate(parcel, __, { dataSources }) {
+    const { effectiveTo } = getParcelEffectiveDates(dataSources, parcel)
+
+    return effectiveTo
+  },
+
+  async effectiveFromDate(parcel, __, { dataSources }) {
+    const { effectiveFrom } = getParcelEffectiveDates(dataSources, parcel)
+
+    return effectiveFrom
   }
 }
 

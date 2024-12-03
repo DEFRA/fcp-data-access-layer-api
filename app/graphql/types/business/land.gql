@@ -46,6 +46,16 @@ type BusinessLandParcel {
   Whether the parcel is pending digitisation.
   """
   pendingDigitisation: Boolean @on
+
+  """
+  The effective to date of the land parcel.
+  """
+  effectiveToDate: Date @on
+
+  """
+  The effective from date of the land parcel.
+  """
+  effectiveFromDate: Date @on
 }
 
 """
