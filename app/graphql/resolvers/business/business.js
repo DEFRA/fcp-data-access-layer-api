@@ -16,7 +16,7 @@ export const Business = {
     return { organisationId }
   },
 
-  async cphList({ organisationId }, _, { dataSources }) {
+  async cphs({ organisationId }, _, { dataSources }) {
     return transformOrganisationCPH(
       organisationId,
       await dataSources.ruralPaymentsBusiness.getOrganisationCPHCollectionByOrganisationId(

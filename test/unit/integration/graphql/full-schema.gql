@@ -329,7 +329,7 @@ type Business {
   """
   The CPH (County Parish Holding) numbers of the business.
   """
-  cphList: [CPHSummary]
+  cphs: [CPHPartial]
 
   """
   The CPH (County Parish Holding) numbers of the business.
@@ -367,7 +367,7 @@ Represents a County Parish Holding (CPH) number.
 
 Data Source: Rural Payments Portal (PRR)
 """
-type CPHSummary {
+type CPHPartial {
   """
   The CPH number.
   """

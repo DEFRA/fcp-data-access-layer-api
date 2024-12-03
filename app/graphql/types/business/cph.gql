@@ -18,23 +18,6 @@ Represents a County Parish Holding (CPH) number.
 
 Data Source: Rural Payments Portal (PRR)
 """
-type CPHSummary {
-  """
-  The CPH number, example: "10/327/0023"
-  """
-  number: String
-
-  """
-  The parcel numbers associated with the CPH number.
-  """
-  parcelNumbers: [String]
-}
-
-"""
-Represents a County Parish Holding (CPH) number.
-
-Data Source: Rural Payments Portal (PRR)
-"""
 type CPH {
   """
   The CPH number, example: "10/327/0023"
@@ -49,25 +32,25 @@ type CPH {
   """
   The parish associated with the CPH number.
   """
-  parish: String
+  parish: String @excludeFromList
 
   """
   The start date of the CPH number.
   """
-  startDate: Date
+  startDate: Date @excludeFromList
 
   """
   The expiry date of the CPH number.
   """
-  expiryDate: Date
+  expiryDate: Date @excludeFromList
 
   """
   The species associated with the CPH number.
   """
-  species: [String]
+  species: [String] @excludeFromList
 
   """
   The coordinate of the CPH number.
   """
-  coordinate: CPHCoordinate
+  coordinate: CPHCoordinate @excludeFromList
 }

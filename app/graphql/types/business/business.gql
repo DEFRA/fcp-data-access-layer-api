@@ -194,7 +194,7 @@ type Business {
   """
   The CPH (County Parish Holding) numbers of the business.
   """
-  cphList: [CPHSummary]
+  cphs: [CPH]
 
   """
   The CPH (County Parish Holding) numbers of the business.
