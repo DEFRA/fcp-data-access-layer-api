@@ -72,7 +72,7 @@ describe('BusinessLand', () => {
       {
         id: 'mockId',
         sheetId: 'mockSheetId',
-        area: 1000,
+        area: 0.1,
         parcelId: 'mockParcelId',
         pendingDigitisation: false
       }
@@ -91,7 +91,7 @@ describe('BusinessLand', () => {
       id: 'mockId',
       date: mockArguments.date,
       sheetId: 'mockSheetId',
-      area: 1000,
+      area: 0.1,
       parcelId: 'mockParcelId',
       pendingDigitisation: false
     })
@@ -105,7 +105,7 @@ describe('BusinessLand', () => {
         { dataSources }
       )
     ).toEqual([
-      { id: '11033654', area: 1000, name: 'MOCK_NAME', code: 'someCode', isBpsEligible: true }
+      { id: '11033654', area: 0.1, name: 'MOCK_NAME', code: 'someCode', isBpsEligible: true }
     ])
   })
 })
@@ -124,7 +124,7 @@ describe('BusinessLandSummary', () => {
       await BusinessLandSummary.totalArea({ id: 'mockId' }, null, {
         dataSources
       })
-    ).toEqual(6000)
+    ).toEqual(0.6)
   })
 
   it('arableLandArea', async () => {
@@ -132,7 +132,7 @@ describe('BusinessLandSummary', () => {
       await BusinessLandSummary.arableLandArea({ id: 'mockId' }, null, {
         dataSources
       })
-    ).toEqual(1000)
+    ).toEqual(0.1)
   })
 
   it('permanentGrasslandArea', async () => {
@@ -140,7 +140,7 @@ describe('BusinessLandSummary', () => {
       await BusinessLandSummary.permanentGrasslandArea({ id: 'mockId' }, null, {
         dataSources
       })
-    ).toEqual(2000)
+    ).toEqual(0.2)
   })
 
   it('permanentCropsArea', async () => {
@@ -148,6 +148,6 @@ describe('BusinessLandSummary', () => {
       await BusinessLandSummary.permanentCropsArea({ id: 'mockId' }, null, {
         dataSources
       })
-    ).toEqual(3000)
+    ).toEqual(0.3)
   })
 })

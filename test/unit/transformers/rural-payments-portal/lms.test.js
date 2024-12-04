@@ -24,14 +24,14 @@ describe('LMS transformer', () => {
       ]
     }
     const output = [
-      { area: 1000, id: 'mockId', name: 'MOCK_NAME', code: 'mockId', isBpsEligible: true }
+      { area: 0.1, id: 'mockId', name: 'MOCK_NAME', code: 'mockId', isBpsEligible: true }
     ]
     expect(transformLandCovers(input)).toEqual(output)
   })
 
   test('transformLandCoversToArea', () => {
     const input = ['mockName', [{ name: 'mockName', area: 1000 }]]
-    const output = 1000
+    const output = 0.1
     expect(transformLandCoversToArea(...input)).toEqual(output)
   })
 
@@ -53,7 +53,7 @@ describe('LMS transformer', () => {
       {
         id: 'mockId',
         sheetId: 'mockSheetId',
-        area: 1000,
+        area: 0.1,
         parcelId: 'mockParcelId',
         pendingDigitisation: false
       }
