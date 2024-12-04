@@ -32,7 +32,22 @@ const dataSources = {
       }
     },
     getCoversByOrgSheetParcelId() {
-      return { id: 'mockId', info: [{ code: 'someCode', area: 1000, name: 'Mock Name' }] }
+      return {
+        type: 'FeatureCollection',
+        features: [
+          {
+            id: '11033654',
+            geometry: null,
+            properties: {
+              area: '1000',
+              code: 'someCode',
+              name: 'Mock Name',
+              isBpsEligible: 'true'
+            },
+            type: 'Feature'
+          }
+        ]
+      }
     },
     getCoversSummaryByOrganisationIdAndDate() {
       return [
@@ -89,7 +104,9 @@ describe('BusinessLand', () => {
         { ...mockArguments, parcelId: 'mockParcelId' },
         { dataSources }
       )
-    ).toEqual([{ id: 'mockId', area: 1000, name: 'MOCK_NAME', code: 'someCode' }])
+    ).toEqual([
+      { id: '11033654', area: 1000, name: 'MOCK_NAME', code: 'someCode', isBpsEligible: true }
+    ])
   })
 })
 

@@ -534,6 +534,11 @@ type BusinessLandCover {
   The code of the land cover.
   """
   code: String
+
+  """
+  Whether the land cover is BPS eligible.
+  """
+  isBpsEligible: Boolean
 }
 
 """

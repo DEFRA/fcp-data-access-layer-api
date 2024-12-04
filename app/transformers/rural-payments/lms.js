@@ -1,22 +1,27 @@
 export function transformLandCovers(landCover) {
-  return landCover?.info
-    .filter((item) => item.area !== 0)
-    .map(({ code, area, name }) => {
+  const items = landCover?.features || []
+  return items
+    .filter((item) => item?.properties?.area !== '0')
+    .map(({ id, properties }) => {
+      const { code, area, name, isBpsEligible } = properties
       return {
-        id: landCover.id,
+        id,
         code,
-        area,
-        name: name.toUpperCase().split(' ').join('_')
+        area: parseFloat(area),
+        name: name.toUpperCase().split(' ').join('_'),
+        isBpsEligible: isBpsEligible === 'true'
       }
     })
 }
 
 export function transformLandParcelsEffectiveDates(parcelId, sheetId, parcels) {
-  const parcel = parcels.find((parcel) => parcel.parcelId === parcelId && parcel.sheetId === sheetId)
+  const parcel = parcels.find(
+    (parcel) => parcel.parcelId === parcelId && parcel.sheetId === sheetId
+  )
 
   return {
     effectiveFrom: parcel?.validFrom,
-    effectiveTo: parcel?.validTo 
+    effectiveTo: parcel?.validTo
   }
 }
 
