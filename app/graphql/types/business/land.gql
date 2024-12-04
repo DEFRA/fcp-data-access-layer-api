@@ -1,24 +1,4 @@
 """
-Represents the name of a business land cover.
-"""
-enum BusinessLandCoverName {
-  """
-  Represents permanent grassland.
-  """
-  PERMANENT_GRASSLAND
-
-  """
-  Represents permanent crops.
-  """
-  PERMANENT_CROPS
-
-  """
-  Represents arable land.
-  """
-  ARABLE_LAND
-}
-
-"""
 Represents a parcel of a business land.
 """
 type BusinessLandParcel {
@@ -46,6 +26,16 @@ type BusinessLandParcel {
   Whether the parcel is pending digitisation.
   """
   pendingDigitisation: Boolean @on
+
+  """
+  The effective to date of the land parcel.
+  """
+  effectiveToDate: Date @on @excludeFromList
+
+  """
+  The effective from date of the land parcel.
+  """
+  effectiveFromDate: Date @on @excludeFromList
 }
 
 """
@@ -55,27 +45,27 @@ type BusinessLandSummary {
   """
   The area of arable land.
   """
-  arableLandArea: Float
+  arableLandArea: Float @on
 
   """
   The area of permanent crops.
   """
-  permanentCropsArea: Float
+  permanentCropsArea: Float @on
 
   """
   The area of permanent grassland.
   """
-  permanentGrasslandArea: Float
+  permanentGrasslandArea: Float @on
 
   """
   The total area of the business land.
   """
-  totalArea: Float
+  totalArea: Float @on
 
   """
   The total number of parcels in the business land.
   """
-  totalParcels: Float
+  totalParcels: Float @on
 }
 
 """
@@ -90,7 +80,7 @@ type BusinessLandCover {
   """
   The name of the land cover.
   """
-  name: BusinessLandCoverName @on
+  name: String @on
 
   """
   The area of the land cover.
@@ -101,6 +91,11 @@ type BusinessLandCover {
   The code of the land cover.
   """
   code: String @on
+
+  """
+  Whether the land cover is BPS eligible.
+  """
+  isBpsEligible: Boolean @on
 }
 
 """
@@ -127,5 +122,5 @@ type BusinessLand {
   """
   The summary of the business land.
   """
-  summary(historicDate: Date): BusinessLandSummary
+  summary(historicDate: Date): BusinessLandSummary @on
 }

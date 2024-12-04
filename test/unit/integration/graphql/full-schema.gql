@@ -422,29 +422,49 @@ type CPH {
 }
 
 """
-Represents the name of a business land cover.
+Represents a parcel of a business land.
 """
-enum BusinessLandCoverName {
+type BusinessLandParcel {
   """
-  Represents permanent grassland.
+  The unique identifier of the land parcel.
   """
-  PERMANENT_GRASSLAND
+  id: ID!
 
   """
-  Represents permanent crops.
+  The sheet ID of the land parcel.
   """
-  PERMANENT_CROPS
+  sheetId: String
 
   """
-  Represents arable land.
+  The parcel ID of the land parcel.
   """
-  ARABLE_LAND
+  parcelId: String
+
+  """
+  The area of the land parcel.
+  """
+  area: Float
+
+  """
+  Whether the parcel is pending digitisation.
+  """
+  pendingDigitisation: Boolean
+
+  """
+  The effective to date of the land parcel.
+  """
+  effectiveToDate: Date
+
+  """
+  The effective from date of the land parcel.
+  """
+  effectiveFromDate: Date
 }
 
 """
 Represents a parcel of a business land.
 """
-type BusinessLandParcel {
+type BusinessLandParcelPartial {
   """
   The unique identifier of the land parcel.
   """
@@ -513,7 +533,7 @@ type BusinessLandCover {
   """
   The name of the land cover.
   """
-  name: BusinessLandCoverName
+  name: String
 
   """
   The area of the land cover.
@@ -524,6 +544,11 @@ type BusinessLandCover {
   The code of the land cover.
   """
   code: String
+
+  """
+  Whether the land cover is BPS eligible.
+  """
+  isBpsEligible: Boolean
 }
 
 """
@@ -535,7 +560,7 @@ type BusinessLand {
   """
   The parcels of the business land.
   """
-  parcels(date: Date): [BusinessLandParcel]
+  parcels(date: Date): [BusinessLandParcelPartial]
 
   """
   A single parcel of the business land.

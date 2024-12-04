@@ -48,6 +48,7 @@ export class RuralPayments extends RESTDataSource {
             headers: error?.extensions?.response?.headers.raw(),
             body: error?.extensions?.parsedBody
           },
+          retryCount: incomingRequest.retryCount,
           code: APIM_APIM_REQUEST_001
         })
         incomingRequest.retryCount++

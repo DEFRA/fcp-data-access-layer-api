@@ -206,7 +206,7 @@ describe('Query.business.land', () => {
                 'Permanent Grassland',
                 coversSummaryData
               ),
-              totalArea: 7658303.68,
+              totalArea: 765.8304,
               totalParcels: 302
             }
           }
@@ -291,7 +291,9 @@ describe('Query.business.land', () => {
                 sheetId,
                 parcelId,
                 area,
-                pendingDigitisation
+                pendingDigitisation,
+                effectiveToDate,
+                effectiveFromDate
               }
             }
           }
@@ -308,7 +310,11 @@ describe('Query.business.land', () => {
       data: {
         business: {
           land: {
-            parcel
+            parcel: {
+              ...parcel,
+              effectiveFromDate: 1636934401682,
+              effectiveToDate: 1636934392140
+            }
           }
         }
       }
@@ -392,6 +398,7 @@ describe('Query.business.land', () => {
                 name
                 area
                 code
+                isBpsEligible
               }
             }
           }

@@ -2,6 +2,7 @@ import {
   coversSummary,
   landCover,
   landCovers,
+  landParcelDates,
   landParcels,
   landParcelsGeometry
 } from '../../fixtures/lms.js'
@@ -110,6 +111,31 @@ export default [
           middleware: (req, res) => {
             const { orgId, sheetId, parcelId } = req.params
             const data = landCover(orgId, sheetId, parcelId)
+
+            return okOrNotFoundResponse(res, data)
+          }
+        }
+      }
+    ]
+  },
+  {
+    id: 'rural-payments-lms-get-land-parcels-effective-dates',
+    url: '/v1/lms/organisation/:orgId/parcel-details/historic/:historicDate',
+    method: ['GET'],
+    variants: [
+      {
+        id: 'default',
+        type: 'middleware',
+        options: {
+          middleware: (req, res) => {
+            const { orgId, historicDate } = req.params
+
+            if (req.url.includes('%20')) {
+              return badRequestResponse(res)
+            }
+
+            const historicTimestamp = Date.parse(historicDate)
+            const data = landParcelDates(orgId, historicTimestamp)
 
             return okOrNotFoundResponse(res, data)
           }

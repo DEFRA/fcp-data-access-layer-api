@@ -19,15 +19,6 @@ export class NotFound extends GraphQLError {
   }
 }
 
-export class Forbidden extends GraphQLError {
-  constructor(message, options) {
-    super(message, options)
-
-    this.extensions.code = StatusCodes.getStatusText(StatusCodes.FORBIDDEN).toUpperCase()
-    this.extensions.http = { status: StatusCodes.FORBIDDEN }
-  }
-}
-
 export class BadRequest extends GraphQLError {
   constructor(message, options) {
     super(message, options)

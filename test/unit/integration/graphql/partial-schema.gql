@@ -126,7 +126,7 @@ type BusinessLand {
   """
   The parcels of the business land.
   """
-  parcels(date: Date): [BusinessLandParcel]
+  parcels(date: Date): [BusinessLandParcelPartial]
 
   """
   A single parcel of the business land.
@@ -137,32 +137,57 @@ type BusinessLand {
   The covers of a single parcel of the business land.
   """
   parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
-}
-
-"""
-Represents the name of a business land cover.
-"""
-enum BusinessLandCoverName {
-  """
-  Represents permanent grassland.
-  """
-  PERMANENT_GRASSLAND
 
   """
-  Represents permanent crops.
+  The summary of the business land.
   """
-  PERMANENT_CROPS
-
-  """
-  Represents arable land.
-  """
-  ARABLE_LAND
+  summary(historicDate: Date): BusinessLandSummary
 }
 
 """
 Represents a parcel of a business land.
 """
 type BusinessLandParcel {
+  """
+  The unique identifier of the land parcel.
+  """
+  id: ID!
+
+  """
+  The sheet ID of the land parcel.
+  """
+  sheetId: String
+
+  """
+  The parcel ID of the land parcel.
+  """
+  parcelId: String
+
+  """
+  The area of the land parcel.
+  """
+  area: Float
+
+  """
+  Whether the parcel is pending digitisation.
+  """
+  pendingDigitisation: Boolean
+
+  """
+  The effective to date of the land parcel.
+  """
+  effectiveToDate: Date
+
+  """
+  The effective from date of the land parcel.
+  """
+  effectiveFromDate: Date
+}
+
+"""
+Represents a parcel of a business land.
+"""
+type BusinessLandParcelPartial {
   """
   The unique identifier of the land parcel.
   """
@@ -201,7 +226,7 @@ type BusinessLandCover {
   """
   The name of the land cover.
   """
-  name: BusinessLandCoverName
+  name: String
 
   """
   The area of the land cover.
@@ -212,6 +237,11 @@ type BusinessLandCover {
   The code of the land cover.
   """
   code: String
+
+  """
+  Whether the land cover is BPS eligible.
+  """
+  isBpsEligible: Boolean
 }
 
 """

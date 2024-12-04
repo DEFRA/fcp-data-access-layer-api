@@ -12,11 +12,42 @@ export const landCovers = (orgId) => {
 
 export const landCover = (orgId, _sheetId, parcelId) => {
   const covers = landCovers(orgId)
-  return covers.find((cover) => cover.id.includes(parcelId))
+  const parcelCovers = covers.find((cover) => cover.id.includes(parcelId))
+
+  return {
+    type: 'FeatureCollection',
+    features: parcelCovers.info.map((cover) => {
+      return {
+        id: cover.code,
+        geometry: null,
+        properties: {
+          area: `${cover.area}`,
+          code: cover.code,
+          name: cover.name,
+          isBpsEligible: true
+        },
+        type: 'Feature'
+      }
+    })
+  }
 }
 
 export const landParcels = (orgId) => {
   return getJSON(`./orgId/${orgId}/land-parcels.json`)
+}
+
+export const landParcelDates = (orgId, historicDate) => {
+  const parcels = landParcels(orgId)
+  const parcelsDates = getJSON(`./orgId/${orgId}/land-parcels-effective-dates.json`)
+  return parcels.map((parcel) => {
+    const parcelDates = parcelsDates.find((date) => date.parcelId === parcel.parcelId)
+    return {
+      sheetId: parcel.sheetId,
+      parcelId: parcel.parcelId,
+      validFrom: parcelDates.validFrom,
+      validTo: parcelDates.validTo
+    }
+  })
 }
 
 export const landParcelsGeometry = (orgId) => {

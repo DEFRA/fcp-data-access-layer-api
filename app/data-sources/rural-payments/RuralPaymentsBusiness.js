@@ -81,6 +81,24 @@ export class RuralPaymentsBusiness extends RuralPayments {
     )
   }
 
+  getParcelEffectiveDatesByOrganisationIdAndDate(organisationId, date) {
+    this.logger.silly('Getting organisation parcel effective dates by organisation ID and date', {
+      organisationId,
+      date
+    })
+
+    // Convert 'YYYY-MM-DD' to 'DD-MMM-YY, e.g. 19-Jul-20
+    const formattedDate = new Date(date)
+      .toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: '2-digit'
+      })
+      .replace(/ /g, '-')
+
+    return this.get(`lms/organisation/${organisationId}/parcel-details/historic/${formattedDate}`)
+  }
+
   getCoversByOrgSheetParcelId(organisationId, sheetId, parcelId) {
     this.logger.silly('Getting organisation covers by sheet ID and parcel ID', {
       organisationId,

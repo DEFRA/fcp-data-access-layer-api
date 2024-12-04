@@ -1,19 +1,35 @@
+import { convertSquareMetersToHectares } from '../../utils/numbers.js'
+
 export function transformLandCovers(landCover) {
-  return landCover?.info
-    .filter((item) => item.area !== 0)
-    .map(({ code, area, name }) => {
+  const items = landCover?.features || []
+  return items
+    .filter((item) => item?.properties?.area !== '0')
+    .map(({ id, properties }) => {
+      const { code, area, name, isBpsEligible } = properties
       return {
-        id: landCover.id,
+        id,
         code,
-        area,
-        name: name.toUpperCase().split(' ').join('_')
+        area: convertSquareMetersToHectares(area),
+        name: name.toUpperCase().split(' ').join('_'),
+        isBpsEligible: isBpsEligible === 'true'
       }
     })
 }
 
+export function transformLandParcelsEffectiveDates(parcelId, sheetId, parcels) {
+  const parcel = parcels.find(
+    (parcel) => parcel.parcelId === parcelId && parcel.sheetId === sheetId
+  )
+
+  return {
+    effectiveFrom: parcel?.validFrom,
+    effectiveTo: parcel?.validTo
+  }
+}
+
 export function transformLandCoversToArea(name, landCovers) {
   const { area } = landCovers.find((landCover) => landCover.name === name)
-  return area
+  return convertSquareMetersToHectares(area)
 }
 
 export function transformLandParcelsWithGeometry(landParcels) {
@@ -23,7 +39,7 @@ export function transformLandParcelsWithGeometry(landParcels) {
       id: String(parcel.id),
       parcelId: parcel.properties.parcelId,
       sheetId: parcel.properties.sheetId,
-      area: parseFloat(parcel.properties.area),
+      area: convertSquareMetersToHectares(parcel.properties.area),
       pendingDigitisation: parcel.properties.pendingDigitisation === 'true'
     }
   })
@@ -34,5 +50,6 @@ export function transformTotalParcels(landParcels) {
 }
 
 export function transformTotalArea(landCovers) {
-  return landCovers.reduce((totalArea, { area }) => totalArea + area, 0)
+  const totalMeterageArea = landCovers.reduce((totalArea, { area }) => totalArea + area, 0)
+  return convertSquareMetersToHectares(totalMeterageArea)
 }
