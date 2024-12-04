@@ -113,37 +113,6 @@ type BusinessCustomer {
   crn: String @on
 
   """
-  The role of the customer against the business.
-  """
-  role: String @on
-}
-
-"""
-Represents the customer of a business. Additional properties over BusinessCustomer:
- - permissionGroups
-"""
-type BusinessCustomerDetail {
-  """
-  The unique identifier of the customer.
-  """
-  personId: ID @on
-
-  """
-  First name of the customer.
-  """
-  firstName: String @on
-
-  """
-  Last name of the customer.
-  """
-  lastName: String @on
-
-  """
-  The customer reference of the customer.
-  """
-  crn: String @on
-
-  """
   The role the customer against the business.
   """
   role: String @on
@@ -151,7 +120,7 @@ type BusinessCustomerDetail {
   """
   The permissions the customer against the business.
   """
-  permissionGroups: [BusinessCustomerPermissionGroup] @on
+  permissionGroups: [BusinessCustomerPermissionGroup] @on @excludeFromList
 }
 
 type BusinessCustomerPermissionGroup {
@@ -209,5 +178,5 @@ type Business {
   """
   The customer associated with the business.
   """
-  customer(crn: ID!): BusinessCustomerDetail @on
+  customer(crn: ID!): BusinessCustomer @on
 }

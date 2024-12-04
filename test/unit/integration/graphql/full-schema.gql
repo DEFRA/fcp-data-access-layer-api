@@ -226,7 +226,7 @@ type BusinessType {
 """
 Represents the customer of a business.
 """
-type BusinessCustomer {
+type BusinessCustomerPartial {
   """
   The unique identifier of the customer.
   """
@@ -256,7 +256,7 @@ type BusinessCustomer {
 """
 Represents the customer of a business.
 """
-type BusinessCustomerDetail {
+type BusinessCustomer {
   """
   The unique identifier of the customer.
   """
@@ -339,12 +339,12 @@ type Business {
   """
   The customers associated with the business.
   """
-  customers: [BusinessCustomer]
+  customers: [BusinessCustomerPartial]
 
   """
   The customer associated with the business.
   """
-  customer(crn: ID!): BusinessCustomerDetail
+  customer(crn: ID!): BusinessCustomer
 }
 
 """
