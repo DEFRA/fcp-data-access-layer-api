@@ -12,7 +12,24 @@ export const landCovers = (orgId) => {
 
 export const landCover = (orgId, _sheetId, parcelId) => {
   const covers = landCovers(orgId)
-  return covers.find((cover) => cover.id.includes(parcelId))
+  const parcelCovers = covers.find((cover) => cover.id.includes(parcelId))
+
+  return {
+    type: 'FeatureCollection',
+    features: parcelCovers.info.map((cover) => {
+      return {
+        id: cover.code,
+        geometry: null,
+        properties: {
+          area: `${cover.area}`,
+          code: cover.code,
+          name: cover.name,
+          isBpsEligible: true
+        },
+        type: 'Feature'
+      }
+    })
+  }
 }
 
 export const landParcels = (orgId) => {

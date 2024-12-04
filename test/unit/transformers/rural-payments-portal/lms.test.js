@@ -7,8 +7,25 @@ import {
 
 describe('LMS transformer', () => {
   test('transformLandCovers', () => {
-    const input = { id: 'mockId', info: [{ area: 1000, name: 'Mock Name', code: 'mockId' }] }
-    const output = [{ area: 1000, id: 'mockId', name: 'MOCK_NAME', code: 'mockId' }]
+    const input = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          id: 'mockId',
+          geometry: null,
+          properties: {
+            area: '1000',
+            code: 'mockId',
+            name: 'Mock Name',
+            isBpsEligible: 'true'
+          },
+          type: 'Feature'
+        }
+      ]
+    }
+    const output = [
+      { area: 1000, id: 'mockId', name: 'MOCK_NAME', code: 'mockId', isBpsEligible: true }
+    ]
     expect(transformLandCovers(input)).toEqual(output)
   })
 

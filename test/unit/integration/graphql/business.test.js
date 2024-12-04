@@ -398,6 +398,7 @@ describe('Query.business.land', () => {
                 name
                 area
                 code
+                isBpsEligible
               }
             }
           }
