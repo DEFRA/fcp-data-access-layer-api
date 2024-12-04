@@ -145,26 +145,6 @@ type BusinessLand {
 }
 
 """
-Represents the name of a business land cover.
-"""
-enum BusinessLandCoverName {
-  """
-  Represents permanent grassland.
-  """
-  PERMANENT_GRASSLAND
-
-  """
-  Represents permanent crops.
-  """
-  PERMANENT_CROPS
-
-  """
-  Represents arable land.
-  """
-  ARABLE_LAND
-}
-
-"""
 Represents a parcel of a business land.
 """
 type BusinessLandParcel {
@@ -216,7 +196,7 @@ type BusinessLandCover {
   """
   The name of the land cover.
   """
-  name: BusinessLandCoverName
+  name: String
 
   """
   The area of the land cover.
