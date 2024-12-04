@@ -1,3 +1,5 @@
+import { convertSquareMetersToHectares } from '../../utils/numbers'
+
 export function transformLandCovers(landCover) {
   const items = landCover?.features || []
   return items
@@ -7,7 +9,7 @@ export function transformLandCovers(landCover) {
       return {
         id,
         code,
-        area: parseFloat(area),
+        area: convertSquareMetersToHectares(area),
         name: name.toUpperCase().split(' ').join('_'),
         isBpsEligible: isBpsEligible === 'true'
       }
@@ -27,7 +29,7 @@ export function transformLandParcelsEffectiveDates(parcelId, sheetId, parcels) {
 
 export function transformLandCoversToArea(name, landCovers) {
   const { area } = landCovers.find((landCover) => landCover.name === name)
-  return area
+  return convertSquareMetersToHectares(area)
 }
 
 export function transformLandParcelsWithGeometry(landParcels) {
@@ -37,7 +39,7 @@ export function transformLandParcelsWithGeometry(landParcels) {
       id: String(parcel.id),
       parcelId: parcel.properties.parcelId,
       sheetId: parcel.properties.sheetId,
-      area: parseFloat(parcel.properties.area),
+      area: convertSquareMetersToHectares(parcel.properties.area),
       pendingDigitisation: parcel.properties.pendingDigitisation === 'true'
     }
   })
@@ -48,5 +50,6 @@ export function transformTotalParcels(landParcels) {
 }
 
 export function transformTotalArea(landCovers) {
-  return landCovers.reduce((totalArea, { area }) => totalArea + area, 0)
+  const totalMeterageArea = landCovers.reduce((totalArea, { area }) => totalArea + area, 0)
+  return convertSquareMetersToHectares(totalMeterageArea)
 }

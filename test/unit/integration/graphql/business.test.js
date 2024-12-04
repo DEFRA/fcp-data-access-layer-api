@@ -206,7 +206,7 @@ describe('Query.business.land', () => {
                 'Permanent Grassland',
                 coversSummaryData
               ),
-              totalArea: 7658303.68,
+              totalArea: 765.8304,
               totalParcels: 302
             }
           }
