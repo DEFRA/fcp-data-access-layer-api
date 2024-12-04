@@ -1,4 +1,4 @@
-import { convertSquareMetersToHectares } from '../../utils/numbers'
+import { convertSquareMetersToHectares } from '../../utils/numbers.js'
 
 export function transformLandCovers(landCover) {
   const items = landCover?.features || []
