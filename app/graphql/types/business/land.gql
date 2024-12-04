@@ -30,12 +30,12 @@ type BusinessLandParcel {
   """
   The effective to date of the land parcel.
   """
-  effectiveToDate: Date @on
+  effectiveToDate: Date @on @excludeFromList
 
   """
   The effective from date of the land parcel.
   """
-  effectiveFromDate: Date @on
+  effectiveFromDate: Date @on @excludeFromList
 }
 
 """

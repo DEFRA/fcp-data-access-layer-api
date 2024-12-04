@@ -1,6 +1,6 @@
+import { readFile } from 'fs/promises'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import { readFile } from 'fs/promises'
 
 import { buildSchema, findBreakingChanges, getIntrospectionQuery, graphql } from 'graphql'
 import mockServer from '../../../../mocks/server'

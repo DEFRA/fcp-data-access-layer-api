@@ -126,7 +126,7 @@ type BusinessLand {
   """
   The parcels of the business land.
   """
-  parcels(date: Date): [BusinessLandParcel]
+  parcels(date: Date): [BusinessLandParcelPartial]
 
   """
   A single parcel of the business land.
@@ -182,6 +182,36 @@ type BusinessLandParcel {
   The effective from date of the land parcel.
   """
   effectiveFromDate: Date
+}
+
+"""
+Represents a parcel of a business land.
+"""
+type BusinessLandParcelPartial {
+  """
+  The unique identifier of the land parcel.
+  """
+  id: ID!
+
+  """
+  The sheet ID of the land parcel.
+  """
+  sheetId: String
+
+  """
+  The parcel ID of the land parcel.
+  """
+  parcelId: String
+
+  """
+  The area of the land parcel.
+  """
+  area: Float
+
+  """
+  Whether the parcel is pending digitisation.
+  """
+  pendingDigitisation: Boolean
 }
 
 """
