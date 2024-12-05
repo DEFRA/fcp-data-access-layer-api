@@ -1,10 +1,7 @@
 import { jest } from '@jest/globals'
 
 import { Permissions } from '../../../app/data-sources/static/permissions.js'
-import {
-  Customer,
-  CustomerBusinessDetail
-} from '../../../app/graphql/resolvers/customer/customer.js'
+import { Customer, CustomerBusiness } from '../../../app/graphql/resolvers/customer/customer.js'
 import {
   organisationPeopleByOrgId,
   organisationPersonSummary
@@ -162,7 +159,7 @@ describe('Customer', () => {
   })
 })
 
-describe('CustomerBusinessDetail', () => {
+describe('CustomerBusiness', () => {
   let parsedMessages = []
   beforeEach(() => {
     jest.clearAllMocks()
@@ -210,8 +207,8 @@ describe('CustomerBusinessDetail', () => {
     )
   })
 
-  test('CustomerBusinessDetail.role', async () => {
-    const response = await CustomerBusinessDetail.role(
+  test('CustomerBusiness.role', async () => {
+    const response = await CustomerBusiness.role(
       { organisationId: '4309257', crn: '1638563942' },
       undefined,
       { dataSources }
@@ -219,8 +216,8 @@ describe('CustomerBusinessDetail', () => {
     expect(response).toEqual('Business Partner')
   })
 
-  test('CustomerBusinessDetail.permissionGroups', async () => {
-    const response = await CustomerBusinessDetail.permissionGroups(
+  test('CustomerBusiness.permissionGroups', async () => {
+    const response = await CustomerBusiness.permissionGroups(
       { organisationId: '5625145', crn: '1638563942' },
       undefined,
       {
@@ -239,9 +236,9 @@ describe('CustomerBusinessDetail', () => {
     ])
   })
 
-  describe('CustomerBusinessDetail.messages', () => {
+  describe('CustomerBusiness.messages', () => {
     test('no args', async () => {
-      const response = await CustomerBusinessDetail.messages(
+      const response = await CustomerBusiness.messages(
         { organisationId: '4309257', personId: 'mockpersonId' },
         {},
         { dataSources }
@@ -253,7 +250,7 @@ describe('CustomerBusinessDetail', () => {
     })
 
     test('showOnlyDeleted = false', async () => {
-      const response = await CustomerBusinessDetail.messages(
+      const response = await CustomerBusiness.messages(
         { organisationId: '4309257', personId: 'mockpersonId' },
         { showOnlyDeleted: false },
         { dataSources }
@@ -265,7 +262,7 @@ describe('CustomerBusinessDetail', () => {
     })
 
     test('showOnlyDeleted = true', async () => {
-      const response = await CustomerBusinessDetail.messages(
+      const response = await CustomerBusiness.messages(
         { organisationId: '123123', personId: '321321' },
         { showOnlyDeleted: true },
         { dataSources }
@@ -277,7 +274,7 @@ describe('CustomerBusinessDetail', () => {
     })
 
     test('pagination', async () => {
-      const response = await CustomerBusinessDetail.messages(
+      const response = await CustomerBusiness.messages(
         { organisationId: '123', personId: '123' },
         { pagination: { perPage: 5, page: 5 } },
         { dataSources }
@@ -290,9 +287,9 @@ describe('CustomerBusinessDetail', () => {
   })
 })
 
-describe('CustomerBusinessDetailPermissionGroup', () => {
-  test('CustomerBusinessDetailPermissionGroup.level', async () => {
-    const response = await CustomerBusinessDetail.permissionGroups(
+describe('CustomerBusinessPermissionGroup', () => {
+  test('CustomerBusinessPermissionGroup.level', async () => {
+    const response = await CustomerBusiness.permissionGroups(
       {
         organisationId: orgId,
         crn: '1638563942',

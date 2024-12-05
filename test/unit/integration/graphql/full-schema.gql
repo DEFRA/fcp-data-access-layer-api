@@ -226,7 +226,7 @@ type BusinessType {
 """
 Represents the customer of a business.
 """
-type BusinessCustomer {
+type BusinessCustomerPartial {
   """
   The unique identifier of the customer.
   """
@@ -256,7 +256,7 @@ type BusinessCustomer {
 """
 Represents the customer of a business.
 """
-type BusinessCustomerDetail {
+type BusinessCustomer {
   """
   The unique identifier of the customer.
   """
@@ -285,19 +285,7 @@ type BusinessCustomerDetail {
   """
   The permissions the customer against the business.
   """
-  permissionGroups: [BusinessCustomerPermissionGroup]
-}
-
-type BusinessCustomerPermissionGroup {
-  """
-  The permission group id.
-  """
-  id: PermissionGroupId!
-
-  """
-  The permission level customer has for the business.
-  """
-  level: PermissionLevel
+  permissionGroups: [ActivePermissionGroup]
 }
 
 """
@@ -339,12 +327,12 @@ type Business {
   """
   The customers associated with the business.
   """
-  customers: [BusinessCustomer]
+  customers: [BusinessCustomerPartial]
 
   """
   The customer associated with the business.
   """
-  customer(crn: ID!): BusinessCustomerDetail
+  customer(crn: ID!): BusinessCustomer
 }
 
 """
@@ -722,18 +710,45 @@ type Customer {
   """
   The businesses associated with the customer.
   """
-  businesses: [CustomerBusiness]
+  businesses: [CustomerBusinessPartial]
 
   """
   The single business filtered by sbi associated with the customer.
   """
-  business(sbi: ID!): CustomerBusinessDetail
+  business(sbi: ID!): CustomerBusiness
 }
 
 """
-Represents a business owned by a customer.
+Represents a business owned by a customer
+
+Partial of type `CustomerBusiness` with excluded fields: messages, permissionGroups
 """
-type CustomerBusinessDetail {
+type CustomerBusinessPartial {
+  """
+  The unique identifier of the business.
+  """
+  organisationId: ID
+
+  """
+  The SBI (Single Business Identifier) of the business.
+  """
+  sbi: ID!
+
+  """
+  The name of the business.
+  """
+  name: String!
+
+  """
+  The role associated with the business.
+  """
+  role: String
+}
+
+"""
+Represents a business owned by a customer
+"""
+type CustomerBusiness {
   """
   The unique identifier of the business.
   """
@@ -762,44 +777,7 @@ type CustomerBusinessDetail {
   """
   The permission groups associated with the business.
   """
-  permissionGroups: [CustomerBusinessPermissionGroup]
-}
-
-"""
-Represents a business owned by a customer.
-"""
-type CustomerBusiness {
-  """
-  The unique identifier of the business.
-  """
-  organisationId: ID
-
-  """
-  The SBI (Single Business Identifier) of the business.
-  """
-  sbi: ID!
-
-  """
-  The name of the business.
-  """
-  name: String!
-
-  """
-  The role associated with the business.
-  """
-  role: String
-}
-
-type CustomerBusinessPermissionGroup {
-  """
-  The permission group id.
-  """
-  id: PermissionGroupId!
-
-  """
-  The permission level customer has for the business.
-  """
-  level: PermissionLevel
+  permissionGroups: [ActivePermissionGroup]
 }
 
 """
@@ -851,6 +829,18 @@ enum PermissionGroupId {
   ENTITLEMENTS
   ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS
   LAND_DETAILS
+}
+
+type ActivePermissionGroup {
+  """
+  The permission group id.
+  """
+  id: PermissionGroupId!
+
+  """
+  The permission level customer has for the business.
+  """
+  level: PermissionLevel
 }
 
 type PermissionGroup {
