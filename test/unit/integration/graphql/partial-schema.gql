@@ -70,19 +70,7 @@ type BusinessCustomer {
   """
   The permissions the customer against the business.
   """
-  permissionGroups: [BusinessCustomerPermissionGroup]
-}
-
-type BusinessCustomerPermissionGroup {
-  """
-  The permission group id.
-  """
-  id: PermissionGroupId!
-
-  """
-  The permission level customer has for the business.
-  """
-  level: PermissionLevel
+  permissionGroups: [ActivePermissionGroup]
 }
 
 """
@@ -358,19 +346,7 @@ type CustomerBusiness {
   """
   The permission groups associated with the business.
   """
-  permissionGroups: [CustomerBusinessPermissionGroup]
-}
-
-type CustomerBusinessPermissionGroup {
-  """
-  The permission group id.
-  """
-  id: PermissionGroupId!
-
-  """
-  The permission level customer has for the business.
-  """
-  level: PermissionLevel
+  permissionGroups: [ActivePermissionGroup]
 }
 
 enum PermissionLevel {
@@ -390,6 +366,18 @@ enum PermissionGroupId {
   ENTITLEMENTS
   ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS
   LAND_DETAILS
+}
+
+type ActivePermissionGroup {
+  """
+  The permission group id.
+  """
+  id: PermissionGroupId!
+
+  """
+  The permission level customer has for the business.
+  """
+  level: PermissionLevel
 }
 
 enum AuthRole {

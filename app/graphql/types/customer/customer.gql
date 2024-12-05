@@ -182,17 +182,5 @@ type CustomerBusiness {
   """
   The permission groups associated with the business.
   """
-  permissionGroups: [CustomerBusinessPermissionGroup] @on @excludeFromList
-}
-
-type CustomerBusinessPermissionGroup {
-  """
-  The permission group id.
-  """
-  id: PermissionGroupId! @on
-
-  """
-  The permission level customer has for the business.
-  """
-  level: PermissionLevel @on
+  permissionGroups: [ActivePermissionGroup] @on @excludeFromList
 }
