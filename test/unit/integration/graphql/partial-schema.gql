@@ -296,18 +296,20 @@ type Customer {
   """
   The businesses associated with the customer.
   """
-  businesses: [CustomerBusiness]
+  businesses: [CustomerBusinessPartial]
 
   """
   The single business filtered by sbi associated with the customer.
   """
-  business(sbi: ID!): CustomerBusinessDetail
+  business(sbi: ID!): CustomerBusiness
 }
 
 """
-Represents a business owned by a customer.
+Represents a business owned by a customer
+
+Partial of type `CustomerBusiness` with excluded fields: messages, permissionGroups
 """
-type CustomerBusiness {
+type CustomerBusinessPartial {
   """
   The unique identifier of the business.
   """
@@ -332,7 +334,7 @@ type CustomerBusiness {
 """
 Represents a business owned by a customer.
 """
-type CustomerBusinessDetail {
+type CustomerBusiness {
   """
   The unique identifier of the business.
   """

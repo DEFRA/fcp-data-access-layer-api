@@ -697,18 +697,45 @@ type Customer {
   """
   The businesses associated with the customer.
   """
-  businesses: [CustomerBusiness]
+  businesses: [CustomerBusinessPartial]
 
   """
   The single business filtered by sbi associated with the customer.
   """
-  business(sbi: ID!): CustomerBusinessDetail
+  business(sbi: ID!): CustomerBusiness
 }
 
 """
-Represents a business owned by a customer.
+Represents a business owned by a customer
+
+Partial of type `CustomerBusiness` with excluded fields: messages, permissionGroups
 """
-type CustomerBusinessDetail {
+type CustomerBusinessPartial {
+  """
+  The unique identifier of the business.
+  """
+  organisationId: ID
+
+  """
+  The SBI (Single Business Identifier) of the business.
+  """
+  sbi: ID!
+
+  """
+  The name of the business.
+  """
+  name: String!
+
+  """
+  The role associated with the business.
+  """
+  role: String
+}
+
+"""
+Represents a business owned by a customer
+"""
+type CustomerBusiness {
   """
   The unique identifier of the business.
   """
@@ -738,31 +765,6 @@ type CustomerBusinessDetail {
   The permission groups associated with the business.
   """
   permissionGroups: [CustomerBusinessPermissionGroup]
-}
-
-"""
-Represents a business owned by a customer.
-"""
-type CustomerBusiness {
-  """
-  The unique identifier of the business.
-  """
-  organisationId: ID
-
-  """
-  The SBI (Single Business Identifier) of the business.
-  """
-  sbi: ID!
-
-  """
-  The name of the business.
-  """
-  name: String!
-
-  """
-  The role associated with the business.
-  """
-  role: String
 }
 
 type CustomerBusinessPermissionGroup {
