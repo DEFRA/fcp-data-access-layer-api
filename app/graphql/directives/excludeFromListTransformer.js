@@ -7,7 +7,7 @@ export function excludeFromListTransformer(schema) {
       const type = objectConfig.toConfig()
       const excludedFields = []
 
-      Object.keys(type.fields).map((key) => {
+      Object.keys(type.fields).forEach((key) => {
         if (getDirective(schema, type.fields[key], 'excludeFromList')) {
           excludedFields.push(key)
           delete type.fields[key]

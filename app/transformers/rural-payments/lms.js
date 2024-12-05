@@ -17,9 +17,7 @@ export function transformLandCovers(landCover) {
 }
 
 export function transformLandParcelsEffectiveDates(parcelId, sheetId, parcels) {
-  const parcel = parcels.find(
-    (parcel) => parcel.parcelId === parcelId && parcel.sheetId === sheetId
-  )
+  const parcel = parcels.find((p) => p.parcelId === parcelId && p.sheetId === sheetId)
 
   return {
     effectiveFrom: parcel?.validFrom,
