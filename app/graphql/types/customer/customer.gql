@@ -136,9 +136,7 @@ type Customer {
   """
   The security questions of the customer.
   """
-  authenticationQuestions(
-    entraIdUserObjectId: UUID!
-  ): CustomerAuthenticationQuestions @on
+  authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions @on
 
   """
   The businesses associated with the customer.
@@ -148,7 +146,44 @@ type Customer {
   """
   The single business filtered by sbi associated with the customer.
   """
-  business(sbi: ID!): CustomerBusiness @on
+  business(sbi: ID!): CustomerBusinessDetail @on
+}
+
+"""
+Represents a business owned by a customer. Additional properties over CustomerBusiness:
+ - messages
+ - permissionGroups
+"""
+type CustomerBusinessDetail {
+  """
+  The unique identifier of the business.
+  """
+  organisationId: ID @on
+
+  """
+  The SBI (Single Business Identifier) of the business.
+  """
+  sbi: ID! @on
+
+  """
+  The name of the business.
+  """
+  name: String! @on
+
+  """
+  The role associated with the business.
+  """
+  role: String @on
+
+  """
+  The messages associated with the business.
+  """
+  messages(pagination: Pagination, showOnlyDeleted: Boolean): [CustomerBusinessMessage]
+
+  """
+  The permission groups associated with the business.
+  """
+  permissionGroups: [CustomerBusinessPermissionGroup] @on
 }
 
 """
@@ -174,19 +209,6 @@ type CustomerBusiness {
   The role associated with the business.
   """
   role: String @on
-
-  """
-  The messages associated with the business.
-  """
-  messages(
-    pagination: Pagination
-    showOnlyDeleted: Boolean
-  ): [CustomerBusinessMessage]
-
-  """
-  The permission groups associated with the business.
-  """
-  permissionGroups: [CustomerBusinessPermissionGroup] @on
 }
 
 type CustomerBusinessPermissionGroup {
