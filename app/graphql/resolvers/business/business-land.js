@@ -89,9 +89,12 @@ export const BusinessLandParcel = {
 }
 
 export const BusinessLandSummary = {
-  async totalParcels({ organisationId }, __, { dataSources }) {
+  async totalParcels({ organisationId, date = new Date() }, __, { dataSources }) {
     return transformTotalParcels(
-      await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationId(organisationId)
+      await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationIdAndDate(
+        organisationId,
+        date
+      )
     )
   },
 

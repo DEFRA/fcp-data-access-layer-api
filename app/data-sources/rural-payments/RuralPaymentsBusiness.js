@@ -117,16 +117,16 @@ export class RuralPaymentsBusiness extends RuralPayments {
       date
     })
 
-    const formattedHistoricDate = date
-      .toLocaleString('en-GB', {
-        day: 'numeric',
+    // Convert 'YYYY-MM-DD' to 'DD-MMM-YY, e.g. 19-Jul-20
+    const formattedDate = new Date(date)
+      .toLocaleDateString('en-GB', {
+        day: '2-digit',
         month: 'short',
         year: '2-digit'
       })
       .replace(/ /g, '-')
-    return this.get(
-      `lms/organisation/${organisationId}/covers-summary/historic/${formattedHistoricDate}`
-    )
+
+    return this.get(`lms/organisation/${organisationId}/covers-summary/historic/${formattedDate}`)
   }
 
   async getOrganisationCPHCollectionByOrganisationId(organisationId) {
