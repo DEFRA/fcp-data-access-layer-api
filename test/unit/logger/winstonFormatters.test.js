@@ -171,16 +171,14 @@ describe('winstonFormatters', () => {
       expect(sampleResponseBodyData().transform(info)).toBe(info)
     })
     it('should limit log response body data to 5 items', () => {
-      const body = [1, 2, 3, 4, 5]
+      const body = [1, 2, 3, 4, 5, 6, 7, 8, 9]
       const data = { ...info, response: { body } }
-      expect(
-        sampleResponseBodyData().transform({
-          ...data,
-          response: {
-            body: [...body, 6, 7, 8, 9]
-          }
-        })
-      ).toEqual(data)
+      expect(sampleResponseBodyData().transform(data)).toEqual({
+        ...info,
+        response: {
+          sampleResponseBody: [1, 2, 3, 4, 5]
+        }
+      })
     })
   })
 })
