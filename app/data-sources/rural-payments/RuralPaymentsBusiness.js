@@ -111,13 +111,13 @@ export class RuralPaymentsBusiness extends RuralPayments {
     )
   }
 
-  getCoversSummaryByOrganisationIdAndDate(organisationId, historicDate) {
+  getCoversSummaryByOrganisationIdAndDate(organisationId, date) {
     this.logger.silly('Getting organisation covers summary by organisation ID and date', {
       organisationId,
-      historicDate
+      date
     })
 
-    const formattedHistoricDate = historicDate
+    const formattedHistoricDate = date
       .toLocaleString('en-GB', {
         day: 'numeric',
         month: 'short',

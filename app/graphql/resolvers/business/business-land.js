@@ -10,8 +10,8 @@ import {
 import { validateDate } from '../../../utils/date.js'
 
 export const BusinessLand = {
-  summary({ organisationId }) {
-    return { organisationId }
+  summary({ organisationId }, { date }) {
+    return { organisationId, date }
   },
 
   async parcel({ organisationId }, { date, parcelId }, { dataSources }) {
@@ -95,41 +95,41 @@ export const BusinessLandSummary = {
     )
   },
 
-  async totalArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
+  async totalArea({ organisationId, date = new Date() }, __, { dataSources }) {
     return transformTotalArea(
       await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
         organisationId,
-        historicDate
+        date
       )
     )
   },
 
-  async arableLandArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
+  async arableLandArea({ organisationId, date = new Date() }, __, { dataSources }) {
     return transformLandCoversToArea(
       'Arable Land',
       await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
         organisationId,
-        historicDate
+        date
       )
     )
   },
 
-  async permanentGrasslandArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
+  async permanentGrasslandArea({ organisationId, date = new Date() }, __, { dataSources }) {
     return transformLandCoversToArea(
       'Permanent Grassland',
       await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
         organisationId,
-        historicDate
+        date
       )
     )
   },
 
-  async permanentCropsArea({ organisationId, historicDate = new Date() }, __, { dataSources }) {
+  async permanentCropsArea({ organisationId, date = new Date() }, __, { dataSources }) {
     return transformLandCoversToArea(
       'Permanent Crops',
       await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
         organisationId,
-        historicDate
+        date
       )
     )
   }
