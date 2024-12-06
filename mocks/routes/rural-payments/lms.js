@@ -57,7 +57,19 @@ export default [
         type: 'middleware',
         options: {
           middleware: (req, res) => {
-            const orgId = req.params.orgId
+            const { orgId, historicDate } = req.params
+
+            // Verify date format matches DD-MMM-YY (e.g. 19-Jul-24)
+            const dateFormatRegex = /^\d{2}-[A-Z][a-z]{2}-\d{2}$/
+            if (!dateFormatRegex.test(historicDate)) {
+              return badRequestResponse(res)
+            }
+
+            // if year is before 2020, return empty array
+            if (parseInt(historicDate.substring(7, 9)) < 20) {
+              return okOrNotFoundResponse(res, {})
+            }
+
             const data = coversSummary(orgId)
 
             return okOrNotFoundResponse(res, data)
@@ -130,12 +142,18 @@ export default [
           middleware: (req, res) => {
             const { orgId, historicDate } = req.params
 
-            if (req.url.includes('%20')) {
+            // Verify date format matches DD-MMM-YY (e.g. 19-Jul-24)
+            const dateFormatRegex = /^\d{2}-[A-Z][a-z]{2}-\d{2}$/
+            if (!dateFormatRegex.test(historicDate)) {
               return badRequestResponse(res)
             }
 
-            const historicTimestamp = Date.parse(historicDate)
-            const data = landParcelDates(orgId, historicTimestamp)
+            // if year is before 2020, return empty array
+            if (parseInt(historicDate.substring(7, 9)) < 20) {
+              return okOrNotFoundResponse(res, [])
+            }
+
+            const data = landParcelDates(orgId)
 
             return okOrNotFoundResponse(res, data)
           }
