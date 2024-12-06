@@ -64,7 +64,10 @@ const mockArguments = { date: '2022-01-01' }
 
 describe('BusinessLand', () => {
   it('summary', () => {
-    expect(BusinessLand.summary(mockBusiness)).toEqual(mockBusiness)
+    expect(BusinessLand.summary(mockBusiness, mockArguments)).toEqual({
+      ...mockBusiness,
+      ...mockArguments
+    })
   })
 
   it('parcels', async () => {
