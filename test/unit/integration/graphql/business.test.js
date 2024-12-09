@@ -207,7 +207,7 @@ describe('Query.business.land', () => {
                 coversSummaryData
               ),
               totalArea: 765.8304,
-              totalParcels: 302
+              totalParcels: 323
             }
           }
         }

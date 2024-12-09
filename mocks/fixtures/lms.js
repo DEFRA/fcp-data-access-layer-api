@@ -36,7 +36,7 @@ export const landParcels = (orgId) => {
   return getJSON(`./orgId/${orgId}/land-parcels.json`)
 }
 
-export const landParcelDates = (orgId, historicDate) => {
+export const landParcelDates = (orgId) => {
   const parcels = landParcels(orgId)
   const parcelsDates = getJSON(`./orgId/${orgId}/land-parcels-effective-dates.json`)
   return parcels.map((parcel) => {
