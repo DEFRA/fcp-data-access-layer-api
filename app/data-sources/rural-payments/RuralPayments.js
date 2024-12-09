@@ -39,7 +39,7 @@ export class RuralPayments extends RESTDataSource {
         this.logger.warn('#datasource - apim - retrying request', {
           request: {
             method: incomingRequest.method.toUpperCase(),
-            path
+            path: path.toString()
           },
           response: {
             status: error?.extensions?.response?.status,
@@ -129,12 +129,12 @@ export class RuralPayments extends RESTDataSource {
     }
 
     this.logger.verbose('#datasource - Rural payments - request', {
-      request: { ...request, path },
+      request: { ...request, path: path.toString() },
       code: RURALPAYMENTS_API_REQUEST_001
     })
 
     this.logger.verbose('#datasource - apim - request', {
-      request: { ...request, path },
+      request: { ...request, path: path.toString() },
       code: APIM_APIM_REQUEST_001
     })
   }
@@ -219,7 +219,7 @@ export class RuralPayments extends RESTDataSource {
   }
 
   // override trace function to avoid unnecessary logging
-  async trace(path, request, fn) {
+  async trace(url, request, fn) {
     const requestStart = Date.now()
     const result = await fn()
     const requestTimeMs = Date.now() - requestStart
@@ -236,12 +236,12 @@ export class RuralPayments extends RESTDataSource {
       request: {
         method: request.method.toUpperCase(),
         headers: request.headers,
-        path
+        path: url.toString()
       },
       response: { statusCode: request.response?.status }
     })
     this.logger.debug('#datasource - Rural payments - response detail', {
-      request: { ...request, path },
+      request: { ...request, path: url.toString() },
       response: { ...response, body: result.parsedBody },
       code: RURALPAYMENTS_API_REQUEST_001,
       requestTimeMs
@@ -253,12 +253,12 @@ export class RuralPayments extends RESTDataSource {
       request: {
         method: request.method.toUpperCase(),
         headers: request.headers,
-        path
+        path: url.toString()
       },
       response: { status: result.response?.status }
     })
     this.logger.debug('#datasource - apim - response detail', {
-      request: { ...request, path },
+      request: { ...request, path: url.toString() },
       response: { ...response, body: result.parsedBody },
       code: APIM_APIM_REQUEST_001,
       requestTimeMs
