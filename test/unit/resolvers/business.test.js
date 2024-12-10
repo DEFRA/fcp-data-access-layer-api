@@ -1,9 +1,6 @@
 import { createRequire } from 'node:module'
 import { NotFound } from '../../../app/errors/graphql.js'
-import {
-  Business,
-  BusinessCustomerDetail
-} from '../../../app/graphql/resolvers/business/business.js'
+import { Business, BusinessCustomer } from '../../../app/graphql/resolvers/business/business.js'
 import { transformOrganisationCPH } from '../../../app/transformers/rural-payments/business-cph.js'
 import {
   transformBusinessCustomerPrivilegesToPermissionGroups,
@@ -77,7 +74,7 @@ describe('Business', () => {
   })
 })
 
-describe('BusinessCustomerDetail', () => {
+describe('BusinessCustomer', () => {
   it('permissionGroups', async () => {
     const customers = organisationPeopleByOrgId('5565448')._data
     for (const customer of customers) {
@@ -87,7 +84,7 @@ describe('BusinessCustomerDetail', () => {
       )
 
       expect(
-        await BusinessCustomerDetail.permissionGroups(
+        await BusinessCustomer.permissionGroups(
           {
             privileges: customer.privileges
           },

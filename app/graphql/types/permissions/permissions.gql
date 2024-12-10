@@ -17,6 +17,18 @@ enum PermissionGroupId {
   LAND_DETAILS
 }
 
+type ActivePermissionGroup {
+  """
+  The permission group id.
+  """
+  id: PermissionGroupId! @on
+
+  """
+  The permission level customer has for the business.
+  """
+  level: PermissionLevel @on
+}
+
 type PermissionGroup {
   """
   The permission group id.
