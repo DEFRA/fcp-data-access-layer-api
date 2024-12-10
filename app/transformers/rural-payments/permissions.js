@@ -1,18 +1,16 @@
-export function transformOrganisationAuthorisationToCustomerBusinessPermissionLevel (
+export function transformOrganisationAuthorisationToCustomerBusinessPermissionLevel(
   personId,
   permissions,
   orgCustomers
 ) {
   permissions.reverse()
 
-  const privilegeNames = orgCustomers.flatMap(personPrivileges =>
-    `${personPrivileges.id}` === `${personId}`
-      ? personPrivileges.privileges
-      : []
+  const privilegeNames = orgCustomers.flatMap((personPrivileges) =>
+    `${personPrivileges.id}` === `${personId}` ? personPrivileges.privileges : []
   )
 
   for (const permission of permissions) {
-    const hasPrivilegeName = privilegeNames.some(privilege =>
+    const hasPrivilegeName = privilegeNames.some((privilege) =>
       permission.privilegeNames.includes(privilege)
     )
     if (hasPrivilegeName) {
@@ -23,11 +21,8 @@ export function transformOrganisationAuthorisationToCustomerBusinessPermissionLe
   return null
 }
 
-export function transformPrivilegesListToBusinessCustomerPermissions (
-  privileges,
-  permissionGroups
-) {
-  return permissionGroups.map(permissionGroup => {
+export function transformPrivilegesListToBusinessCustomerPermissions(privileges, permissionGroups) {
+  return permissionGroups.map((permissionGroup) => {
     permissionGroup.permissions.reverse()
 
     return {
@@ -35,7 +30,7 @@ export function transformPrivilegesListToBusinessCustomerPermissions (
       name: permissionGroup.name,
       level:
         permissionGroup.permissions.find(({ privilegeNames }) =>
-          privilegeNames.some(privilege => privileges.includes(privilege))
+          privilegeNames.some((privilege) => privileges.includes(privilege))
         )?.level || 'NO_ACCESS'
     }
   })

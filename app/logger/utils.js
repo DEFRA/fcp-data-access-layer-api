@@ -46,15 +46,14 @@ export const jsonStringify = (obj) => {
   )
 }
 
-const sampleArray = array => {
-  const sampleSize = 5
+export const sampleArray = (array, sampleSize = 5) => {
   if (array.length <= sampleSize) {
     return array
   }
   return array.slice(0, sampleSize)
 }
 
-export const sampleResponse = response => {
+export const sampleResponse = (response) => {
   if (Array.isArray(response)) {
     return sampleArray(response)
   }
