@@ -244,7 +244,11 @@ export class RuralPayments extends RESTDataSource {
     })
     this.logger.debug('#datasource - Rural payments - response detail', {
       request: { ...request, path: url.toString() },
-      response: { ...response, body: result.parsedBody },
+      response: {
+        ...response,
+        body: result.parsedBody,
+        size: Buffer.byteLength(JSON.stringify(response.body))
+      },
       code: RURALPAYMENTS_API_REQUEST_001,
       requestTimeMs
     })
@@ -261,7 +265,11 @@ export class RuralPayments extends RESTDataSource {
     })
     this.logger.debug('#datasource - apim - response detail', {
       request: { ...request, path: url.toString() },
-      response: { ...response, body: result.parsedBody },
+      response: {
+        ...response,
+        body: result.parsedBody,
+        size: Buffer.byteLength(JSON.stringify(response.body))
+      },
       code: APIM_APIM_REQUEST_001,
       requestTimeMs
     })
