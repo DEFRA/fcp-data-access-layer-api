@@ -32,31 +32,46 @@ export class RuralPayments extends RESTDataSource {
 
       return result
     } catch (error) {
-      // Handle occasionally 500 error produced by APIM
-      // TODO: Once APIM has been fixed, remove retry logic
-      if (
-        error?.extensions?.response?.status === StatusCodes.INTERNAL_SERVER_ERROR &&
-        incomingRequest.retryCount < maximumRetries
-      ) {
-        this.logger.warn('#datasource - apim - retrying request', {
-          request: {
-            method: incomingRequest.method.toUpperCase(),
-            path: path.toString()
-          },
-          response: {
-            status: error?.extensions?.response?.status,
-            headers: error?.extensions?.response?.headers.raw(),
-            body: error?.extensions?.parsedBody
-          },
-          retryCount: incomingRequest.retryCount,
-          code: APIM_APIM_REQUEST_001
-        })
-        incomingRequest.retryCount++
+      const res = error.extensions?.response
 
-        return this.fetch(path, incomingRequest)
+      if (res) {
+        // Handle occasionally 500 error produced by APIM
+        // TODO: Once APIM has been fixed, remove retry logic
+        if (
+          res.status === StatusCodes.INTERNAL_SERVER_ERROR &&
+          incomingRequest.retryCount < maximumRetries
+        ) {
+          this.logger.warn('#datasource - apim - retrying request', {
+            request: {
+              method: incomingRequest.method.toUpperCase(),
+              path: path.toString()
+            },
+            response: {
+              status: res.status,
+              headers: res?.headers?.raw(),
+              body: error.extensions.parsedBody
+            },
+            retryCount: incomingRequest.retryCount,
+            code: APIM_APIM_REQUEST_001
+          })
+          incomingRequest.retryCount++
+
+          return this.fetch(path, incomingRequest)
+        }
+
+        throw error
       }
 
-      throw error
+      this.logger.error(new Error(error))
+
+      throw new HttpError(StatusCodes.BAD_GATEWAY, {
+        extensions: {
+          response: {
+            status: StatusCodes.BAD_GATEWAY,
+            body: error.message
+          }
+        }
+      })
     }
   }
 
