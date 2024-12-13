@@ -14,7 +14,7 @@ describe('RuralPayments', () => {
     const dummyRequest = { method: 'POST' }
 
     beforeEach(() => {
-      mockFetch.mockClear().mockReset()
+      mockFetch.mockReset()
     })
     afterAll(() => {
       mockFetch.mockRestore()
@@ -39,8 +39,8 @@ describe('RuralPayments', () => {
         const rp = new RuralPayments({ logger })
         try {
           await rp.fetch('path', dummyRequest)
-        } catch (error) {
-          expect(error.extensions).toMatchObject({ response: { status: 500 } })
+        } catch (thrownError) {
+          expect(thrownError.extensions).toMatchObject({ response: { status: 500 } })
           expect(mockFetch).toBeCalledTimes(3) // same as `maximumRetries` in RuralPayments.js
         }
         expect.assertions(2)

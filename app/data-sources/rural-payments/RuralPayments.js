@@ -62,8 +62,6 @@ export class RuralPayments extends RESTDataSource {
         throw error
       }
 
-      this.logger.error(new Error(error))
-
       throw new HttpError(StatusCodes.BAD_GATEWAY, {
         extensions: {
           response: {
