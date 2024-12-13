@@ -44,7 +44,8 @@ export function transformLandParcelsWithGeometry(landParcels) {
 }
 
 export function transformTotalParcels(landParcels) {
-  return new Set(landParcels.map((parcel) => parcel.id)).size
+  const { features } = landParcels
+  return new Set(features.map((parcel) => String(parcel.id))).size
 }
 
 export function transformTotalArea(landCovers) {

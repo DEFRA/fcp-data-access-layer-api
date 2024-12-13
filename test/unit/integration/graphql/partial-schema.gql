@@ -129,7 +129,7 @@ type BusinessLand {
   """
   The summary of the business land.
   """
-  summary(historicDate: Date): BusinessLandSummary
+  summary(date: Date): BusinessLandSummary
 }
 
 """
