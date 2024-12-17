@@ -1,8 +1,5 @@
 import { messages } from '../../fixtures/messages.js'
-import {
-  badRequestResponse,
-  okOrNotFoundResponse
-} from '../../utils/requestResponse.js'
+import { badRequestResponse, okOrNotFoundResponse } from '../../utils/requestResponse.js'
 
 export default [
   {

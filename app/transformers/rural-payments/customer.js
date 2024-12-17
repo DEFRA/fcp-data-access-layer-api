@@ -1,10 +1,8 @@
 import { logger } from '../../logger/logger.js'
 import { sampleResponse } from '../../logger/utils.js'
 
-export function transformBusinessCustomerToCustomerRole (crn, customers) {
-  const customer = customers.find(
-    ({ customerReference }) => customerReference === crn
-  )
+export function transformBusinessCustomerToCustomerRole(crn, customers) {
+  const customer = customers.find(({ customerReference }) => customerReference === crn)
 
   logger.silly('Transforming business customer to customer role', {
     original: { crn, customers },
@@ -13,18 +11,14 @@ export function transformBusinessCustomerToCustomerRole (crn, customers) {
   return customer.role
 }
 
-export function transformBusinessCustomerToCustomerPermissionGroups (
+export function transformBusinessCustomerToCustomerPermissionGroups(
   crn,
   customers,
   permissionGroups
 ) {
-  const customer = customers.find(
-    ({ customerReference }) => customerReference === crn
-  )
+  const customer = customers.find(({ customerReference }) => customerReference === crn)
 
-  const customerPrivileges = customer?.privileges?.map((privilege) =>
-    privilege.toLowerCase()
-  )
+  const customerPrivileges = customer?.privileges?.map((privilege) => privilege.toLowerCase())
 
   if (!customerPrivileges) {
     return permissionGroups.map(({ id, permissions }) => ({
@@ -47,10 +41,7 @@ export function transformBusinessCustomerToCustomerPermissionGroups (
   }))
 }
 
-export function transformPersonSummaryToCustomerAuthorisedBusinesses (
-  properties,
-  summary
-) {
+export function transformPersonSummaryToCustomerAuthorisedBusinesses(properties, summary) {
   // Remove any businesses that have no SBI
   const transformed = summary
     .filter(({ sbi }) => sbi !== null)
@@ -61,10 +52,11 @@ export function transformPersonSummaryToCustomerAuthorisedBusinesses (
       ...properties
     }))
 
-  logger.silly(
-    'Transforming person summary to customer authorised businesses',
-    { properties, original: sampleResponse(summary), transformed: sampleResponse(transformed) }
-  )
+  logger.silly('Transforming person summary to customer authorised businesses', {
+    properties,
+    original: sampleResponse(summary),
+    transformed: sampleResponse(transformed)
+  })
   return transformed
 }
 
@@ -111,14 +103,9 @@ export const ruralPaymentsPortalCustomerTransformer = (data) => {
   }
 }
 
-export function transformNotificationsToMessages (
-  notifications = [],
-  showOnlyDeleted = false
-) {
+export function transformNotificationsToMessages(notifications = [], showOnlyDeleted = false) {
   return notifications
-    .filter(({ archivedAt }) =>
-      showOnlyDeleted ? archivedAt !== null : archivedAt === null
-    )
+    .filter(({ archivedAt }) => (showOnlyDeleted ? archivedAt !== null : archivedAt === null))
     .map((message) => ({
       id: message.id,
       title: message.title,
@@ -129,27 +116,21 @@ export function transformNotificationsToMessages (
     }))
 }
 
-export function transformPersonSummaryToCustomerAuthorisedFilteredBusiness (
-  properties,
-  summary
-) {
+export function transformPersonSummaryToCustomerAuthorisedFilteredBusiness(properties, summary) {
   const filteredBusinessForCustomer = summary.find(
-    person => `${person.sbi}` === `${properties.sbi}`
+    (person) => `${person.sbi}` === `${properties.sbi}`
   )
   if (!filteredBusinessForCustomer) {
     return null
   }
-  logger.silly(
-    'Transforming person summary to customer authorised filtered business',
-    {
-      original: { properties, summary },
-      transformed: {
-        organisationId: filteredBusinessForCustomer.id,
-        name: filteredBusinessForCustomer.name,
-        ...properties
-      }
+  logger.silly('Transforming person summary to customer authorised filtered business', {
+    original: { properties, summary },
+    transformed: {
+      organisationId: filteredBusinessForCustomer.id,
+      name: filteredBusinessForCustomer.name,
+      ...properties
     }
-  )
+  })
 
   return {
     organisationId: filteredBusinessForCustomer.id,

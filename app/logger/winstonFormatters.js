@@ -2,7 +2,7 @@ import fastRedact from 'fast-redact'
 import { format } from 'winston'
 import { sampleResponse } from './utils.js'
 
-const serialize = info => {
+const serialize = (info) => {
   const symbols = Object.getOwnPropertySymbols(info).reduce((symbols, symbol) => {
     symbols[symbol] = info[symbol]
     return symbols
@@ -15,15 +15,16 @@ const serialize = info => {
 }
 
 const redact = fastRedact({
-  paths: ['*.*.authorization', '*.*.Authorization'],
+  paths: ['*.*.authorization', '*.*.Authorization', '*.*.access_token'],
   serialize
 })
 
 export const redactSensitiveData = format(redact)
 
-export const sampleResponseBodyData = format(info => {
+export const sampleResponseBodyData = format((info) => {
   if (info?.response?.body) {
-    info.response.body = sampleResponse(info.response.body)
+    info.response.sampleResponseBody = sampleResponse(info.response.body)
+    delete info.response.body
   }
   return info
 })
