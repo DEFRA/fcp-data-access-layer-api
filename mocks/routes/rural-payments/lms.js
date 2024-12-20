@@ -121,7 +121,6 @@ export default [
         type: 'middleware',
         options: {
           middleware: (req, res) => {
-            
             const { orgId, historicDate } = req.params
 
             // Verify date format matches DD-MMM-YY (e.g. 19-Jul-24)
