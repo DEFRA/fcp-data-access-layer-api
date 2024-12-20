@@ -6,6 +6,8 @@ helm/**/*.lock
 !.vscode/settings.json
 .env
 .env_*
+.env.*
+!.env.test
 .idea
 coverage
 .nvmrc

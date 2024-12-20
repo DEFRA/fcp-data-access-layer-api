@@ -112,6 +112,37 @@ export default [
     ]
   },
   {
+    id: 'rural-payments-lms-get-parcels-historic',
+    url: '/v1/lms/organisation/:orgId/parcels/historic/:historicDate',
+    method: 'GET',
+    variants: [
+      {
+        id: 'default',
+        type: 'middleware',
+        options: {
+          middleware: (req, res) => {
+            const { orgId, historicDate } = req.params
+
+            // Verify date format matches DD-MMM-YY (e.g. 19-Jul-24)
+            const dateFormatRegex = /^\d{2}-[A-Z][a-z]{2}-\d{2}$/
+            if (!dateFormatRegex.test(historicDate)) {
+              return badRequestResponse(res)
+            }
+
+            // if year is before 2020, return empty array
+            if (parseInt(historicDate.substring(7, 9)) < 20) {
+              return okOrNotFoundResponse(res, [])
+            }
+
+            const data = landParcels(orgId)
+
+            return okOrNotFoundResponse(res, data)
+          }
+        }
+      }
+    ]
+  },
+  {
     id: 'rural-payments-lms-get-land-covers-by-sheet-id-and-parcel-id',
     url: '/v1/lms/organisation/:orgId/parcel/sheet-id/:sheetId/parcel-id/:parcelId/land-covers',
     method: ['GET'],

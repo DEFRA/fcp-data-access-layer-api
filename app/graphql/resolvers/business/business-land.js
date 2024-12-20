@@ -2,8 +2,8 @@ import { NotFound } from '../../../errors/graphql.js'
 import {
   transformLandCovers,
   transformLandCoversToArea,
+  transformLandParcels,
   transformLandParcelsEffectiveDates,
-  transformLandParcelsWithGeometry,
   transformTotalArea,
   transformTotalParcels
 } from '../../../transformers/rural-payments/lms.js'
@@ -34,7 +34,7 @@ export const BusinessLand = {
   async parcels({ organisationId }, { date }, { dataSources }) {
     validateDate(date)
 
-    return transformLandParcelsWithGeometry(
+    return transformLandParcels(
       await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationIdAndDate(
         organisationId,
         date
