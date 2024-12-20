@@ -1,9 +1,8 @@
-import dotenv from 'dotenv'
-import fs from 'fs'
-import { writeFile } from 'fs/promises'
-import https from 'https'
-import winston from 'winston'
-import { RuralPayments } from './app/data-sources/rural-payments/RuralPayments.js'
+import dotenv from 'dotenv';
+import fs from 'fs';
+import https from 'https';
+import winston from 'winston';
+import { RuralPayments } from './app/data-sources/rural-payments/RuralPayments.js';
 
 const logger = winston.createLogger({
   level: 'emerg',
@@ -16,6 +15,7 @@ const logger = winston.createLogger({
 
 const endpoints = [
   'lms/organisation/5613879/geometries?bbox=0,0,0,0&historicDate=141119',
+  'lms/organisation/5613879/parcels/historic/19-Jul-21',
   'organisation/5625145',
   'person/5043447/summary'
 ]
@@ -92,7 +92,6 @@ const envs = ['tst', 'dev', 'kits']
       results.push({
         datetime: datetime.toISOString(),
         env,
-        url: `"${process.env.RP_INTERNAL_APIM_URL}${endpoint}"`,
         endpoint,
         response_status: response.status || response.statusCode,
         response_duration: elapsed_time,
@@ -107,8 +106,7 @@ const envs = ['tst', 'dev', 'kits']
     },
     Object.keys(results[0]).join(',') + '\n'
   );
-
-  writeFile('test-apim-vs-kits.csv', rawData, 'utf8')
+  fs.writeFileSync('test-apim-vs-kits.csv', rawData, 'utf8')
 
   const rawDataGrouped = results.reduce((acc, result) => {
     acc[result.endpoint] = acc[result.endpoint] || []
@@ -121,5 +119,10 @@ const envs = ['tst', 'dev', 'kits']
     return acc;
   }, 'endpoint,' + Object.values(rawDataGrouped)[0].map(result => result.env).join(',') + '\n')
 
-  writeFile('test-apim-vs-kits-charts.csv', chartData, 'utf8')
+  fs.writeFileSync('test-apim-vs-kits-charts.csv', chartData, 'utf8')
+
+  console.log(`\n\nComplete`)
+  console.table(results)
+  console.log(`\nRaw data: test-apim-vs-kits.csv`)
+  console.log(`\nChart data: test-apim-vs-kits-charts.csv`)
 })()
