@@ -68,28 +68,48 @@ export class RuralPaymentsCustomer extends RuralPayments {
     return personBusinessSummaries._data
   }
 
-  async getNotificationsByOrganisationIdAndPersonId(organisationId, personId, page, size) {
+  async getNotificationsFromLastYearByOrganisationIdAndPersonId(organisationId, personId) {
     this.logger.silly('Getting notifications by organisation ID and person ID', {
       organisationId,
-      personId,
-      page,
-      size
+      personId
     })
 
-    const response = await this.get('notifications', {
-      params: {
-        personId,
-        organisationId,
-        filter: '',
-        page,
-        size
+    let oneYearAgo = new Date()
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
+    oneYearAgo = oneYearAgo.valueOf()
+
+    async function makeRecursiveRequest(page, notifications = []) {
+      const response = await this.get('notifications', {
+        params: {
+          personId,
+          organisationId,
+          page
+        }
+      })
+
+      if (response.notifications.length === 0) {
+        return notifications
       }
-    })
+
+      const filteredNotifications = response.notifications.filter(
+        ({ createdAt }) => createdAt > oneYearAgo
+      )
+
+      const combinedNotifications = [...notifications, ...filteredNotifications]
+
+      if (filteredNotifications.length < response.notifications.length) {
+        return combinedNotifications
+      }
+
+      return makeRecursiveRequest.call(this, page + 1, combinedNotifications)
+    }
+
+    const notifications = await makeRecursiveRequest.call(this, 1, [])
 
     this.logger.silly('Notifications by organisation ID and person ID response', {
-      response
+      notifications
     })
 
-    return response.notifications
+    return notifications
   }
 }

@@ -10,9 +10,9 @@ type CustomerBusinessMessage {
   id: ID!
 
   """
-  The title of the message.
+  The subject of the message.
   """
-  title: String
+  subject: String
 
   """
   The date of the message.
@@ -28,4 +28,9 @@ type CustomerBusinessMessage {
   Whether the message has been read.
   """
   read: Boolean
+
+  """
+  Whether the message has been deleted.
+  """
+  deleted: Boolean
 }

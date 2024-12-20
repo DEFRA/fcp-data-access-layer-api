@@ -67,19 +67,14 @@ export const CustomerBusiness = {
     return transformBusinessCustomerToCustomerRole(crn, businessCustomers)
   },
 
-  async messages({ organisationId, personId }, { pagination, showOnlyDeleted }, { dataSources }) {
-    const defaultPaginationPage = 1
-    const defaultPaginationPerPage = 5
-
+  async messages({ organisationId, personId }, __, { dataSources }) {
     const notifications =
-      await dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId(
+      await dataSources.ruralPaymentsCustomer.getNotificationsFromLastYearByOrganisationIdAndPersonId(
         organisationId,
-        personId,
-        pagination?.page || defaultPaginationPage,
-        pagination?.perPage || defaultPaginationPerPage
+        personId
       )
 
-    return transformNotificationsToMessages(notifications, showOnlyDeleted)
+    return transformNotificationsToMessages(notifications)
   },
 
   async permissionGroups({ organisationId, crn }, __, { dataSources }) {
