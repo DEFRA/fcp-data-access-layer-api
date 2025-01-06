@@ -80,9 +80,7 @@ export class RuralPaymentsBusiness extends RuralPayments {
       })
       .replace(/ /g, '-')
 
-    return this.get(
-      `lms/organisation/${organisationId}/parcels/historic/${formattedDate}`
-    )
+    return this.get(`lms/organisation/${organisationId}/parcels/historic/${formattedDate}`)
   }
 
   getParcelEffectiveDatesByOrganisationIdAndDate(organisationId, date) {
