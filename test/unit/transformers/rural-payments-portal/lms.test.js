@@ -1,8 +1,8 @@
 import {
   transformLandCovers,
   transformLandCoversToArea,
-  transformLandParcelsEffectiveDates,
-  transformLandParcelsWithGeometry
+  transformLandParcels,
+  transformLandParcelsEffectiveDates
 } from '../../../../app/transformers/rural-payments/lms.js'
 
 describe('LMS transformer', () => {
@@ -35,20 +35,16 @@ describe('LMS transformer', () => {
     expect(transformLandCoversToArea(...input)).toEqual(output)
   })
 
-  test('transformLandParcelsWithGeometry', () => {
-    const input = {
-      features: [
-        {
-          id: 'mockId',
-          properties: {
-            sheetId: 'mockSheetId',
-            area: 1000,
-            parcelId: 'mockParcelId',
-            pendingDigitisation: 'false'
-          }
-        }
-      ]
-    }
+  test('transformLandParcels', () => {
+    const input = [
+      {
+        id: 'mockId',
+        sheetId: 'mockSheetId',
+        area: 1000,
+        parcelId: 'mockParcelId',
+        pendingDigitisation: false
+      }
+    ]
     const output = [
       {
         id: 'mockId',
@@ -58,7 +54,7 @@ describe('LMS transformer', () => {
         pendingDigitisation: false
       }
     ]
-    expect(transformLandParcelsWithGeometry(input)).toEqual(output)
+    expect(transformLandParcels(input)).toEqual(output)
   })
 
   test('transformLandParcelsEffectiveDates', () => {

@@ -13,9 +13,9 @@ import {
 import {
   transformLandCovers,
   transformLandCoversToArea,
-  transformLandParcelsWithGeometry
+  transformLandParcels
 } from '../../../../app/transformers/rural-payments/lms.js'
-import { coversSummary, landCover, landParcelsGeometry } from '../../../../mocks/fixtures/lms.js'
+import { coversSummary, landCover, landParcels } from '../../../../mocks/fixtures/lms.js'
 import {
   organisationCPH,
   organisationCPHInfo
@@ -207,7 +207,7 @@ describe('Query.business.land', () => {
                 coversSummaryData
               ),
               totalArea: 765.8304,
-              totalParcels: 323
+              totalParcels: 302
             }
           }
         }
@@ -240,7 +240,7 @@ describe('Query.business.land', () => {
       data: {
         business: {
           land: {
-            parcels: transformLandParcelsWithGeometry(landParcelsGeometry(5565448))
+            parcels: transformLandParcels(landParcels(5565448))
           }
         }
       }
@@ -303,7 +303,7 @@ describe('Query.business.land', () => {
       contextValue: fakeContext
     })
 
-    const parcels = transformLandParcelsWithGeometry(landParcelsGeometry(5565448))
+    const parcels = transformLandParcels(landParcels(5565448))
     const parcel = parcels.find((parcel) => parcel.parcelId === '8194')
 
     expect(result).toEqual({
