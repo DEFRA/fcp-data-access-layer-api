@@ -30,22 +30,18 @@ export function transformLandCoversToArea(name, landCovers) {
   return convertSquareMetersToHectares(area)
 }
 
-export function transformLandParcelsWithGeometry(landParcels) {
-  const { features } = landParcels
-  return features.map((parcel) => {
+export function transformLandParcels(landParcels) {
+  return landParcels.map((parcel) => {
     return {
-      id: String(parcel.id),
-      parcelId: parcel.properties.parcelId,
-      sheetId: parcel.properties.sheetId,
-      area: convertSquareMetersToHectares(parcel.properties.area),
-      pendingDigitisation: parcel.properties.pendingDigitisation === 'true'
+      ...parcel,
+      id: `${parcel.id}`, // Transform to string to match the type in the graphql schema
+      area: convertSquareMetersToHectares(parcel.area)
     }
   })
 }
 
 export function transformTotalParcels(landParcels) {
-  const { features } = landParcels
-  return new Set(features.map((parcel) => String(parcel.id))).size
+  return landParcels.length
 }
 
 export function transformTotalArea(landCovers) {

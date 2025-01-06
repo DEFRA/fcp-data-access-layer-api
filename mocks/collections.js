@@ -14,6 +14,7 @@ const routes = [
   'rural-payments-lms-get-land-parcels-effective-dates:default',
   'rural-payments-lms-get-parcels:default',
   'rural-payments-lms-get-parcels-geometry:default',
+  'rural-payments-lms-get-parcels-historic:default',
 
   'rural-payments-messages:default',
 

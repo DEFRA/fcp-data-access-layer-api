@@ -17,19 +17,15 @@ const dataSources = {
       return [{ id: 'mockId', sheetId: 'mockSheetId', area: 1000 }]
     },
     getParcelsByOrganisationIdAndDate() {
-      return {
-        features: [
-          {
-            id: 'mockId',
-            properties: {
-              parcelId: 'mockParcelId',
-              sheetId: 'mockSheetId',
-              area: 1000,
-              pendingDigitisation: 'false'
-            }
-          }
-        ]
-      }
+      return [
+        {
+          id: 'mockId',
+          parcelId: 'mockParcelId',
+          sheetId: 'mockSheetId',
+          area: 1000,
+          pendingDigitisation: false
+        }
+      ]
     },
     getCoversByOrgSheetParcelId() {
       return {
@@ -116,7 +112,7 @@ describe('BusinessLand', () => {
 describe('BusinessLandSummary', () => {
   it('totalParcels', async () => {
     expect(
-      await BusinessLandSummary.totalParcels({ id: 'mockId' }, null, {
+      await BusinessLandSummary.totalParcels([{ id: 'mockId' }], null, {
         dataSources
       })
     ).toEqual(1)
