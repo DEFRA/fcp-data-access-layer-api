@@ -1,27 +1,24 @@
 {
   "name": "fcp-data-access-layer-api",
-  "version": "1.4.1",
+  "version": "1.4.10",
   "description": "Customer Registry GraphQL Service",
   "homepage": "https://github.com/DEFRA/fcp-data-access-layer-api",
   "main": "app/index.js",
   "type": "module",
   "scripts": {
-    "format:gql": "prettier \"app/graphql/types/**/*.gql\" --write",
-    "format:js": "standard --fix",
-    "format": "npm run format:js && npm run format:gql",
-    "lint:gql": "eslint \"app/graphql/types\" && prettier \"app/graphql/types/**/*.gql\" --check",
-    "lint:js": "standard",
-    "pretest": "npm run lint:js && npm run lint:gql",
+    "format": "eslint --fix . && prettier --write .",
+    "lint": "eslint . && prettier --check .",
+    "pretest": "npm run lint",
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext js --legacy-watch app/index.js",
     "start:dev": "nodemon -r dotenv/config --ext js,gql app/index.js",
     "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
     "start:mock": "nodemon -r dotenv/config ./mocks --watch ./mocks",
-    "test": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --forceExit --detectOpenHandles --setupFiles dotenv/config",
-    "test:contract": "NODE_OPTIONS=--experimental-vm-modules jest --testPathPattern=test/contract  --setupFiles dotenv/config",
+    "test": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --testPathPattern=test/unit --runInBand --forceExit --detectOpenHandles --setupFiles dotenv/config",
+    "test:acceptance": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env jest --testPathPattern=test/acceptance --setupFiles dotenv/config",
     "test:integration": "NODE_OPTIONS=--experimental-vm-modules jest --testPathPattern=test/integration  --setupFiles dotenv/config",
     "test:local": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand --setupFiles dotenv/config",
-    "test:unit": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --coverage --setupFiles dotenv/config",
-    "test:changedsince": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --changedSince=main --coverage --onlyChanged --setupFiles dotenv/config"
+    "test:unit": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --testPathPattern=test/unit --runInBand --coverage --setupFiles dotenv/config",
+    "test:changedsince": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --changedSince=dev --coverage --onlyChanged --setupFiles dotenv/config --detectOpenHandles"
   },
   "author": "Defra",
   "contributors": [],
@@ -40,7 +37,7 @@
     "@hapi/hapi": "^21.3.2",
     "applicationinsights": "^2.8.0",
     "fast-redact": "^3.5.0",
-    "graphql": "^16.8.1",
+    "graphql": "^16.9.0",
     "http-status-codes": "^2.3.0",
     "https-proxy-agent": "^7.0.2",
     "jsonwebtoken": "^9.0.2",
@@ -52,28 +49,25 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.25.9",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@mocks-server/core": "^4.0.2",
     "dotenv": "^16.3.1",
-    "eslint": "^8.52.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.9.0",
     "jest": "^29.6.4",
     "jest-junit": "^16.0.0",
     "mock-jwks": "^3.2.2",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.3",
-    "standard": "^17.1.0"
+    "prettier": "^3.3.3"
   },
-  "standard": {
-    "globals": [
-      "describe",
-      "beforeEach",
-      "expect",
-      "test",
-      "afterEach",
-      "jest",
-      "beforeAll",
-      "afterAll",
-      "it"
+  "eslintConfig": {
+    "extends": [
+      "eslint-plugin-import",
+      "eslint-plugin-jest"
     ]
   },
   "nodemonConfig": {

@@ -1,24 +1,50 @@
-export function transformLandCovers (landCovers) {
-  return landCovers.map(({ id, info }) => {
-    const { area, name } = info.find(item => item.area !== 0)
+import { convertSquareMetersToHectares } from '../../utils/numbers.js'
 
+export function transformLandCovers(landCover) {
+  const items = landCover?.features || []
+  return items
+    .filter((item) => item?.properties?.area !== '0')
+    .map(({ id, properties }) => {
+      const { code, area, name, isBpsEligible } = properties
+      return {
+        id,
+        code,
+        area: convertSquareMetersToHectares(area),
+        name: name.toUpperCase().split(' ').join('_'),
+        isBpsEligible: isBpsEligible === 'true'
+      }
+    })
+}
+
+export function transformLandParcelsEffectiveDates(parcelId, sheetId, parcels) {
+  const parcel = parcels.find((p) => p.parcelId === parcelId && p.sheetId === sheetId)
+
+  return {
+    effectiveFrom: parcel?.validFrom,
+    effectiveTo: parcel?.validTo
+  }
+}
+
+export function transformLandCoversToArea(name, landCovers) {
+  const { area } = landCovers.find((landCover) => landCover.name === name)
+  return convertSquareMetersToHectares(area)
+}
+
+export function transformLandParcels(landParcels) {
+  return landParcels.map((parcel) => {
     return {
-      id,
-      area,
-      name: name.toUpperCase().split(' ').join('_')
+      ...parcel,
+      id: `${parcel.id}`, // Transform to string to match the type in the graphql schema
+      area: convertSquareMetersToHectares(parcel.area)
     }
   })
 }
 
-export function transformLandCoversToArea (name, landCovers) {
-  const { area } = landCovers.find(landCover => landCover.name === name)
-  return area
+export function transformTotalParcels(landParcels) {
+  return landParcels.length
 }
 
-export function transformLandParcels (landParcels) {
-  return landParcels.map(({ id, sheetId, area }) => ({
-    id: `${id}`,
-    sheetId,
-    area
-  }))
+export function transformTotalArea(landCovers) {
+  const totalMeterageArea = landCovers.reduce((totalArea, { area }) => totalArea + area, 0)
+  return convertSquareMetersToHectares(totalMeterageArea)
 }

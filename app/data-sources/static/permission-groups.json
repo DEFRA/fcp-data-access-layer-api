@@ -6,22 +6,12 @@
       {
         "level": "NO_ACCESS",
         "functions": [],
-        "privilegeNames": [
-          "NO ACCESS - BPS - SA",
-          "NO ACCESS - BPS"
-        ]
+        "privilegeNames": ["NO ACCESS - BPS - SA", "NO ACCESS - BPS"]
       },
       {
         "level": "VIEW",
-        "functions": [
-          "View business summary",
-          "View claims",
-          "View land, features and covers"
-        ],
-        "privilegeNames": [
-          "VIEW - BPS - SA",
-          "View - bps"
-        ]
+        "functions": ["View business summary", "View claims", "View land, features and covers"],
+        "privilegeNames": ["VIEW - BPS - SA", "View - bps"]
       },
       {
         "level": "AMEND",
@@ -31,10 +21,7 @@
           "Amend a previously submitted claim",
           "Amend land, features and covers"
         ],
-        "privilegeNames": [
-          "AMEND - BPS - SA",
-          "Amend - bps"
-        ]
+        "privilegeNames": ["AMEND - BPS - SA", "Amend - bps"]
       },
       {
         "level": "SUBMIT",
@@ -44,10 +31,7 @@
           "Withdraw a claim",
           "Receive warnings and notifications"
         ],
-        "privilegeNames": [
-          "SUBMIT - BPS - SA",
-          "Submit - bps"
-        ]
+        "privilegeNames": ["SUBMIT - BPS - SA", "Submit - bps"]
       }
     ]
   },
@@ -62,13 +46,8 @@
       },
       {
         "level": "VIEW",
-        "functions": [
-          "View business details",
-          "View people associated with the business"
-        ],
-        "privilegeNames": [
-          "View - business"
-        ]
+        "functions": ["View business details", "View people associated with the business"],
+        "privilegeNames": ["View - business"]
       },
       {
         "level": "AMEND",
@@ -76,9 +55,7 @@
           "All permissions in View Business Details",
           "Amend business and correspondence contact details"
         ],
-        "privilegeNames": [
-          "Amend - business"
-        ]
+        "privilegeNames": ["Amend - business"]
       },
       {
         "level": "MAKE_LEGAL_CHANGES",
@@ -89,9 +66,7 @@
           "Amend bank account details",
           "Make young/new farmer declaration"
         ],
-        "privilegeNames": [
-          "Make legal changes - business"
-        ]
+        "privilegeNames": ["Make legal changes - business"]
       },
       {
         "level": "FULL_PERMISSION",
@@ -100,9 +75,7 @@
           "Add someone to the business",
           "Give permissions on business"
         ],
-        "privilegeNames": [
-          "Full permission - business"
-        ]
+        "privilegeNames": ["Full permission - business"]
       }
     ]
   },
@@ -113,10 +86,7 @@
       {
         "level": "NO_ACCESS",
         "functions": [],
-        "privilegeNames": [
-          "NO ACCESS - CS AGREE - SA",
-          "NO ACCESS - CS AGREE"
-        ]
+        "privilegeNames": ["NO ACCESS - CS AGREE - SA", "NO ACCESS - CS AGREE"]
       },
       {
         "level": "VIEW",
@@ -127,10 +97,7 @@
           "View CS agreement Transfers",
           "View CS Claims"
         ],
-        "privilegeNames": [
-          "VIEW - CS AGREE - SA",
-          "View - cs agree"
-        ]
+        "privilegeNames": ["VIEW - CS AGREE - SA", "View - cs agree"]
       },
       {
         "level": "AMEND",
@@ -144,10 +111,7 @@
           "Create and Edit a CS agreement transfer",
           "Revise a previously submitted agreement transfer"
         ],
-        "privilegeNames": [
-          "AMEND - CS AGREE - SA",
-          "Amend - cs agree"
-        ]
+        "privilegeNames": ["AMEND - CS AGREE - SA", "Amend - cs agree"]
       },
       {
         "level": "SUBMIT",
@@ -163,10 +127,7 @@
           "Withdraw a CS agreement transfer",
           "Receive warnings and notifications"
         ],
-        "privilegeNames": [
-          "SUBMIT - CS AGREE - SA",
-          "Submit - cs agree"
-        ]
+        "privilegeNames": ["SUBMIT - CS AGREE - SA", "Submit - cs agree"]
       }
     ]
   },
@@ -177,10 +138,7 @@
       {
         "level": "NO_ACCESS",
         "functions": [],
-        "privilegeNames": [
-          "NO ACCESS - CS APP - SA",
-          "NO ACCESS - CS APP"
-        ]
+        "privilegeNames": ["NO ACCESS - CS APP - SA", "NO ACCESS - CS APP"]
       },
       {
         "level": "VIEW",
@@ -190,10 +148,7 @@
           "View land, features and covers",
           "View CS agreement offer"
         ],
-        "privilegeNames": [
-          "VIEW - CS APP - SA",
-          "VIEW - CS APP"
-        ]
+        "privilegeNames": ["VIEW - CS APP - SA", "VIEW - CS APP"]
       },
       {
         "level": "AMEND",
@@ -204,10 +159,7 @@
           "Amend a previously submitted CS application",
           "Amend Land, Features and Covers"
         ],
-        "privilegeNames": [
-          "AMEND - CS APP - SA",
-          "Amend - cs app"
-        ]
+        "privilegeNames": ["AMEND - CS APP - SA", "Amend - cs app"]
       },
       {
         "level": "SUBMIT",
@@ -217,10 +169,7 @@
           "Withdraw CS application",
           "Receive warnings and notifications"
         ],
-        "privilegeNames": [
-          "SUBMIT - CS APP - SA",
-          "Submit - cs app"
-        ]
+        "privilegeNames": ["SUBMIT - CS APP - SA", "Submit - cs app"]
       }
     ]
   },
@@ -231,32 +180,17 @@
       {
         "level": "NO_ACCESS",
         "functions": [],
-        "privilegeNames": [
-          "NO ACCESS - ENTITLEMENT - SA",
-          "NO ACCESS - ENTITLEMENT"
-        ]
+        "privilegeNames": ["NO ACCESS - ENTITLEMENT - SA", "NO ACCESS - ENTITLEMENT"]
       },
       {
         "level": "VIEW",
-        "functions": [
-          "View entitlements"
-        ],
-        "privilegeNames": [
-          "VIEW - ENTITLEMENT - SA",
-          "View - entitlement"
-        ]
+        "functions": ["View entitlements"],
+        "privilegeNames": ["VIEW - ENTITLEMENT - SA", "View - entitlement"]
       },
       {
         "level": "AMEND",
-        "functions": [
-          "View entitlements",
-          "Transfer entitlements",
-          "Apply for new entitlements"
-        ],
-        "privilegeNames": [
-          "AMEND - ENTITLEMENT - SA",
-          "Amend - entitlement"
-        ]
+        "functions": ["View entitlements", "Transfer entitlements", "Apply for new entitlements"],
+        "privilegeNames": ["AMEND - ENTITLEMENT - SA", "Amend - entitlement"]
       }
     ]
   },
@@ -267,9 +201,7 @@
       {
         "level": "NO_ACCESS",
         "functions": [],
-        "privilegeNames": [
-          "ELM_APPLICATION_NO_ACCESS"
-        ]
+        "privilegeNames": ["ELM_APPLICATION_NO_ACCESS"]
       },
       {
         "level": "VIEW",
@@ -279,9 +211,7 @@
           "View land, features and covers",
           "View Environmental Land Management agreement offer"
         ],
-        "privilegeNames": [
-          "ELM_APPLICATION_VIEW"
-        ]
+        "privilegeNames": ["ELM_APPLICATION_VIEW"]
       },
       {
         "level": "AMEND",
@@ -292,9 +222,7 @@
           "Amend (but not resubmit) a previously submitted Environmental Land Management application",
           "Amend land, features and covers"
         ],
-        "privilegeNames": [
-          "ELM_APPLICATION_AMEND"
-        ]
+        "privilegeNames": ["ELM_APPLICATION_AMEND"]
       },
       {
         "level": "SUBMIT",
@@ -306,9 +234,7 @@
           "Submit rejection of Environmental Land Management agreement offer",
           "Receive all application correspondence including all warnings and notifications"
         ],
-        "privilegeNames": [
-          "ELM_APPLICATION_SUBMIT"
-        ]
+        "privilegeNames": ["ELM_APPLICATION_SUBMIT"]
       }
     ]
   },
@@ -319,20 +245,12 @@
       {
         "level": "NO_ACCESS",
         "functions": [],
-        "privilegeNames": [
-          "NO ACCESS - LAND - SA",
-          "NO ACCESS - LAND"
-        ]
+        "privilegeNames": ["NO ACCESS - LAND - SA", "NO ACCESS - LAND"]
       },
       {
         "level": "VIEW",
-        "functions": [
-          "View land, features and covers"
-        ],
-        "privilegeNames": [
-          "VIEW - LAND - SA",
-          "View - land"
-        ]
+        "functions": ["View land, features and covers"],
+        "privilegeNames": ["VIEW - LAND - SA", "View - land"]
       },
       {
         "level": "AMEND",
@@ -341,10 +259,7 @@
           "Amend land, features and covers",
           "Transfer land"
         ],
-        "privilegeNames": [
-          "AMEND - LAND - SA",
-          "Amend - land"
-        ]
+        "privilegeNames": ["AMEND - LAND - SA", "Amend - land"]
       }
     ]
   }
