@@ -35,6 +35,12 @@ describe('LMS transformer', () => {
     expect(transformLandCoversToArea(...input)).toEqual(output)
   })
 
+  test('transformLandCoversToArea - no name found', () => {
+    const input = ['mockName', [{ name: 'no-name', area: 1000 }]]
+    const output = 0
+    expect(transformLandCoversToArea(...input)).toEqual(output)
+  })
+
   test('transformLandParcels', () => {
     const input = [
       {
