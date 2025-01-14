@@ -26,8 +26,14 @@ export function transformLandParcelsEffectiveDates(parcelId, sheetId, parcels) {
 }
 
 export function transformLandCoversToArea(name, landCovers) {
-  const { area } = landCovers.find((landCover) => landCover.name === name)
-  return convertSquareMetersToHectares(area)
+  if (!landCovers || !Array.isArray(landCovers)) {
+    return 0
+  }
+  const landCover = landCovers.find((landCover) => landCover?.name === name)
+  if (!landCover || !landCover.area) {
+    return 0
+  }
+  return convertSquareMetersToHectares(landCover.area)
 }
 
 export function transformLandParcels(landParcels) {
