@@ -1,10 +1,7 @@
 import { jest } from '@jest/globals'
 
 import { Permissions } from '../../app/data-sources/static/permissions.js'
-import {
-  Customer,
-  CustomerBusiness
-} from '../../app/graphql/resolvers/customer/customer.js'
+import { Customer, CustomerBusiness } from '../../app/graphql/resolvers/customer/customer.js'
 import {
   organisationPeopleByOrgId,
   organisationPersonSummary
@@ -17,33 +14,20 @@ const personFixture = personById({ id: personId })
 
 const dataSources = {
   ruralPaymentsCustomer: {
-    getCustomerByCRN () {
+    getCustomerByCRN() {
       return personById({ id: personId })._data
     },
-    getPersonBusinessesByPersonId () {
+    getPersonBusinessesByPersonId() {
       return organisationPersonSummary({ id: personId })._data
     },
     getNotificationsByOrganisationIdAndPersonId: jest.fn()
   },
   ruralPaymentsBusiness: {
-    getOrganisationCustomersByOrganisationId () {
+    getOrganisationCustomersByOrganisationId() {
       return organisationPeopleByOrgId(orgId)._data
     }
   },
-  permissions: new Permissions(),
-  authenticateDatabase: {
-    getAuthenticateQuestionsAnswersByCRN () {
-      return {
-        CRN: '123',
-        Date: 'some date',
-        Event: 'some event',
-        Location: 'some location'
-      }
-    }
-  },
-  entraIdApi: {
-    getEmployeeId: jest.fn()
-  }
+  permissions: new Permissions()
 }
 
 describe('Customer', () => {
@@ -117,11 +101,7 @@ describe('Customer', () => {
   })
 
   test('Customer.businesses', async () => {
-    const response = await Customer.businesses(
-      { personId: '5007136' },
-      undefined,
-      { dataSources }
-    )
+    const response = await Customer.businesses({ personId: '5007136' }, undefined, { dataSources })
     expect(response).toEqual([
       {
         name: 'Cliff Spence T/As Abbey Farm',
@@ -134,16 +114,10 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockResolvedValue({ employeeId: 'x123456' })
-
     const response = await Customer.authenticationQuestions(
       { id: 'mockCustomerId' },
-      { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
       { dataSources }
     )
-
-    expect(dataSources.entraIdApi.getEmployeeId).toHaveBeenCalledWith('mockEntraIdUserObjectId')
-
     expect(response).toEqual({
       isFound: true,
       memorableDate: 'some date',
@@ -154,13 +128,9 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions - error', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockRejectedValue(new Error())
-
-    expect(Customer.authenticationQuestions(
-      { id: 'mockCustomerId' },
-      { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
-      { dataSources }
-    )).rejects.toThrow(Error)
+    expect(
+      Customer.authenticationQuestions({ id: 'mockCustomerId' }, { dataSources })
+    ).rejects.toThrow(Error)
   })
 })
 
@@ -179,8 +149,7 @@ describe('CustomerBusiness', () => {
         archivedAt: 8862388585856,
         archive: null,
         createdAt: 8247074489993,
-        title:
-          'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
+        title: 'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
         body: '<p>Adversus crastinus suggero caste adhuc vomer accusamus acies iure.</p>',
         category: 'OrganisationLevel',
         bespokeNotificationId: null
@@ -194,8 +163,7 @@ describe('CustomerBusiness', () => {
         archivedAt: null,
         archive: null,
         createdAt: 8818544780296,
-        title:
-          'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
+        title: 'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
         body: '<p>Cruentus venia dedecor beatus vinco cultellus clarus.</p>',
         category: 'OrganisationLevel',
         bespokeNotificationId: null
@@ -251,8 +219,7 @@ describe('CustomerBusiness', () => {
         { dataSources }
       )
       expect(
-        dataSources.ruralPaymentsCustomer
-          .getNotificationsByOrganisationIdAndPersonId
+        dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
       ).toHaveBeenCalledWith('4309257', 'mockpersonId', 1, 5)
       expect(response).toEqual([parsedMessages[1]])
     })
@@ -264,8 +231,7 @@ describe('CustomerBusiness', () => {
         { dataSources }
       )
       expect(
-        dataSources.ruralPaymentsCustomer
-          .getNotificationsByOrganisationIdAndPersonId
+        dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
       ).toHaveBeenCalledWith('4309257', 'mockpersonId', 1, 5)
       expect(response).toEqual([parsedMessages[1]])
     })
@@ -277,8 +243,7 @@ describe('CustomerBusiness', () => {
         { dataSources }
       )
       expect(
-        dataSources.ruralPaymentsCustomer
-          .getNotificationsByOrganisationIdAndPersonId
+        dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
       ).toHaveBeenCalledWith('123123', '321321', 1, 5)
       expect(response).toEqual([parsedMessages[0]])
     })
@@ -290,8 +255,7 @@ describe('CustomerBusiness', () => {
         { dataSources }
       )
       expect(
-        dataSources.ruralPaymentsCustomer
-          .getNotificationsByOrganisationIdAndPersonId
+        dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
       ).toHaveBeenCalledWith('123', '123', 5, 5)
       expect(response).toEqual([parsedMessages[1]])
     })

@@ -1,14 +1,13 @@
 import { DefaultAzureCredential } from '@azure/identity'
 import { graphql, GraphQLError } from 'graphql'
 
-import { EntraIdApi } from '../../../app/data-sources/entra-id/EntraIdApi.js'
-import { NotFound } from '../../../app/errors/graphql.js'
-import { schema } from '../../../app/graphql/server.js'
-import { transformAuthenticateQuestionsAnswers } from '../../../app/transformers/authenticate/question-answers.js'
-import { ruralPaymentsPortalCustomerTransformer } from '../../../app/transformers/rural-payments/customer.js'
-import { personById } from '../../../mocks/fixtures/person.js'
-import mockServer from '../../../mocks/server'
-import { fakeContext } from '../../test-setup.js'
+import { NotFound } from '../../../../app/errors/graphql.js'
+import { schema } from '../../../../app/graphql/server.js'
+import { transformAuthenticateQuestionsAnswers } from '../../../../app/transformers/authenticate/question-answers.js'
+import { ruralPaymentsPortalCustomerTransformer } from '../../../../app/transformers/rural-payments/customer.js'
+import { personById } from '../../../../mocks/fixtures/person.js'
+import mockServer from '../../../../mocks/server.js'
+import { fakeContext } from '../../../test-setup.js'
 
 const personFixture = personById({ id: '5007136' })
 
@@ -17,9 +16,7 @@ afterAll(mockServer.stop)
 
 describe('Query.customer', () => {
   it('should return customer data', async () => {
-    const customerInfo = ruralPaymentsPortalCustomerTransformer(
-      personFixture._data
-    )
+    const customerInfo = ruralPaymentsPortalCustomerTransformer(personFixture._data)
     const result = await graphql({
       source: `#graphql
         query Customer($crn: ID!) {
@@ -88,9 +85,7 @@ describe('Query.customer', () => {
   })
 
   it('should handle person not found error', async () => {
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-person-get-by-id:not-found'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-id:not-found')
 
     const result = await graphql({
       source: `#graphql
@@ -112,15 +107,11 @@ describe('Query.customer', () => {
       errors: [new GraphQLError('Rural payments customer not found')]
     })
 
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-person-get-by-id:default'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-id:default')
   })
 
   it('should handle error', async () => {
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-person-get-by-id:error'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-id:error')
 
     const result = await graphql({
       source: `#graphql
@@ -142,9 +133,7 @@ describe('Query.customer', () => {
       errors: [new GraphQLError('Internal Server Error')]
     })
 
-    await mockServer.server.mock.useRouteVariant(
-      'rural-payments-person-get-by-id:default'
-    )
+    await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-id:default')
   })
 
   describe('Handle 500 errors', () => {
@@ -153,9 +142,7 @@ describe('Query.customer', () => {
     })
 
     it('should retry request if 500 error', async () => {
-      await mockServer.server.mock.useRouteVariant(
-        'rural-payments-person-get-by-crn:error'
-      )
+      await mockServer.server.mock.useRouteVariant('rural-payments-person-get-by-crn:error')
 
       const result = await graphql({
         source: `#graphql
@@ -250,9 +237,6 @@ describe('Query.customer.authenticationQuestions', () => {
     jest
       .spyOn(DefaultAzureCredential.prototype, 'getToken')
       .mockImplementation(() => ({ token: 'mockToken' }))
-    jest
-      .spyOn(EntraIdApi.prototype, 'get')
-      .mockImplementation(() => ({ employeeId: 'x123456' }))
   })
 
   afterEach(() => {
@@ -267,16 +251,14 @@ describe('Query.customer.authenticationQuestions', () => {
       Location: 'some location',
       Updated: 'some date'
     }
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
+    const transformedAuthenticateQuestions = transformAuthenticateQuestionsAnswers(
       authenticateQuestionsResponse
     )
-    const transformedAuthenticateQuestions =
-      transformAuthenticateQuestionsAnswers(authenticateQuestionsResponse)
     const result = await graphql({
       source: `#graphql
         query Customer {
           customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
               memorablePlace
@@ -293,9 +275,7 @@ describe('Query.customer.authenticationQuestions', () => {
     expect(result).toEqual({
       data: {
         customer: {
-          authenticationQuestions: JSON.parse(
-            JSON.stringify(transformedAuthenticateQuestions)
-          )
+          authenticationQuestions: JSON.parse(JSON.stringify(transformedAuthenticateQuestions))
         }
       }
     })
@@ -303,14 +283,11 @@ describe('Query.customer.authenticationQuestions', () => {
 
   it('should return isFound false if record not found', async () => {
     const authenticateQuestionsResponse = null
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
     const result = await graphql({
       source: `#graphql
         query Customer {
           customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
               memorablePlace
@@ -350,14 +327,11 @@ describe('Query.customer.authenticationQuestions', () => {
       Location: 'some location',
       Updated: 'some date'
     }
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
     const result = await graphql({
       source: `#graphql
         query Customer {
           customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
               memorablePlace
@@ -610,9 +584,7 @@ describe('Query.customer.businesses.messages', () => {
           businesses: null
         }
       },
-      errors: [
-        new NotFound('Rural payments customer not found')
-      ]
+      errors: [new NotFound('Rural payments customer not found')]
     })
   })
 })

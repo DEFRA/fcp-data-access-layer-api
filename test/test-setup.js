@@ -9,10 +9,7 @@ const contextObject = await context({ request })
 export const fakeContext = {
   ...contextObject,
   dataSources: {
-    ...contextObject.dataSources,
-    authenticateDatabase: {
-      getAuthenticateQuestionsAnswersByCRN: jest.fn()
-    }
+    ...contextObject.dataSources
   },
   auth: { groups: [process.env.ADMIN_AD_GROUP_ID] }
 }
