@@ -28,19 +28,6 @@ const dataSources = {
     }
   },
   permissions: new Permissions(),
-  authenticateDatabase: {
-    getAuthenticateQuestionsAnswersByCRN() {
-      return {
-        CRN: '123',
-        Date: 'some date',
-        Event: 'some event',
-        Location: 'some location'
-      }
-    }
-  },
-  entraIdApi: {
-    getEmployeeId: jest.fn()
-  }
 }
 
 describe('Customer', () => {
@@ -127,16 +114,10 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockResolvedValue({ employeeId: 'x123456' })
-
     const response = await Customer.authenticationQuestions(
       { id: 'mockCustomerId' },
-      { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
       { dataSources }
     )
-
-    expect(dataSources.entraIdApi.getEmployeeId).toHaveBeenCalledWith('mockEntraIdUserObjectId')
-
     expect(response).toEqual({
       isFound: true,
       memorableDate: 'some date',
@@ -147,12 +128,9 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions - error', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockRejectedValue(new Error())
-
     expect(
       Customer.authenticationQuestions(
         { id: 'mockCustomerId' },
-        { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
         { dataSources }
       )
     ).rejects.toThrow(Error)

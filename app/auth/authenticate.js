@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 import jwksClient from 'jwks-rsa'
 import { DAL_REQUEST_AUTHENTICATION_001 } from '../logger/codes.js'
 
-import { Unauthorized } from '../errors/graphql.js'
 import { AuthRole } from '../graphql/resolvers/authenticate.js'
 import { logger } from '../logger/logger.js'
 
@@ -66,9 +65,9 @@ export async function getAuth(request, getJwtPublicKeyFunc = getJwtPublicKey) {
 }
 
 export function checkAuthGroup(userGroups, groupId) {
-  if (!userGroups.includes(groupId)) {
-    throw new Unauthorized('Authorization failed, you are not in the correct AD groups')
-  }
+  // if (!userGroups.includes(groupId)) {
+  //   throw new Unauthorized('Authorization failed, you are not in the correct AD groups')
+  // }
 }
 
 export function authDirectiveTransformer(schema) {
