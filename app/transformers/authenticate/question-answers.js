@@ -1,9 +1,9 @@
 export function transformAuthenticateQuestionsAnswers(questionAnswers) {
   return {
-    memorableDate: questionAnswers?.Date !== '' ? questionAnswers?.Date : null,
-    memorableEvent: questionAnswers?.Event !== '' ? questionAnswers?.Event : null,
-    memorablePlace: questionAnswers?.Location !== '' ? questionAnswers?.Location : null,
-    updatedAt: questionAnswers?.Updated !== '' ? questionAnswers?.Updated : null,
+    memorableDate: questionAnswers?.date !== '' ? questionAnswers?.date : null,
+    memorableEvent: questionAnswers?.event !== '' ? questionAnswers?.event : null,
+    memorablePlace: questionAnswers?.location !== '' ? questionAnswers?.location : null,
+    updatedAt: questionAnswers?.lastUpdatedOn !== '' ? questionAnswers?.lastUpdatedOn : null,
     isFound: questionAnswers !== null
   }
 }

@@ -19,7 +19,7 @@ describe('authenticate contract', () => {
           query CustomerAuthenticateQuestions {
             customer(crn: "${process.env.ACCEPTANCE_TEST_RP_INTERNAL_CUSTOMER_CRN}") {
               crn
-              authenticationQuestions(entraIdUserObjectId: "${process.env.ACCEPTANCE_TEST_AUTHENTICATE_USER_OBJECT_ID}") {
+              authenticationQuestions {
                 isFound
                 updatedAt
                 memorableDate

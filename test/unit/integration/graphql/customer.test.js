@@ -1,7 +1,6 @@
 import { DefaultAzureCredential } from '@azure/identity'
 import { graphql, GraphQLError } from 'graphql'
 
-import { EntraIdApi } from '../../../../app/data-sources/entra-id/EntraIdApi.js'
 import { NotFound } from '../../../../app/errors/graphql.js'
 import { schema } from '../../../../app/graphql/server.js'
 import { transformAuthenticateQuestionsAnswers } from '../../../../app/transformers/authenticate/question-answers.js'
@@ -235,7 +234,6 @@ describe('Query.customer.authenticationQuestions', () => {
     jest
       .spyOn(DefaultAzureCredential.prototype, 'getToken')
       .mockImplementation(() => ({ token: 'mockToken' }))
-    jest.spyOn(EntraIdApi.prototype, 'get').mockImplementation(() => ({ employeeId: 'x123456' }))
   })
 
   afterEach(() => {
@@ -250,9 +248,6 @@ describe('Query.customer.authenticationQuestions', () => {
       Location: 'some location',
       Updated: 'some date'
     }
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
     const transformedAuthenticateQuestions = transformAuthenticateQuestionsAnswers(
       authenticateQuestionsResponse
     )
@@ -260,7 +255,7 @@ describe('Query.customer.authenticationQuestions', () => {
       source: `#graphql
         query Customer {
           customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
               memorablePlace
@@ -285,14 +280,11 @@ describe('Query.customer.authenticationQuestions', () => {
 
   it('should return isFound false if record not found', async () => {
     const authenticateQuestionsResponse = null
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
     const result = await graphql({
       source: `#graphql
         query Customer {
           customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
               memorablePlace
@@ -332,14 +324,11 @@ describe('Query.customer.authenticationQuestions', () => {
       Location: 'some location',
       Updated: 'some date'
     }
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
     const result = await graphql({
       source: `#graphql
         query Customer {
           customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
               memorablePlace

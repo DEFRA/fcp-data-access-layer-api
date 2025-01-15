@@ -309,7 +309,7 @@ type Customer {
   """
   The security questions of the customer.
   """
-  authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions
+  authenticationQuestion: CustomerAuthenticationQuestions
 
   """
   The businesses associated with the customer.
