@@ -309,7 +309,7 @@ type Customer {
   """
   The security questions of the customer.
   """
-  authenticationQuestion: CustomerAuthenticationQuestions
+  authenticationQuestions: CustomerAuthenticationQuestions
 
   """
   The businesses associated with the customer.
