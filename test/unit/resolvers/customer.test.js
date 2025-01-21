@@ -21,7 +21,14 @@ const dataSources = {
     getPersonBusinessesByPersonId() {
       return organisationPersonSummary({ id: personId })._data
     },
-    getNotificationsByOrganisationIdAndPersonId: jest.fn()
+    getNotificationsByOrganisationIdAndPersonId: jest.fn(),
+    getAuthenticateAnswersByCRN(_) {
+      return {
+        date: 'some date',
+        event: 'some event',
+        location: 'some location'
+      }
+    }
   },
   ruralPaymentsBusiness: {
     getOrganisationCustomersByOrganisationId() {
@@ -116,7 +123,8 @@ describe('Customer', () => {
 
   test('Customer.authenticationQuestions', async () => {
     const response = await Customer.authenticationQuestions(
-      { id: 'mockCustomerId' },
+      { crn: 'mockCustomerCRN' },
+      undefined,
       { dataSources }
     )
     expect(response).toEqual({

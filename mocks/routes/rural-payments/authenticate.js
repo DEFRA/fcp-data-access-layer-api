@@ -1,5 +1,5 @@
 import { authenticateAnswers } from '../../fixtures/authenticate.js'
-import { okOrNotFoundResponse } from '../../utils/requestResponse.js'
+import { notFoundResponse, okOrNotFoundResponse } from '../../utils/requestResponse.js'
 
 export default [
 {
@@ -17,7 +17,16 @@ export default [
             return okOrNotFoundResponse(res, data)
           }
         }
-      }
+      },
+      {
+        id: 'not-found',
+        type: 'middleware',
+        options: {
+          middleware: (_, res) => {
+            return notFoundResponse(res)
+          }
+        }
+      },
     ]
   }
 ]

@@ -136,7 +136,7 @@ type Customer {
   """
   The security questions of the customer.
   """
-  authenticationQuestions(crn: ID!): CustomerAuthenticationQuestions @on
+  authenticationQuestions: CustomerAuthenticationQuestions @on
 
   """
   The businesses associated with the customer.

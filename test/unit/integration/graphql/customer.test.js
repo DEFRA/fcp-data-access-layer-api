@@ -242,11 +242,10 @@ describe('Query.customer.authenticationQuestions', () => {
 
   it('should return customer authenticate questions', async () => {
     const authenticateQuestionsResponse = {
-      CRN: '123',
-      Date: 'some date',
-      Event: 'some event',
-      Location: 'some location',
-      Updated: 'some date'
+      date: '11/11/2000',
+      event: 'Birthday',
+      location: 'location',
+      lastUpdatedOn: 3494617373808
     }
     const transformedAuthenticateQuestions = transformAuthenticateQuestionsAnswers(
       authenticateQuestionsResponse
@@ -254,7 +253,7 @@ describe('Query.customer.authenticationQuestions', () => {
     const result = await graphql({
       source: `#graphql
         query Customer {
-          customer(crn: "0866159801") {
+          customer(crn: "4705658987") {
             authenticationQuestions {
               memorableDate
               memorableEvent
@@ -279,7 +278,7 @@ describe('Query.customer.authenticationQuestions', () => {
   })
 
   it('should return isFound false if record not found', async () => {
-    const authenticateQuestionsResponse = null
+    await mockServer.server.mock.useRouteVariant('rural-payments-authenticate-get-by-crn:not-found')
     const result = await graphql({
       source: `#graphql
         query Customer {
@@ -317,17 +316,10 @@ describe('Query.customer.authenticationQuestions', () => {
   })
 
   it('should return null for fields that are empty', async () => {
-    const authenticateQuestionsResponse = {
-      CRN: '123',
-      Date: '',
-      Event: '',
-      Location: 'some location',
-      Updated: 'some date'
-    }
     const result = await graphql({
       source: `#graphql
         query Customer {
-          customer(crn: "0866159801") {
+          customer(crn: "3646257965") {
             authenticationQuestions {
               memorableDate
               memorableEvent
@@ -349,10 +341,10 @@ describe('Query.customer.authenticationQuestions', () => {
       data: {
         customer: {
           authenticationQuestions: {
-            memorableDate: null,
+            memorableDate: 'Birthday',
             memorableEvent: null,
-            memorablePlace: 'some location',
-            updatedAt: 'some date',
+            memorablePlace: null,
+            updatedAt: 3494617373808,
             isFound: true
           }
         }

@@ -112,10 +112,9 @@ describe('Customer transformer', () => {
 
   test('transformAuthenticateQuestionsAnswers', () => {
     const mockAuthenticateQuestionsResponse = {
-      CRN: '123',
-      Date: 'some date',
-      Event: 'some event',
-      Location: 'some location'
+      date: 'some date',
+      event: 'some event',
+      location: 'some location'
     }
 
     const result = transformAuthenticateQuestionsAnswers(mockAuthenticateQuestionsResponse)
