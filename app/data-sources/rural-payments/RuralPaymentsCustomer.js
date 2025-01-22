@@ -117,17 +117,15 @@ export class RuralPaymentsCustomer extends RuralPayments {
   async getAuthenticateAnswersByCRN(crn) {
     this.logger.silly('Getting authenticate answers by crn', { crn })
 
-    const authenticateResponse = await this.get(`/external-auth/security-answers/${crn}`)
-
-    if (!authenticateResponse?.status ==StatusCodes.NOT_FOUND) {
-      this.logger.warn(
-        '#datasource - Rural payments - authenticate answers not found for CRN',
-        { crn, code: RURALPAYMENTS_API_NOT_FOUND_001 }
-      )
-      throw new NotFound('Rural payments authenticate answers not found')
-    }
-
-    this.logger.silly('Authenticate by CRN', { authenticateResponse })
-    return authenticateResponse
+    return this.get(`/external-auth/security-answers/${crn}`).catch((err) => {
+      if (err.extensions.response.status === StatusCodes.NOT_FOUND) {
+        this.logger.silly('#datasource - Rural payments - authenticate answers not found for CRN', {
+          crn,
+          code: RURALPAYMENTS_API_NOT_FOUND_001
+        })
+        return null
+      }
+      throw err
+    })
   }
 }

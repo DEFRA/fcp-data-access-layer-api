@@ -277,44 +277,6 @@ describe('Query.customer.authenticationQuestions', () => {
     })
   })
 
-  it('should return isFound false if record not found', async () => {
-    await mockServer.server.mock.useRouteVariant('rural-payments-authenticate-get-by-crn:not-found')
-    const result = await graphql({
-      source: `#graphql
-        query Customer {
-          customer(crn: "0866159801") {
-            authenticationQuestions {
-              memorableDate
-              memorableEvent
-              memorablePlace
-              updatedAt
-              isFound
-            }
-          }
-        }
-      `,
-      variableValues: {
-        personId: '123'
-      },
-      schema,
-      contextValue: fakeContext
-    })
-
-    expect(result).toEqual({
-      data: {
-        customer: {
-          authenticationQuestions: {
-            memorableDate: null,
-            memorableEvent: null,
-            memorablePlace: null,
-            updatedAt: null,
-            isFound: false
-          }
-        }
-      }
-    })
-  })
-
   it('should return null for fields that are empty', async () => {
     const result = await graphql({
       source: `#graphql
@@ -341,8 +303,8 @@ describe('Query.customer.authenticationQuestions', () => {
       data: {
         customer: {
           authenticationQuestions: {
-            memorableDate: 'Birthday',
-            memorableEvent: null,
+            memorableDate: null,
+            memorableEvent: 'Birthday',
             memorablePlace: null,
             updatedAt: 3494617373808,
             isFound: true
@@ -350,6 +312,44 @@ describe('Query.customer.authenticationQuestions', () => {
         }
       }
     })
+  })
+})
+
+it('should return isFound false if record not found', async () => {
+  await mockServer.server.mock.useRouteVariant('rural-payments-authenticate-get-by-crn:not-found')
+  const result = await graphql({
+    source: `#graphql
+        query Customer {
+          customer(crn: "0866159801") {
+            authenticationQuestions {
+              memorableDate
+              memorableEvent
+              memorablePlace
+              updatedAt
+              isFound
+            }
+          }
+        }
+      `,
+    variableValues: {
+      personId: '123'
+    },
+    schema,
+    contextValue: fakeContext
+  })
+
+  expect(result).toEqual({
+    data: {
+      customer: {
+        authenticationQuestions: {
+          memorableDate: null,
+          memorableEvent: null,
+          memorablePlace: null,
+          updatedAt: null,
+          isFound: false
+        }
+      }
+    }
   })
 })
 
