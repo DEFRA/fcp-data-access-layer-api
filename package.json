@@ -13,7 +13,7 @@
     "lint:js": "standard app/ test/",
     "pretest": "npm run lint:js && npm run lint:gql",
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext js --legacy-watch app/index.js",
-    "start:dev": "nodemon -r dotenv/config --ext js,gql app/index.js",
+    "start:dev": "nodemon -r dotenv/config --ext js,gql app/index.js --watch app/",
     "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
     "start:mock": "nodemon -r dotenv/config ./mocks --watch ./mocks",
     "test": "NODE_OPTIONS=--experimental-vm-modules DOTENV_CONFIG_PATH=./.env.test jest --runInBand --forceExit --detectOpenHandles --setupFiles dotenv/config",
