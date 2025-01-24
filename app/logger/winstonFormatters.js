@@ -39,7 +39,8 @@ export const safeStructuredClone = (info) => {
   clone.request = {
     ...info.request,
     params: safeSerialise(info.request?.params),
-    path: safeSerialise(info.request?.path)
+    path: safeSerialise(info.request?.path),
+    header: safeSerialise(info.request?.headers)
   }
 
   return structuredClone(clone)
