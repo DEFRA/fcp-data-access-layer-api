@@ -100,7 +100,7 @@ export const BusinessLandSummary = {
 
   async totalArea({ organisationId, date = new Date() }, __, { dataSources }) {
     return transformTotalArea(
-      await dataSources.ruralPaymentsBusiness.getCoversSummaryByOrganisationIdAndDate(
+      await dataSources.ruralPaymentsBusiness.getParcelsByOrganisationIdAndDate(
         organisationId,
         date
       )
