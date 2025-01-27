@@ -46,7 +46,7 @@ extends:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     deployConfigOnly: ${{ parameters.deployConfigOnly }}
     appBuildConfig:
-      appFrameworkType: "nodejs"
+      appFrameworkType: "test"
       frameworkVersion: "v22.13.1"
       projectPath: "./package.json"
       manifestPath: "./package.json"
