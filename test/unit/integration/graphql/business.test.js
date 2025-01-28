@@ -286,7 +286,7 @@ describe('Query.business.land', () => {
         query BusinessLandParcels {
           business(sbi: "107183280") {
             land {
-              parcel(date: "2021-01-01", parcelId: "8194") {
+              parcel(date: "2021-01-01", sheetId: "SS6927", parcelId: "8194") {
                 id
                 sheetId,
                 parcelId,
@@ -304,7 +304,9 @@ describe('Query.business.land', () => {
     })
 
     const parcels = transformLandParcels(landParcels(5565448))
-    const parcel = parcels.find((parcel) => parcel.parcelId === '8194')
+    const parcel = parcels.find(
+      (parcel) => parcel.sheetId === 'SS6927' && parcel.parcelId === '8194'
+    )
 
     expect(result).toEqual({
       data: {
@@ -327,7 +329,7 @@ describe('Query.business.land', () => {
         query BusinessLandParcels {
           business(sbi: "107183280") {
             land {
-              parcel(date: "2021-01-01", parcelId: "9999") {
+              parcel(date: "2021-01-01", sheetId: "SS6927", parcelId: "9999") {
                 id
               }
             }
@@ -346,7 +348,7 @@ describe('Query.business.land', () => {
           }
         }
       },
-      errors: [new GraphQLError('No parcel found for parcelId: 9999')]
+      errors: [new GraphQLError('No parcel found for sheetId: SS6927 and parcelId: 9999')]
     })
   })
 
@@ -356,7 +358,7 @@ describe('Query.business.land', () => {
         query BusinessLandParcels {
           business(sbi: "107183280") {
             land {
-              parcel(date: "2020/20/01", parcelId: "8194") {
+              parcel(date: "2020/20/01", sheetId: "SS6927", parcelId: "8194") {
                 id
                 sheetId,
                 parcelId,
@@ -393,7 +395,7 @@ describe('Query.business.land', () => {
         query BusinessLandCovers {
           business(sbi: "107183280") {
             land {
-              parcelCovers(date: "2022-01-01", parcelId: "8194") {
+              parcelCovers(date: "2022-01-01", sheetId: "SS6927", parcelId: "8194") {
                 id
                 name
                 area
@@ -412,7 +414,7 @@ describe('Query.business.land', () => {
       data: {
         business: {
           land: {
-            parcelCovers: transformLandCovers(landCover('5565448', '', '8194'))
+            parcelCovers: transformLandCovers(landCover('5565448', 'SS6927', '8194'))
           }
         }
       }
@@ -425,7 +427,7 @@ describe('Query.business.land', () => {
         query BusinessLandCovers {
           business(sbi: "107183280") {
             land {
-              parcelCovers(date: "2020/20/01", parcelId: "8194") {
+              parcelCovers(date: "2020/20/01", sheetId: "SS6927", parcelId: "8194") {
                 id
               }
             }

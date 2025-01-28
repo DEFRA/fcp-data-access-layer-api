@@ -119,12 +119,12 @@ type BusinessLand {
   """
   A single parcel of the business land.
   """
-  parcel(date: Date, parcelId: ID!): BusinessLandParcel
+  parcel(date: Date, sheetId: ID!, parcelId: ID!): BusinessLandParcel
 
   """
   The covers of a single parcel of the business land.
   """
-  parcelCovers(date: Date, parcelId: ID!): [BusinessLandCover]
+  parcelCovers(date: Date, sheetId: ID!, parcelId: ID!): [BusinessLandCover]
 
   """
   The summary of the business land.

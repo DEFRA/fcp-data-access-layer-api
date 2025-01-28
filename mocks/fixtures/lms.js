@@ -10,9 +10,11 @@ export const landCovers = (orgId) => {
   return getJSON(`./orgId/${orgId}/land-covers.json`)
 }
 
-export const landCover = (orgId, _sheetId, parcelId) => {
+export const landCover = (orgId, sheetId, parcelId) => {
   const covers = landCovers(orgId)
-  const parcelCovers = covers.find((cover) => cover.id.includes(parcelId))
+  const parcelCovers = covers.find(
+    (cover) => cover.id.includes(parcelId) && cover.id.includes(sheetId)
+  )
 
   return {
     type: 'FeatureCollection',
