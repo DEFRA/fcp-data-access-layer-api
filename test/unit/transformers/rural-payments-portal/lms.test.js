@@ -24,7 +24,7 @@ describe('LMS transformer', () => {
       ]
     }
     const output = [
-      { area: 0.1, id: 'mockId', name: 'MOCK_NAME', code: 'mockId', isBpsEligible: true }
+      { area: 0.1, id: 'mockId', name: 'Mock Name', code: 'mockId', isBpsEligible: true }
     ]
     expect(transformLandCovers(input)).toEqual(output)
   })

@@ -10,7 +10,7 @@ export function transformLandCovers(landCover) {
         id,
         code,
         area: convertSquareMetersToHectares(area),
-        name: name.toUpperCase().split(' ').join('_'),
+        name: name,
         isBpsEligible: isBpsEligible === 'true'
       }
     })

@@ -104,7 +104,7 @@ describe('BusinessLand', () => {
         { dataSources }
       )
     ).toEqual([
-      { id: '11033654', area: 0.1, name: 'MOCK_NAME', code: 'someCode', isBpsEligible: true }
+      { id: '11033654', area: 0.1, name: 'Mock Name', code: 'someCode', isBpsEligible: true }
     ])
   })
 })
