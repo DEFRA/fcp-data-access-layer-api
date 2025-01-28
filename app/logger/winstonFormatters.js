@@ -36,11 +36,18 @@ export const safeStructuredClone = (info) => {
   const clone = { ...info }
 
   // NOTE: for speed and simplicity, known unserialisable values are specially handled below
-  clone.request = {
-    ...info.request,
-    params: safeSerialise(info.request?.params),
-    path: safeSerialise(info.request?.path),
-    header: safeSerialise(info.request?.headers)
+  if (clone.request) {
+    clone.request = {
+      ...info.request,
+      params: safeSerialise(info.request?.params),
+      path: safeSerialise(info.request?.path)
+    }
+  }
+  if (clone.response) {
+    clone.response = {
+      ...info.response,
+      headers: safeSerialise(info.response?.headers)
+    }
   }
 
   return structuredClone(clone)

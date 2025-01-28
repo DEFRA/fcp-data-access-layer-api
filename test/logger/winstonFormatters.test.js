@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { safeSerialise, safeStructuredClone, sampleResponseBodyData, serialize } from '../../app/logger/winstonFormatters'
+import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { redactSensitiveData, safeSerialise, safeStructuredClone, sampleResponseBodyData, serialize } from '../../app/logger/winstonFormatters'
+import { HeaderMap } from '@apollo/server'
 
 const someURL = new URL('http://localhost/path')
 const path = 'http://localhost/path'
@@ -8,6 +9,31 @@ const params = new URLSearchParams([
   ['p2', 'v2']
 ])
 const paramsObject = { p1: 'v1', p2: 'v2' }
+const headers = { h1: 'v1', h2: 'v2' }
+const headersMap = new HeaderMap(Object.entries(headers))
+
+const symbols = { [Symbol('level')]: 'verbose', [Symbol('message')]: 'message contents' }
+const fixture = {
+  requestId: '00000000-0000-0000-0000-000000000000',
+  request: {
+    method: 'POST',
+    body: '{"searchFieldType":"SBI","primarySearchPhrase":"107183280","offset":0,"limit":1}',
+    headers: {
+      'content-type': 'application/json',
+      'Ocp-Apim-Subscription-Key': '00000000000000000000000000000000',
+      Authorization: 'Bearer token',
+      email: 'probably.should@redacted.be'
+    },
+    retryCount: 1,
+    params,
+    path: someURL
+  },
+  response: { headers: headersMap, body: { data: 'some data', access_token: 'something super secret' } },
+  code: 'RURALPAYMENTS_API_REQUEST_001',
+  level: 'verbose',
+  message: '#datasource - Rural payments - request',
+  ...symbols
+}
 
 describe('winstonFormatters', () => {
   describe('safeSerialise', () => {
@@ -25,10 +51,16 @@ describe('winstonFormatters', () => {
   })
 
   describe('safeStructuredClone', () => {
-    it('should clone objects with known unserialisable properties', () => {
-      const obj = { code: 'some code', request: { params, path: someURL } }
+    it('should clone objects with known unserialisable request properties', () => {
+      const obj = { code: 'some code', request: { params, path: someURL, other: 'stuff' } }
       const clone = safeStructuredClone(obj)
-      expect(clone).toEqual({ ...obj, request: { params: paramsObject, path } })
+      expect(clone).toEqual({ ...obj, request: { params: paramsObject, path, other: 'stuff' } })
+      expect(clone).not.toBe(obj)
+    })
+    it('should clone objects with known unserialisable response properties', () => {
+      const obj = { code: 'some code', response: { headers: headersMap, other: 'stuff' } }
+      const clone = safeStructuredClone(obj)
+      expect(clone).toEqual({ ...obj, response: { headers, other: 'stuff' } })
       expect(clone).not.toBe(obj)
     })
     it('will not work for unknown unserialisable properties', () => {
@@ -41,7 +73,7 @@ describe('winstonFormatters', () => {
   })
 
   describe('serialize', () => {
-    beforeEach(() => {
+    afterEach(() => {
       jest.restoreAllMocks()
     })
 
@@ -56,29 +88,6 @@ describe('winstonFormatters', () => {
       expect(serialize(info)).toEqual(info)
       expect(cloneSpy).toHaveBeenCalledTimes(1)
     })
-
-    const symbols = { [Symbol('level')]: 'verbose', [Symbol('message')]: 'message contents' }
-    const fixture = {
-      requestId: '00000000-0000-0000-0000-000000000000',
-      request: {
-        method: 'POST',
-        body: '{"searchFieldType":"SBI","primarySearchPhrase":"107183280","offset":0,"limit":1}',
-        headers: {
-          'content-type': 'application/json',
-          'Ocp-Apim-Subscription-Key': '00000000000000000000000000000000',
-          Authorization: 'Bearer token',
-          email: undefined
-        },
-        retryCount: 1,
-        params,
-        path: someURL
-      },
-      code: 'RURALPAYMENTS_API_REQUEST_001',
-      level: 'verbose',
-      message: '#datasource - Rural payments - request',
-      ...symbols
-    }
-
     it('should copy object contents ready for redaction', () => {
       const cloneSpy = jest.spyOn(global, 'structuredClone')
       const clone = serialize(fixture)
@@ -88,7 +97,8 @@ describe('winstonFormatters', () => {
           ...fixture.request,
           params: paramsObject,
           path
-        }
+        },
+        response: { ...fixture.response, headers }
       })
       expect(clone).not.toBe(fixture)
       expect(cloneSpy).toHaveBeenCalledTimes(2)
@@ -118,8 +128,36 @@ describe('winstonFormatters', () => {
     })
   })
 
+  describe('redactSensitiveData', () => {
+    it('should redact sensitive data', () => {
+      const clone = redactSensitiveData().transform(fixture)
+      expect(clone).toEqual({
+        requestId: '00000000-0000-0000-0000-000000000000',
+        request: {
+          method: 'POST',
+          body: '{"searchFieldType":"SBI","primarySearchPhrase":"107183280","offset":0,"limit":1}',
+          headers: {
+            'content-type': 'application/json',
+            'Ocp-Apim-Subscription-Key': '00000000000000000000000000000000',
+            Authorization: '[REDACTED]',
+            email: 'probably.should@redacted.be'
+          },
+          retryCount: 1,
+          params: paramsObject,
+          path
+        },
+        response: { headers, body: { data: 'some data', access_token: '[REDACTED]' } },
+        code: 'RURALPAYMENTS_API_REQUEST_001',
+        level: 'verbose',
+        message: '#datasource - Rural payments - request',
+        ...symbols
+      })
+    })
+  })
+
   describe('sampleResponseBodyData', () => {
     const info = { level: 'info', message: 'hello' }
+
     it('should leave a simple log request unchanged', () => {
       expect(sampleResponseBodyData().transform(info)).toBe(info)
     })
