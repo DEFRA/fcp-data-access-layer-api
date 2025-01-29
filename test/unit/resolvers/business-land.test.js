@@ -82,7 +82,7 @@ describe('BusinessLand', () => {
     expect(
       await BusinessLand.parcel(
         mockBusiness,
-        { ...mockArguments, parcelId: 'mockParcelId' },
+        { ...mockArguments, sheetId: 'mockSheetId', parcelId: 'mockParcelId' },
         { dataSources }
       )
     ).toEqual({
@@ -100,7 +100,7 @@ describe('BusinessLand', () => {
     expect(
       await BusinessLand.parcelCovers(
         mockBusiness,
-        { ...mockArguments, parcelId: 'mockParcelId' },
+        { ...mockArguments, sheetId: 'mockSheetId', parcelId: 'mockParcelId' },
         { dataSources }
       )
     ).toEqual([

@@ -14,14 +14,13 @@ export const BusinessLand = {
     return { organisationId, date }
   },
 
-  async parcel({ organisationId }, { date, parcelId }, { dataSources }) {
+  async parcel({ organisationId }, { date, parcelId, sheetId }, { dataSources }) {
     validateDate(date)
 
     const parcels = await BusinessLand.parcels({ organisationId }, { date }, { dataSources })
-
-    const parcel = parcels?.find((p) => p.parcelId === parcelId)
+    const parcel = parcels?.find((p) => p.sheetId === sheetId && p.parcelId === parcelId)
     if (!parcel) {
-      throw new NotFound(`No parcel found for parcelId: ${parcelId}`)
+      throw new NotFound(`No parcel found for sheetId: ${sheetId} and parcelId: ${parcelId}`)
     }
 
     return {
@@ -42,12 +41,12 @@ export const BusinessLand = {
     )
   },
 
-  async parcelCovers({ organisationId }, { date, parcelId }, { dataSources }) {
+  async parcelCovers({ organisationId }, { date, sheetId, parcelId }, { dataSources }) {
     validateDate(date)
 
     const parcel = await BusinessLand.parcel(
       { organisationId },
-      { date, parcelId },
+      { date, sheetId, parcelId },
       { dataSources }
     )
 
