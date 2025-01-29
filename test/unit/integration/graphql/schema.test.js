@@ -45,6 +45,6 @@ describe('schema', () => {
           await readFile(join(dirname(fileURLToPath(import.meta.url)), 'full-schema.gql'), 'utf-8')
         )
       )
-    )
+    ).toHaveLength(0)
   })
 })
