@@ -3,6 +3,21 @@ import { okOrNotFoundResponse } from '../../utils/requestResponse.js'
 
 export default [
   {
+    id: 'rural-payments-siti-agri-api-get-authorisation-privileges',
+    url: '/v1/SitiAgriApi/authorisation/privilege',
+    method: ['GET'],
+    variants: [
+      {
+        id: 'default',
+        type: 'file',
+        options: {
+          status: 200,
+          path: 'mocks/fixtures/privilege-response.json'
+        }
+      }
+    ]
+  },
+  {
     id: 'rural-payments-siti-agri-api-get-cph-for-organisation-by-id',
     url: '/v1/SitiAgriApi/cph/organisation/:orgId/cph-numbers',
     method: ['GET'],

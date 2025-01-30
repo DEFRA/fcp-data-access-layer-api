@@ -1,0 +1,806 @@
+{
+  "data": [
+    {
+      "name": "BACK OFFICE",
+      "description": "UTENTE BACK OFFICE",
+      "group": null
+    },
+    {
+      "name": "PAMS",
+      "description": "PAMS USER",
+      "group": null
+    },
+    {
+      "name": "PAMS_ADMINISTRATOR",
+      "description": "PAMS ADMINISTRATOR",
+      "group": null
+    },
+    {
+      "name": "RANK",
+      "description": "RANKING USER",
+      "group": null
+    },
+    {
+      "name": "RANK_ADMINISTRATOR",
+      "description": "RANKING ADMINISTRATOR",
+      "group": null
+    },
+    {
+      "name": "APP_BATCH_PRINTER",
+      "description": "PROFILE FOR APPLICATIONS PRINT GENERATED BATCH",
+      "group": null
+    },
+    {
+      "name": "ADMIN_SSO",
+      "description": "ADMINISTRATION SSO",
+      "group": null
+    },
+    {
+      "name": "INSPECTION BASIC USER - SA",
+      "description": "INSPECTION BASIC USER - SA",
+      "group": null
+    },
+    {
+      "name": "INSPECTION HIGHER USER - SA",
+      "description": "INSPECTION HIGHER USER - SA",
+      "group": null
+    },
+    {
+      "name": "INSPECTION SUPPORT BASIC USER - SA",
+      "description": "INSPECTION SUPPORT BASIC USER - SA",
+      "group": null
+    },
+    {
+      "name": "INSPECTION SUPPORT HIGHER USER - SA",
+      "description": "INSPECTION SUPPORT HIGHER USER - SA",
+      "group": null
+    },
+    {
+      "name": "PLANNING AND PERFORMANCE INSPECTIONS - SA",
+      "description": "PLANNING AND PERFORMANCE INSPECTIONS - SA",
+      "group": null
+    },
+    {
+      "name": "CWRS CASE WORKER - SA",
+      "description": "CWRS CASE WORKER - SA",
+      "group": null
+    },
+    {
+      "name": "FAST TRACK - SA",
+      "description": "FAST TRACK - SA",
+      "group": null
+    },
+    {
+      "name": "EVIDENCE_VERIFIER",
+      "description": "EVIDENCE VERIFIER",
+      "group": null
+    },
+    {
+      "name": "_ADMIN",
+      "description": "ALL MODULES",
+      "group": null
+    },
+    {
+      "name": "_BO_LPIS",
+      "description": "LPIS + PARCEL TENURE + CASEMANAGER BO",
+      "group": null
+    },
+    {
+      "name": "_BO_DOSSIER",
+      "description": "DOSSIER + PARCEL TENURE + CASEMANAGER",
+      "group": null
+    },
+    {
+      "name": "_BO_KNOWLEDGE",
+      "description": "KNOWLEDGE + DOSSIER + CASE MANAGER",
+      "group": null
+    },
+    {
+      "name": "AGENT_COMPLETE",
+      "description": "AGENT COMPLETE",
+      "group": null
+    },
+    {
+      "name": "CPH - AMEND - SA",
+      "description": "CPH - AMEND - SA",
+      "group": null
+    },
+    {
+      "name": "View - business",
+      "description": "This gives the person access only to view the business details \\n They can't confirm the business details or make any changes \\n They can't give others permission to act on behalf of the business or change permission levels",
+      "group": null
+    },
+    {
+      "name": "Amend - business",
+      "description": "This gives the person access to update the business contact details \\n They can't change the legal status or business name \\n They can't confirm the business details \\n They can't give others permission to act on behalf of the business or change permission levels",
+      "group": null
+    },
+    {
+      "name": "Make legal changes - business",
+      "description": "THIS GIVES THE PERSON ACCESS TO UPDATE THE BUSINESS DETAILS. \\N THEY CAN UPDATE THE LEGAL STATUS AND BUSINESS NAME \\N THEY CAN ALSO CONFIRM THE BUSINESS DETAILS \\N THEY CAN'T GIVE OTHERS PERMISSION TO ACT ON BEHALF OF THE BUSINESS OR CHANGE PERMISSION LEVELS",
+      "group": null
+    },
+    {
+      "name": "Full permission - business",
+      "description": "THIS GIVES THE PERSON FULL ACCESS TO UPDATE THE BUSINESS DETAILS \\N THEY CAN UPDATE THE LEGAL STATUS AND BUSINESS NAME \\N THEY CAN CONFIRM THE BUSINESS DETAILS \\N THEY CAN ALSO GIVE OTHERS PERMISSION TO ACT ON BEHALF OF THE BUSINESS AND CHANGE PERMISSION LEVELS",
+      "group": null
+    },
+    {
+      "name": "BASIC USER",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND \"ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "HIGHER USER",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND \"ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "SENIOR USER",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND \"ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "MANAGE CASE BASIC",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "MANAGE CASE STANDARD",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "MANAGE CASE HIGHER",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "Quality Control",
+      "description": "Can add person with a role and privilege to your business \\n Can amend persons role and privilege for your business \\n Can remove person from your business \\n And \"all of 'Manage', 'Amend' and 'View' privileges",
+      "group": null
+    },
+    {
+      "name": "LAND BASIC",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND \"ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "LAND HIGHER",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND \"ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "OPERATIONS ANALYSIS",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N AND \"ALL OF 'MANAGE', 'AMEND' AND 'VIEW' PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "RLR",
+      "description": "Can add person with a role and privilege to your business \\n Can amend persons role and privilege for your business \\n Can remove person from your business \\n And \"all of 'Manage', 'Amend' and 'View' privileges",
+      "group": null
+    },
+    {
+      "name": "Internal Auditor",
+      "description": "Can add person with a role and privilege to your business \\n Can amend persons role and privilege for your business \\n Can remove person from your business \\n And \"all of 'Manage', 'Amend' and 'View' privileges",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - BPS - SA",
+      "description": "NO ACCESS - BPS - SA",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - ENTITLEMENT - SA",
+      "description": "NO ACCESS - ENTITLEMENT - SA",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - LAND - SA",
+      "description": "NO ACCESS - LAND - SA",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - CS APP - SA",
+      "description": "P2 DEFAULT ROLE WITH NO ACCESS TO CS - NO FUNCTIONS ATTACHED TO IT",
+      "group": null
+    },
+    {
+      "name": "VIEW - CS APP - SA",
+      "description": "P2 Applications View Role, providing read-only access to CS applications",
+      "group": null
+    },
+    {
+      "name": "AMEND - CS APP - SA",
+      "description": "P2 Applications Ammend Role, providing access only for ammending to CS applications",
+      "group": null
+    },
+    {
+      "name": "SUBMIT - CS APP - SA",
+      "description": "P2 Applications Submit Role, providing full access to CS applications",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - CS AGREE - SA",
+      "description": "P2 DEFAULT ROLE WITH NO ACCESS TO CS - NO FUNCTIONS ATTACHED TO IT",
+      "group": null
+    },
+    {
+      "name": "VIEW - CS AGREE - SA",
+      "description": "P2 Agreements View Role, providing read-only access to CS agreements",
+      "group": null
+    },
+    {
+      "name": "AMEND - CS AGREE - SA",
+      "description": "P2 Agreements Ammend Role, providing access only for ammending to CS agreements",
+      "group": null
+    },
+    {
+      "name": "SUBMIT - CS AGREE - SA",
+      "description": "P2 AGREEMENTS SUBMIT ROLE, PROVIDING FULL ACCESS TO CS AGREEMENTS",
+      "group": null
+    },
+    {
+      "name": "CS ONE",
+      "description": "CS ONE",
+      "group": null
+    },
+    {
+      "name": "CS TWO",
+      "description": "CS TWO",
+      "group": null
+    },
+    {
+      "name": "CS THREE",
+      "description": "CS THREE",
+      "group": null
+    },
+    {
+      "name": "COMMITMENTS VIEWER",
+      "description": "COMMITMENTS VIEWER",
+      "group": null
+    },
+    {
+      "name": "COMMITMENTS USER",
+      "description": "COMMITMENTS USER",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - LAND",
+      "description": "CANNOT PERFORM ANY ACTIONS AGAINST LAND",
+      "group": null
+    },
+    {
+      "name": "View - land",
+      "description": "View land, features and covers",
+      "group": null
+    },
+    {
+      "name": "Amend - land",
+      "description": "View land, features and covers \\n Amend land, features and covers \\n Transfer land",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - ENTITLEMENT",
+      "description": "CANNOT PERFORM ANY ACTIONS AGAINST ENTITLEMENTS",
+      "group": null
+    },
+    {
+      "name": "View - entitlement",
+      "description": "VIEW ENTITLEMENTS",
+      "group": null
+    },
+    {
+      "name": "Amend - entitlement",
+      "description": "View entitlements \\n Transfer entitlements",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - BPS",
+      "description": "CANNOT PERFORM ANY ACTIONS AGAINST BPS",
+      "group": null
+    },
+    {
+      "name": "View - bps",
+      "description": "VIEW CLAIMS \\N VIEW SCHEME ELIGIBILITY",
+      "group": null
+    },
+    {
+      "name": "Amend - bps",
+      "description": "View claims \\n View Scheme Eligibility \\n Create and edit a claim \\n Amend a previously submitted claim \\n View land, features and covers \\n Amend land, features and covers \\n View entitlements",
+      "group": null
+    },
+    {
+      "name": "Submit - bps",
+      "description": "View claims \\n View Scheme Eligibility \\n Create and edit a claim \\n Amend previously submitted claim \\n Submit a claim \\n Withdraw a claim \\n Receive all claim correspondence including all warnings and notifications \\n View land, features and covers \\n Amend land, features and covers \\n View entitlements",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - BANK ACCOUNT",
+      "description": "CANNOT PERFORM ANY ACTIONS AGAINST BANK ACCOUNT DETAILS",
+      "group": null
+    },
+    {
+      "name": "View - bank account",
+      "description": "View bank account number and sort code",
+      "group": null
+    },
+    {
+      "name": "Amend - bank account",
+      "description": "View bank account number and sort code \\n Amend bank account number and sort code",
+      "group": null
+    },
+    {
+      "name": "Administrator",
+      "description": "CAN ADD PERSON WITH A ROLE AND PRIVILEGE TO YOUR BUSINESS \\N CAN AMEND PERSONS ROLE AND PRIVILEGE FOR YOUR BUSINESS \\N CAN REMOVE PERSON FROM YOUR BUSINESS \\N CAN RESET ANOTHER INTERNAL USER PASSWORD \\N AND ALL OF \"MANAGE\", \"AMEND AND \"VIEW\" PRIVILEGES",
+      "group": null
+    },
+    {
+      "name": "INTERNAL_COMPLETE",
+      "description": "INTERNAL_COMPLETE",
+      "group": null
+    },
+    {
+      "name": "ADMINISTRATOR_SA",
+      "description": "ALL_MODULES",
+      "group": null
+    },
+    {
+      "name": "AMEND - BPS - SA",
+      "description": "AMEND - BPS - SA",
+      "group": null
+    },
+    {
+      "name": "SUBMIT - BPS - SA",
+      "description": "SUBMIT - BPS - SA",
+      "group": null
+    },
+    {
+      "name": "VIEW - BPS - SA",
+      "description": "VIEW - BPS - SA",
+      "group": null
+    },
+    {
+      "name": "AMEND - ENTITLEMENT - SA",
+      "description": "AMEND - ENTITLEMENT - SA",
+      "group": null
+    },
+    {
+      "name": "VIEW - ENTITLEMENT - SA",
+      "description": "VIEW - ENTITLEMENT - SA",
+      "group": null
+    },
+    {
+      "name": "AMEND - LAND - SA",
+      "description": "AMEND - LAND - SA",
+      "group": null
+    },
+    {
+      "name": "VIEW - LAND - SA",
+      "description": "VIEW - LAND - SA",
+      "group": null
+    },
+    {
+      "name": "LOAD XCOM PERC - SA",
+      "description": "LOAD XCOM PERC",
+      "group": null
+    },
+    {
+      "name": "LOAD BPS EXTRACTION - SA",
+      "description": "LOAD BPS EXTRACTION",
+      "group": null
+    },
+    {
+      "name": "MASSIVE LOAD - SA",
+      "description": "MASSIVE LOAD - SA",
+      "group": null
+    },
+    {
+      "name": "P2 - SUPPORT - HT_EDIT",
+      "description": "P2 - SUPPORT - HT_EDIT",
+      "group": null
+    },
+    {
+      "name": "INTERNAL PAYMENT - SA",
+      "description": "INTERNAL PAYMENT - SA",
+      "group": null
+    },
+    {
+      "name": "INTERNAL VIEW -  SA",
+      "description": "INTERNAL VIEW -  SA",
+      "group": null
+    },
+    {
+      "name": "WAIVER ANOMALIES - SA",
+      "description": "WAIVER ANOMALIES",
+      "group": null
+    },
+    {
+      "name": "DELEGATEDAUTH_LEVEL1",
+      "description": "Adviser: up to and including 250,000 Pounds",
+      "group": null
+    },
+    {
+      "name": "DELEGATEDAUTH_LEVEL2",
+      "description": "Lead Adviser/Group Co-ordinator: up to and including 500,000 Pounds",
+      "group": null
+    },
+    {
+      "name": "DELEGATEDAUTH_LEVEL3",
+      "description": "Team leader: up to and including 1,000,000 Pounds",
+      "group": null
+    },
+    {
+      "name": "DELEGATEDAUTH_LEVEL4",
+      "description": "MANAGER: UP TO AND INCLUDING 5,000,000 POUNDS",
+      "group": null
+    },
+    {
+      "name": "DELEGATEDAUTH_LEVEL5",
+      "description": "Area manager/director:  any amount",
+      "group": null
+    },
+    {
+      "name": "BPS CORRECTION - SA",
+      "description": "BPS CORRECTION - SA",
+      "group": null
+    },
+    {
+      "name": "QA_EDIT",
+      "description": "LPIS QA EDITOR",
+      "group": null
+    },
+    {
+      "name": "QA_VIEW",
+      "description": "LPIS QA VIEWER",
+      "group": null
+    },
+    {
+      "name": "AMEND - COMMONS - SA",
+      "description": "AMEND - COMMONS - SA",
+      "group": null
+    },
+    {
+      "name": "CS CAPITAL ONLY APPLICATIONS",
+      "description": "CS CAPITAL ONLY APPLICATIONS",
+      "group": null
+    },
+    {
+      "name": "CS CAPITAL CLAIM BATCHING",
+      "description": "CS Capital claim Batching",
+      "group": null
+    },
+    {
+      "name": "CS ADVISOR",
+      "description": "CS ADVISOR",
+      "group": null
+    },
+    {
+      "name": "CS TEAM LEADER",
+      "description": "CS TEAM LEADER",
+      "group": null
+    },
+    {
+      "name": "NEADV USER",
+      "description": "NEADV USER",
+      "group": null
+    },
+    {
+      "name": "NEADV1 USER",
+      "description": "NEADV1 USER",
+      "group": null
+    },
+    {
+      "name": "NEADV2 USER",
+      "description": "NEADV2 USER",
+      "group": null
+    },
+    {
+      "name": "NEADV3 USER",
+      "description": "NEADV3 USER",
+      "group": null
+    },
+    {
+      "name": "NEADV4 USER",
+      "description": "NEADV4 USER",
+      "group": null
+    },
+    {
+      "name": "NEADV5 USER",
+      "description": "NEADV5 USER",
+      "group": null
+    },
+    {
+      "name": "NEADV6 USER",
+      "description": "NEADV6 USER",
+      "group": null
+    },
+    {
+      "name": "CS_DUAL_USE",
+      "description": "CS DUAL USE",
+      "group": null
+    },
+    {
+      "name": "CS VIEW - CLAIM - APP",
+      "description": "CS VIEW - CLAIM - APP",
+      "group": null
+    },
+    {
+      "name": "DASHBOARD_USER",
+      "description": "DASHBOARD USER",
+      "group": null
+    },
+    {
+      "name": "PROGRAMM MOD - SA",
+      "description": "PROGRAMM MODFY",
+      "group": null
+    },
+    {
+      "name": "PROGRAMM VIEW - SA",
+      "description": "PROGRAMM VIEW",
+      "group": null
+    },
+    {
+      "name": "CLAIM MODIFIER - SA",
+      "description": "CLAIM MODIFIER - SA",
+      "group": null
+    },
+    {
+      "name": "APP MOVEMENT - SA",
+      "description": "APP MOVEMENT - SA",
+      "group": null
+    },
+    {
+      "name": "CS CAPITAL CLAIM PROCESSING",
+      "description": "CS CAPITAL CLAIM PROCESSING",
+      "group": null
+    },
+    {
+      "name": "CS AMEND FROM NOT OFFERED TO APPLICATION OFFER",
+      "description": "CS Amend from Not Offered to Application Offer",
+      "group": null
+    },
+    {
+      "name": "CS MA ADVANCE PAYMENT BATCHING",
+      "description": "CS MA Advanced Payment Batching",
+      "group": null
+    },
+    {
+      "name": "INSP CALCULATION -  SA",
+      "description": "INSP CALCULATION -  SA",
+      "group": null
+    },
+    {
+      "name": "CS MA FINAL PAYMENT BATCHING",
+      "description": "CS MA Final Payment Batching",
+      "group": null
+    },
+    {
+      "name": "CS_MA_PPA_PAYMENT_BATCHING",
+      "description": "CS MA POST PAYMENT ADJUSTMENT BATCHING",
+      "group": null
+    },
+    {
+      "name": "CS_CAP_PPA_PAYMENT_BATCHING",
+      "description": "CS Capital Post Payment Adjustment Batching",
+      "group": null
+    },
+    {
+      "name": "CS RANKING SIGN-OFF",
+      "description": "CS RANKING SIGN-OFF",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - CS APP",
+      "description": "NO ACCESS - CS APP",
+      "group": null
+    },
+    {
+      "name": "CS RANKING THRESHOLDS",
+      "description": "CS Ranking Thresholds",
+      "group": null
+    },
+    {
+      "name": "NO ACCESS - CS AGREE",
+      "description": "NO ACCESS - CS AGREE",
+      "group": null
+    },
+    {
+      "name": "View - cs app",
+      "description": "VIEW - CS APP",
+      "group": null
+    },
+    {
+      "name": "View - cs agree",
+      "description": "View - cs agree",
+      "group": null
+    },
+    {
+      "name": "Amend - cs app",
+      "description": "Amend - cs app",
+      "group": null
+    },
+    {
+      "name": "Amend - cs agree",
+      "description": "Amend - cs agree",
+      "group": null
+    },
+    {
+      "name": "Submit - cs app",
+      "description": "Submit - cs app",
+      "group": null
+    },
+    {
+      "name": "Submit - cs agree",
+      "description": "Submit - cs agree",
+      "group": null
+    },
+    {
+      "name": "CS Amend to In Progress 1",
+      "description": "CS Amend to In Progress 1",
+      "group": null
+    },
+    {
+      "name": "ACCESS_RANKING",
+      "description": "ACCESS_RANKING",
+      "group": null
+    },
+    {
+      "name": "CASE WORKER - SA",
+      "description": "CASE WORKER - SA",
+      "group": null
+    },
+    {
+      "name": "CS_MA_CLAIM_PROCESSING",
+      "description": "CS MA CLAIM PROCESSING",
+      "group": null
+    },
+    {
+      "name": "CS_TRANSFER",
+      "description": "CS TRANSFER",
+      "group": null
+    },
+    {
+      "name": "VIEW_PLUS_CASE",
+      "description": "VIEW_PLUS_CASES",
+      "group": null
+    },
+    {
+      "name": "MESSAGE_UPLOADER",
+      "description": "Message Uploader",
+      "group": null
+    },
+    {
+      "name": "CS_REINSTATE",
+      "description": "CS REINSTATE",
+      "group": null
+    },
+    {
+      "name": "MY OFFICES - SA",
+      "description": "View all inspections linked to my offices",
+      "group": null
+    },
+    {
+      "name": "INSP_DWH",
+      "description": "SITI-CONTROL ACCESS FOR DATA TEAMS",
+      "group": null
+    },
+    {
+      "name": "ELM1",
+      "description": "INTERNAL USERS - ELM1",
+      "group": null
+    },
+    {
+      "name": "ELM2",
+      "description": "INTERNAL USERS - ELM2",
+      "group": null
+    },
+    {
+      "name": "ELM3",
+      "description": "INTERNAL USERS - ELM3",
+      "group": null
+    },
+    {
+      "name": "OPS_UPLOAD",
+      "description": "Ability to upload CSV files",
+      "group": null
+    },
+    {
+      "name": "MAP_RQST",
+      "description": "SFI22 LAND COVER EXPORT VIEW CAPABILITY",
+      "group": null
+    },
+    {
+      "name": "ELMX",
+      "description": "ELMX",
+      "group": null
+    },
+    {
+      "name": "LUMP SUM PAYMENT BATCHING",
+      "description": "LUMP SUM PAYMENT BATCHING",
+      "group": null
+    },
+    {
+      "name": "SFI22 PAYMENT BATCHING",
+      "description": "SFI22 PAYMENT BATCHING",
+      "group": null
+    },
+    {
+      "name": "MESSAGES_ADMIN",
+      "description": "MESSAGES_ADMIN",
+      "group": null
+    },
+    {
+      "name": "KNOWLEDGE DEBUG",
+      "description": "Role for viewing tables Application debug informations",
+      "group": null
+    },
+    {
+      "name": "DEACTIVATE_ORGANISATIONS",
+      "description": "DEACTIVATE ORGANISATIONS",
+      "group": null
+    },
+    {
+      "name": "ELM_APPLICATION_NO_ACCESS",
+      "description": "ELMS DEFAULT ROLE WITH NO ACCESS TO ELMS - NO FUNCTIONS ATTACHED TO IT",
+      "group": null
+    },
+    {
+      "name": "SFI_BULK_REPORTS",
+      "description": "Capability to view and produce SFI reports",
+      "group": null
+    },
+    {
+      "name": "ELM_APPLICATION_VIEW",
+      "description": "ELMS APPLICATIONS VIEW ROLE, PROVIDING READ-ONLY ACCESS TO ELMS APPLICATIONS",
+      "group": null
+    },
+    {
+      "name": "ELM_APPLICATION_AMEND",
+      "description": "ELMS APPLICATIONS AMEND ROLE, PROVIDING ACCESS ONLY FOR AMENDING TO ELMS APPLICATIONS",
+      "group": null
+    },
+    {
+      "name": "ELM_APPLICATION_SUBMIT",
+      "description": "ELMS APPLICATIONS SUBMIT ROLE, PROVIDING FULL ACCESS TO ELMS APPLICATIONS",
+      "group": null
+    },
+    {
+      "name": "GEOPHOTO",
+      "description": "GEOPHOTO",
+      "group": null
+    },
+    {
+      "name": "EA  Advisor Support -SA",
+      "description": "CO2024 - EA  ADVISOR SUPPORT -SA - #287147",
+      "group": null
+    },
+    {
+      "name": "NE  Advisor Support -SA",
+      "description": "CO2024 - NE  ADVISOR SUPPORT -SA - #287147",
+      "group": null
+    },
+    {
+      "name": "FC  Advisor Support -SA",
+      "description": "CO2024 - FC  ADVISOR SUPPORT -SA - #287147",
+      "group": null
+    },
+    {
+      "name": "HE  Advisor Support -SA",
+      "description": "CO2024 - HE  ADVISOR SUPPORT -SA - #287147",
+      "group": null
+    },
+    {
+      "name": "3rd Party Advisor Support -SA",
+      "description": "CO2024 - 3RD PARTY ADVISOR SUPPORT -SA - #287147",
+      "group": null
+    },
+    {
+      "name": "BANK_DETAILS_ONLINE_CHANGE",
+      "description": "BANK_DETAILS_ONLINE_CHANGE",
+      "group": null
+    }
+  ],
+  "success": true,
+  "errorString": null
+}
