@@ -29,8 +29,8 @@ export function transformLandCoversToArea(name, landCovers) {
   if (!landCovers || !Array.isArray(landCovers)) {
     return 0
   }
-  const landCover = landCovers.find((landCover) => landCover?.name === name)
-  if (!landCover || !landCover.area) {
+  const landCover = landCovers.find((cover) => cover?.name === name)
+  if (!landCover?.area) {
     return 0
   }
   return convertSquareMetersToHectares(landCover.area)
