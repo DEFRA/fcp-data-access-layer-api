@@ -508,11 +508,11 @@ describe('Query.customer.business', () => {
   it('should return customer business messages', async () => {
     const result = await graphql({
       source: `#graphql
-        query Messages($crn: ID!, $sbi: ID!, $pagination: Pagination, $deleted: Boolean) {
+        query Messages($crn: ID!, $sbi: ID!) {
           customer(crn: $crn) {
             business(sbi: $sbi) {
-              messages(pagination: $pagination, showOnlyDeleted: $deleted) {
-                title
+              messages {
+                subject
                 read
                 id
                 date
@@ -524,12 +524,7 @@ describe('Query.customer.business', () => {
       `,
       variableValues: {
         crn: '0866159801',
-        sbi: '107591843',
-        pagination: {
-          page: 1,
-          perPage: 3
-        },
-        deleted: false
+        sbi: '107591843'
       },
       schema,
       contextValue: fakeContext
@@ -541,16 +536,22 @@ describe('Query.customer.business', () => {
           business: {
             messages: [
               {
-                title: 'Permission changed for David Paul',
+                subject: 'Permission changed for David Paul',
                 read: false,
                 id: '11401',
-                date: 6010706997254
+                date: '21/06/2160'
               },
               {
-                title: 'Permission changed for David Paul',
+                subject: 'Permission changed for David Paul',
                 read: true,
                 id: '7551987',
-                date: 8327630499790
+                date: '22/11/2233'
+              },
+              {
+                subject: 'Permission changed for David Paul',
+                read: false,
+                id: '9315941',
+                date: '02/11/2250'
               }
             ]
           }
@@ -562,11 +563,11 @@ describe('Query.customer.business', () => {
   it('should return deleted customer businesses messages', async () => {
     const result = await graphql({
       source: `#graphql
-        query Messages($crn: ID!, $sbi: ID!, $pagination: Pagination, $deleted: Boolean) {
+        query Messages($crn: ID!, $sbi: ID!) {
           customer(crn: $crn) {
             business(sbi: $sbi) {
-              messages(pagination: $pagination, showOnlyDeleted: $deleted) {
-                title
+              messages {
+                subject
                 read
                 id
                 date
@@ -577,12 +578,7 @@ describe('Query.customer.business', () => {
       `,
       variableValues: {
         crn: '0866159801',
-        sbi: '107591843',
-        pagination: {
-          page: 1,
-          perPage: 3
-        },
-        deleted: true
+        sbi: '107591843'
       },
       schema,
       contextValue: fakeContext
@@ -594,10 +590,22 @@ describe('Query.customer.business', () => {
           business: {
             messages: [
               {
-                title: 'Permission changed for David Paul',
+                subject: 'Permission changed for David Paul',
+                read: false,
+                id: '11401',
+                date: '21/06/2160'
+              },
+              {
+                subject: 'Permission changed for David Paul',
+                read: true,
+                id: '7551987',
+                date: '22/11/2233'
+              },
+              {
+                subject: 'Permission changed for David Paul',
                 read: false,
                 id: '9315941',
-                date: 8862388585856
+                date: '02/11/2250'
               }
             ]
           }

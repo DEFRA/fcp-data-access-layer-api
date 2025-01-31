@@ -39,14 +39,6 @@ const mockMessages = [
     bespokeNotificationId: null
   }
 ]
-const parsedMessages = mockMessages.map(({ id, title, body, archivedAt, createdAt, readAt }) => ({
-  id,
-  title,
-  body,
-  archivedAt,
-  date: createdAt,
-  read: !!readAt
-}))
 
 describe('Customer transformer', () => {
   test('transformPersonRolesToCustomerAuthorisedBusinessesRoles', () => {
@@ -63,12 +55,24 @@ describe('Customer transformer', () => {
 
   test('transformNotificationsToMessages', () => {
     const result = transformNotificationsToMessages(mockMessages, false)
-    expect(result).toEqual([parsedMessages[0]])
-  })
-
-  test('transformNotificationsToMessages - showOnlyDeleted', () => {
-    const result = transformNotificationsToMessages(mockMessages, true)
-    expect(result).toEqual([parsedMessages[1]])
+    expect(result).toEqual([
+      {
+        id: 5875045,
+        subject: 'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
+        date: '05/05/2231',
+        body: '<p>Adversus crastinus suggero caste adhuc vomer accusamus acies iure.</p>',
+        read: false,
+        deleted: false
+      },
+      {
+        id: 2514276,
+        subject: 'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
+        date: '13/06/2249',
+        body: '<p>Cruentus venia dedecor beatus vinco cultellus clarus.</p>',
+        read: true,
+        deleted: true
+      }
+    ])
   })
 
   test('transformNotificationsToMessages does not fail if messages empty', () => {

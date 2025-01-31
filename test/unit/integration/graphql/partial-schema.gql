@@ -374,9 +374,51 @@ type CustomerBusiness {
   role: String
 
   """
+  The messages associated with the business.
+  """
+  messages: [CustomerBusinessMessage]
+
+  """
   The permission groups associated with the business.
   """
   permissionGroups: [ActivePermissionGroup]
+}
+
+"""
+Represents a message related to a customer's business.
+
+Data Source: Rural Payments Portal (PRR)
+"""
+type CustomerBusinessMessage {
+  """
+  The unique identifier of the message.
+  """
+  id: ID!
+
+  """
+  The subject of the message.
+  """
+  subject: String
+
+  """
+  The date of the message.
+  """
+  date: Date
+
+  """
+  The body content of the message.
+  """
+  body: String
+
+  """
+  Whether the message has been read.
+  """
+  read: Boolean
+
+  """
+  Whether the message has been deleted.
+  """
+  deleted: Boolean
 }
 
 enum PermissionLevel {

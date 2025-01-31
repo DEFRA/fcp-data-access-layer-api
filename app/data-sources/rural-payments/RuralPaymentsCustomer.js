@@ -68,28 +68,48 @@ export class RuralPaymentsCustomer extends RuralPayments {
     return personBusinessSummaries._data
   }
 
-  async getNotificationsByOrganisationIdAndPersonId(organisationId, personId, page, size) {
+  async getNotificationsByOrganisationIdAndPersonId(organisationId, personId, dateFrom) {
     this.logger.silly('Getting notifications by organisation ID and person ID', {
       organisationId,
-      personId,
-      page,
-      size
+      personId
     })
 
-    const response = await this.get('notifications', {
-      params: {
-        personId,
-        organisationId,
-        filter: '',
-        page,
-        size
+    const makeRecursiveRequest = async (page = 1, accumulatedNotifications = []) => {
+      // Fetch notifications for the given page
+      const response = await this.get('notifications', {
+        params: { personId, organisationId, page }
+      })
+
+      const currentPageNotifications = response?.notifications ?? []
+
+      // If no notifications are returned, return accumulated notifications
+      if (currentPageNotifications.length === 0) {
+        return accumulatedNotifications
       }
-    })
+
+      // Filter notifications based on creation date
+      const newNotifications = currentPageNotifications.filter(
+        (notification) => notification.createdAt > dateFrom.valueOf()
+      )
+
+      // Combine new notifications with existing ones
+      const allNotificationsSoFar = [...accumulatedNotifications, ...newNotifications]
+
+      // If not all notifications from this page are included, stop recursion
+      if (newNotifications.length < currentPageNotifications.length) {
+        return allNotificationsSoFar
+      }
+
+      // Otherwise, continue to the next page
+      return makeRecursiveRequest(page + 1, allNotificationsSoFar)
+    }
+
+    const notifications = await makeRecursiveRequest()
 
     this.logger.silly('Notifications by organisation ID and person ID response', {
-      response
+      notifications
     })
 
-    return response.notifications
+    return notifications
   }
 }
