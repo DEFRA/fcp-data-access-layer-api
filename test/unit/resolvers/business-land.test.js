@@ -27,7 +27,7 @@ const dataSources = {
         }
       ]
     },
-    getCoversByOrgSheetParcelId() {
+    getCoversByOrgSheetParcelIdDate() {
       return {
         type: 'FeatureCollection',
         features: [
