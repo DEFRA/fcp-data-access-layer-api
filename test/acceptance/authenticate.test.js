@@ -24,7 +24,7 @@ describe('authenticate contract', () => {
                 updatedAt
                 memorableDate
                 memorableEvent
-                memorablePlace
+                memorableLocation
               }
             }
           }
@@ -40,7 +40,7 @@ describe('authenticate contract', () => {
     expect(parsedResponse).toHaveProperty('data')
     expect(parsedResponse).toHaveProperty('data.customer.authenticationQuestions.isFound')
     expect(parsedResponse).toHaveProperty('data.customer.authenticationQuestions.memorableDate')
-    expect(parsedResponse).toHaveProperty('data.customer.authenticationQuestions.memorablePlace')
+    expect(parsedResponse).toHaveProperty('data.customer.authenticationQuestions.memorableLocation')
     expect(parsedResponse).toHaveProperty('data.customer.authenticationQuestions.memorableEvent')
     expect(parsedResponse).toHaveProperty('data.customer.authenticationQuestions.updatedAt')
   })

@@ -49,6 +49,7 @@ export const Customer = {
 
   async authenticationQuestions({ crn }, __, { dataSources }) {
     const results = await dataSources.ruralPaymentsCustomer.getAuthenticateAnswersByCRN(crn)
+    logger.silly('Got authenticate answers', { crn, response: { body: results } })
     return transformAuthenticateQuestionsAnswers(results)
   }
 }

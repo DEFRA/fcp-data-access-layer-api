@@ -35,7 +35,7 @@ const dataSources = {
       return organisationPeopleByOrgId(orgId)._data
     }
   },
-  permissions: new Permissions(),
+  permissions: new Permissions()
 }
 
 describe('Customer', () => {
@@ -122,26 +122,21 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions', async () => {
-    const response = await Customer.authenticationQuestions(
-      { crn: 'mockCustomerCRN' },
-      undefined,
-      { dataSources }
-    )
+    const response = await Customer.authenticationQuestions({ crn: 'mockCustomerCRN' }, undefined, {
+      dataSources
+    })
     expect(response).toEqual({
       isFound: true,
       memorableDate: 'some date',
       memorableEvent: 'some event',
-      memorablePlace: 'some location',
+      memorableLocation: 'some location',
       updatedAt: undefined
     })
   })
 
   test('Customer.authenticationQuestions - error', async () => {
     expect(
-      Customer.authenticationQuestions(
-        { id: 'mockCustomerId' },
-        { dataSources }
-      )
+      Customer.authenticationQuestions({ id: 'mockCustomerId' }, { dataSources })
     ).rejects.toThrow(Error)
   })
 })

@@ -257,7 +257,7 @@ describe('Query.customer.authenticationQuestions', () => {
             authenticationQuestions {
               memorableDate
               memorableEvent
-              memorablePlace
+              memorableLocation
               updatedAt
               isFound
             }
@@ -285,7 +285,7 @@ describe('Query.customer.authenticationQuestions', () => {
             authenticationQuestions {
               memorableDate
               memorableEvent
-              memorablePlace
+              memorableLocation
               updatedAt
               isFound
             }
@@ -305,7 +305,7 @@ describe('Query.customer.authenticationQuestions', () => {
           authenticationQuestions: {
             memorableDate: null,
             memorableEvent: 'Birthday',
-            memorablePlace: null,
+            memorableLocation: null,
             updatedAt: 3494617373808,
             isFound: true
           }
@@ -324,7 +324,7 @@ it('should return isFound false if record not found', async () => {
             authenticationQuestions {
               memorableDate
               memorableEvent
-              memorablePlace
+              memorableLocation
               updatedAt
               isFound
             }
@@ -344,7 +344,7 @@ it('should return isFound false if record not found', async () => {
         authenticationQuestions: {
           memorableDate: null,
           memorableEvent: null,
-          memorablePlace: null,
+          memorableLocation: null,
           updatedAt: null,
           isFound: false
         }
