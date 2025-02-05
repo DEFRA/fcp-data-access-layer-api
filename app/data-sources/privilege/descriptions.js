@@ -8,6 +8,20 @@ export class Privileges extends RESTDataSource {
     const privilegeData = await this.get('SitiAgriApi/authorisation/privilege')
     this.logger.silly('Siti Agri privileges', { privilegeData })
 
-    return privilegeData.data
+    return privilegeData
+  }
+
+  async parseBody(response) {
+    if (response.ok) {
+      const { data } = await response.json()
+      return data.reduce(
+        (prvilieges, { name, description }) => ({ ...prvilieges, [name]: description }),
+        {}
+      )
+    }
+  }
+
+  cloneParsedBody(parsedBody) {
+    return structuredClone(parsedBody)
   }
 }
