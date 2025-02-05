@@ -1,4 +1,6 @@
+import { describe, expect, it } from '@jest/globals'
 import { createRequire } from 'node:module'
+import { Privileges } from '../../../app/data-sources/privilege/descriptions.js'
 import { NotFound } from '../../../app/errors/graphql.js'
 import { Business, BusinessCustomer } from '../../../app/graphql/resolvers/business/business.js'
 import { transformOrganisationCPH } from '../../../app/transformers/rural-payments/business-cph.js'
@@ -16,11 +18,20 @@ import {
 const permissionGroups = createRequire(import.meta.url)(
   '../../../app/data-sources/static/permission-groups.json'
 )
+const privilegeDescriptions = ((data) =>
+  new Privileges().parseBody({ ok: true, json: () => data }))(
+  createRequire(import.meta.url)('../../../mocks/fixtures/privilege-response.json')
+)
 
 const dataSources = {
   permissions: {
     getPermissionGroups() {
       return permissionGroups
+    }
+  },
+  privileges: {
+    async getPrivileges() {
+      return Promise.resolve(privilegeDescriptions)
     }
   },
   ruralPaymentsBusiness: {
@@ -80,7 +91,8 @@ describe('BusinessCustomer', () => {
     for (const customer of customers) {
       const transformed = transformBusinessCustomerPrivilegesToPermissionGroups(
         customer.privileges,
-        dataSources.permissions.getPermissionGroups()
+        dataSources.permissions.getPermissionGroups(),
+        privilegeDescriptions
       )
 
       expect(

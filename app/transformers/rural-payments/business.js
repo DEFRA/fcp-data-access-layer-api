@@ -20,7 +20,8 @@ export const transformOrganisationCustomer = ({
 
 export function transformBusinessCustomerPrivilegesToPermissionGroups(
   privileges,
-  permissionGroups
+  permissionGroups,
+  privilegeDescriptions
 ) {
   const customerPermissionGroups = []
 

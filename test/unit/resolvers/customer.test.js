@@ -1,5 +1,7 @@
 import { jest } from '@jest/globals'
 
+import { createRequire } from 'node:module'
+import { Privileges } from '../../../app/data-sources/privilege/descriptions.js'
 import { Permissions } from '../../../app/data-sources/static/permissions.js'
 import { Customer, CustomerBusiness } from '../../../app/graphql/resolvers/customer/customer.js'
 import {
@@ -11,6 +13,11 @@ import { personById } from '../../../mocks/fixtures/person.js'
 const orgId = '5565448'
 const personId = '5007136'
 const personFixture = personById({ id: personId })
+
+const privilegeDescriptions = ((data) =>
+  new Privileges().parseBody({ ok: true, json: () => data }))(
+  createRequire(import.meta.url)('../../../mocks/fixtures/privilege-response.json')
+)
 
 const dataSources = {
   ruralPaymentsCustomer: {
@@ -28,6 +35,11 @@ const dataSources = {
     }
   },
   permissions: new Permissions(),
+  privileges: {
+    async getPrivileges() {
+      return Promise.resolve(privilegeDescriptions)
+    }
+  },
   authenticateDatabase: {
     getAuthenticateQuestionsAnswersByCRN() {
       return {

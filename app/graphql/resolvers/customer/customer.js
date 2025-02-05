@@ -93,7 +93,8 @@ export const CustomerBusiness = {
     return transformBusinessCustomerToCustomerPermissionGroups(
       crn,
       businessCustomers,
-      permissionGroups
+      permissionGroups,
+      await dataSources.privileges.getPrivileges()
     )
   }
 }

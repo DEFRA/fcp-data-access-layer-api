@@ -1,11 +1,17 @@
+import { describe, expect, jest } from '@jest/globals'
+import { Privileges } from '../../../../app/data-sources/privilege/descriptions.js'
 import { Permissions } from '../../../../app/data-sources/static/permissions.js'
 import {
   transformBusinessCustomerPrivilegesToPermissionGroups,
   transformOrganisationCustomers
 } from '../../../../app/transformers/rural-payments/business.js'
 import { organisationPeopleByOrgId } from '../../../../mocks/fixtures/organisation.js'
+import mockServer from '../../../../mocks/server'
 
 describe('Business transformer', () => {
+  beforeAll(mockServer.start)
+  afterAll(mockServer.stop)
+
   test('#transformOrganisationCustomers', () => {
     const { _data: customers } = organisationPeopleByOrgId(5565448)
 
@@ -23,14 +29,18 @@ describe('Business transformer', () => {
     expect(transformOrganisationCustomers(customers)).toEqual(transformedCustomers)
   })
 
-  test('#transformBusinessCustomerPrivilegesToPermissionGroups', () => {
-    const permissionGroups = new Permissions().getPermissionGroups()
+  test('#transformBusinessCustomerPrivilegesToPermissionGroups', async () => {
+    const permissions = new Permissions().getPermissionGroups()
+    const privilegeDescriptions = await new Privileges({
+      logger: { silly: jest.fn() }
+    }).getPrivileges()
     const { _data: customers } = organisationPeopleByOrgId(5565448)
 
     const transformedPermissionGroups = customers.map((customer) => {
       return transformBusinessCustomerPrivilegesToPermissionGroups(
         customer.privileges,
-        permissionGroups
+        permissions,
+        privilegeDescriptions
       )
     })
 

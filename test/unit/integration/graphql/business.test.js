@@ -1,4 +1,6 @@
+import { afterAll, describe, expect, it, jest } from '@jest/globals'
 import { graphql, GraphQLError } from 'graphql'
+import { Privileges } from '../../../../app/data-sources/privilege/descriptions.js'
 import { Permissions } from '../../../../app/data-sources/static/permissions.js'
 import { NotFound } from '../../../../app/errors/graphql.js'
 import { schema } from '../../../../app/graphql/server.js'
@@ -579,6 +581,9 @@ describe('Query.business.customers', () => {
   })
 
   it('permissions', async () => {
+    const privilegeDescriptions = await new Privileges({
+      logger: { silly: jest.fn() }
+    }).getPrivileges()
     const personId = 5302028
     const result = await graphql({
       source: `#graphql
@@ -605,7 +610,8 @@ describe('Query.business.customers', () => {
             .map(({ privileges }) => ({
               permissionGroups: transformBusinessCustomerPrivilegesToPermissionGroups(
                 privileges,
-                new Permissions().getPermissionGroups()
+                new Permissions().getPermissionGroups(),
+                privilegeDescriptions
               )
             }))[0]
         }
