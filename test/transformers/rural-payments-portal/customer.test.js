@@ -126,7 +126,7 @@ describe('Customer transformer', () => {
       isFound: true,
       memorableDate: 'some date',
       memorableEvent: 'some event',
-      memorablePlace: 'some location',
+      memorableLocation: 'some location',
       updatedAt: undefined
     })
   })
@@ -138,7 +138,7 @@ describe('Customer transformer', () => {
       isFound: false,
       memorableDate: undefined,
       memorableEvent: undefined,
-      memorablePlace: undefined,
+      memorableLocation: undefined,
       updatedAt: undefined
     })
   })

@@ -92,7 +92,7 @@ export class RuralPaymentsCustomer extends RuralPayments {
   async getAuthenticateAnswersByCRN(crn) {
     this.logger.silly('Getting authenticate answers by crn', { crn })
 
-    return this.get(`/external-auth/security-answers/${crn}`).catch((err) => {
+    return await this.get(`external-auth/security-answers/${crn}`).catch((err) => {
       if (err.extensions.response.status === StatusCodes.NOT_FOUND) {
         this.logger.silly('#datasource - Rural payments - authenticate answers not found for CRN', {
           crn,

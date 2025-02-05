@@ -102,7 +102,7 @@ type CustomerAuthenticationQuestions {
   """
   The memorable place question.
   """
-  memorablePlace: String @on
+  memorableLocation: String @on
 
   """
   The date the record was last updated.
