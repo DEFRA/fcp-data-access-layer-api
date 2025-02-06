@@ -296,6 +296,21 @@
       "group": null
     },
     {
+      "name": "AMEND - BPS - SA",
+      "description": "AMEND - BPS - SA",
+      "group": null
+    },
+    {
+      "name": "SUBMIT - BPS - SA",
+      "description": "SUBMIT - BPS - SA",
+      "group": null
+    },
+    {
+      "name": "VIEW - BPS - SA",
+      "description": "VIEW - BPS - SA",
+      "group": null
+    },
+    {
       "name": "NO ACCESS - BPS",
       "description": "CANNOT PERFORM ANY ACTIONS AGAINST BPS",
       "group": null
@@ -343,21 +358,6 @@
     {
       "name": "ADMINISTRATOR_SA",
       "description": "ALL_MODULES",
-      "group": null
-    },
-    {
-      "name": "AMEND - BPS - SA",
-      "description": "AMEND - BPS - SA",
-      "group": null
-    },
-    {
-      "name": "SUBMIT - BPS - SA",
-      "description": "SUBMIT - BPS - SA",
-      "group": null
-    },
-    {
-      "name": "VIEW - BPS - SA",
-      "description": "VIEW - BPS - SA",
       "group": null
     },
     {

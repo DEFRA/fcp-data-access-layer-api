@@ -20,23 +20,28 @@ export const transformOrganisationCustomer = ({
 
 export function transformBusinessCustomerPrivilegesToPermissionGroups(
   privileges,
-  permissionGroups,
+  permissions,
   privilegeDescriptions
 ) {
-  const customerPermissionGroups = []
+  return privileges.map((privilege) => ({
+    ...permissions.getPermissionByName(privilege),
+    description: privilegeDescriptions[privilege]
+  }))
+  // const customerPermissionGroups = []
 
-  for (const permissionGroup of permissionGroups) {
-    for (const permission of permissionGroup.permissions) {
-      if (permission.privilegeNames.some((privilegeName) => privileges.includes(privilegeName))) {
-        customerPermissionGroups.push({
-          id: permissionGroup.id,
-          level: permission.level
-        })
-      }
-    }
-  }
+  // for (const permissionGroup of permissionGroups) {
+  //   for (const permission of permissionGroup.permissions) {
+  //     if (permission.privilegeNames.some((privilegeName) => privileges.includes(privilegeName))) {
+  //       customerPermissionGroups.push({
+  //         id: permissionGroup.id,
+  //         level: permission.level
+  //         // description:
+  //       })
+  //     }
+  //   }
+  // }
 
-  return customerPermissionGroups
+  // return customerPermissionGroups
 }
 
 export const transformOrganisationToBusiness = (data) => {

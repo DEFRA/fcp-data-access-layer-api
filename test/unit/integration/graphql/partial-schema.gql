@@ -408,6 +408,11 @@ type ActivePermissionGroup {
   The permission level customer has for the business.
   """
   level: PermissionLevel
+
+  """
+  The RP Portal definition of the this permission level.
+  """
+  description: [String]
 }
 
 enum AuthRole {

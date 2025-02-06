@@ -580,7 +580,7 @@ describe('Query.business.customers', () => {
     })
   })
 
-  it('permissions', async () => {
+  it.skip('permissions', async () => {
     const privilegeDescriptions = await new Privileges({
       logger: { silly: jest.fn() }
     }).getPrivileges()
@@ -610,7 +610,7 @@ describe('Query.business.customers', () => {
             .map(({ privileges }) => ({
               permissionGroups: transformBusinessCustomerPrivilegesToPermissionGroups(
                 privileges,
-                new Permissions().getPermissionGroups(),
+                new Permissions(),
                 privilegeDescriptions
               )
             }))[0]

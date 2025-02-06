@@ -841,6 +841,11 @@ type ActivePermissionGroup {
   The permission level customer has for the business.
   """
   level: PermissionLevel
+
+  """
+  The RP Portal definition of the this permission level.
+  """
+  description: [String]
 }
 
 type PermissionGroup {
@@ -870,6 +875,11 @@ type Permission {
   The functions that can be performed with given permission level.
   """
   functions: [String]
+
+  """
+  The RP Portal definition of the this permission level.
+  """
+  description: [String]
 
   """
   Check if this level is active for given customer and business.

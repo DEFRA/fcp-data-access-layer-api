@@ -87,7 +87,7 @@ export const BusinessCustomer = {
   async permissionGroups({ privileges }, __, { dataSources }) {
     return transformBusinessCustomerPrivilegesToPermissionGroups(
       privileges,
-      dataSources.permissions.getPermissionGroups(),
+      dataSources.permissions,
       await dataSources.privileges.getPrivileges()
     )
   }

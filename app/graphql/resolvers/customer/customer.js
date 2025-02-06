@@ -88,12 +88,10 @@ export const CustomerBusiness = {
         organisationId
       )
 
-    const permissionGroups = dataSources.permissions.getPermissionGroups()
-
     return transformBusinessCustomerToCustomerPermissionGroups(
       crn,
       businessCustomers,
-      permissionGroups,
+      dataSources.permissions.getPermissionGroups(),
       await dataSources.privileges.getPrivileges()
     )
   }

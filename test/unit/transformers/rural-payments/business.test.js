@@ -30,9 +30,9 @@ describe('Business transformer', () => {
   })
 
   test('#transformBusinessCustomerPrivilegesToPermissionGroups', async () => {
-    const permissions = new Permissions().getPermissionGroups()
+    const permissions = new Permissions()
     const privilegeDescriptions = await new Privileges({
-      logger: { silly: jest.fn() }
+      logger: { info: jest.fn(), silly: jest.fn() }
     }).getPrivileges()
     const { _data: customers } = organisationPeopleByOrgId(5565448)
 
