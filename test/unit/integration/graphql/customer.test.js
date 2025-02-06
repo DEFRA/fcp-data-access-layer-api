@@ -242,9 +242,9 @@ describe('Query.customer.authenticationQuestions', () => {
 
   it('should return customer authenticate questions', async () => {
     const authenticateQuestionsResponse = {
-      date: '11/11/2000',
-      event: 'Birthday',
-      location: 'location',
+      memorableDate: '11/11/2000',
+      memorableEvent: 'Birthday',
+      memorableLocation: 'location',
       lastUpdatedOn: 3494617373808
     }
     const transformedAuthenticateQuestions = transformAuthenticateQuestionsAnswers(

@@ -24,9 +24,9 @@ const dataSources = {
     getNotificationsByOrganisationIdAndPersonId: jest.fn(),
     getAuthenticateAnswersByCRN(_) {
       return {
-        date: 'some date',
-        event: 'some event',
-        location: 'some location'
+        memorableDate: 'some date',
+        memorableEvent: 'some event',
+        memorableLocation: 'some location'
       }
     }
   },
