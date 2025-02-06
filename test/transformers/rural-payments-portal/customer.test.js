@@ -113,9 +113,9 @@ describe('Customer transformer', () => {
 
   test('transformAuthenticateQuestionsAnswers', () => {
     const mockAuthenticateQuestionsResponse = {
-      date: 'some date',
-      event: 'some event',
-      location: 'some location'
+      memorableDate: 'some date',
+      memorableEvent: 'some event',
+      memorableLocation: 'some location'
     }
 
     const result = transformAuthenticateQuestionsAnswers(
