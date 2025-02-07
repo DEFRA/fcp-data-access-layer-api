@@ -578,7 +578,7 @@ describe('Query.business.customers', () => {
     })
   })
 
-  it.skip('permissions', async () => {
+  it('permissions', async () => {
     const personId = 5302028
     const result = await graphql({
       source: `#graphql
@@ -588,6 +588,7 @@ describe('Query.business.customers', () => {
               permissionGroups {
                 id
                 level
+                functions
               }
             }
           }

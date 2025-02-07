@@ -841,6 +841,11 @@ type ActivePermissionGroup {
   The permission level customer has for the business.
   """
   level: PermissionLevel
+
+  """
+  The functions that can be performed with given permission level.
+  """
+  functions: [String]
 }
 
 type PermissionGroup {

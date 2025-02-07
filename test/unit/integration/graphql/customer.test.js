@@ -8,6 +8,7 @@ import { transformAuthenticateQuestionsAnswers } from '../../../../app/transform
 import { ruralPaymentsPortalCustomerTransformer } from '../../../../app/transformers/rural-payments/customer.js'
 import { personById } from '../../../../mocks/fixtures/person.js'
 import mockServer from '../../../../mocks/server.js'
+import { buildPermissionsFromIdsAndLevels } from '../../../../test/test-helpers/permissions.js'
 import { fakeContext } from '../../../test-setup.js'
 
 const personFixture = personById({ id: '5007136' })
@@ -451,6 +452,7 @@ describe('Query.customer.business', () => {
               permissionGroups {
                 id
                 level
+                functions
               }
             }
           }
@@ -464,41 +466,23 @@ describe('Query.customer.business', () => {
       contextValue: fakeContext
     })
 
+    const [permissionGroups] = buildPermissionsFromIdsAndLevels([
+      [
+        { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' },
+        { id: 'BUSINESS_DETAILS', level: 'AMEND' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+        { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
+        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+        { id: 'LAND_DETAILS', level: 'VIEW' }
+      ]
+    ])
     expect(result).toEqual({
       data: {
         customer: {
           business: {
             role: 'Employee',
-            permissionGroups: [
-              {
-                id: 'BASIC_PAYMENT_SCHEME',
-                level: 'NO_ACCESS'
-              },
-              {
-                id: 'BUSINESS_DETAILS',
-                level: 'AMEND'
-              },
-              {
-                id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS',
-                level: 'SUBMIT'
-              },
-              {
-                id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS',
-                level: 'SUBMIT'
-              },
-              {
-                id: 'ENTITLEMENTS',
-                level: 'NO_ACCESS'
-              },
-              {
-                id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
-                level: 'NO_ACCESS'
-              },
-              {
-                id: 'LAND_DETAILS',
-                level: 'VIEW'
-              }
-            ]
+            permissionGroups
           }
         }
       }
