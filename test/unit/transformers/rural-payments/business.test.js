@@ -23,8 +23,58 @@ describe('Business transformer', () => {
     expect(transformOrganisationCustomers(customers)).toEqual(transformedCustomers)
   })
 
+  const permissionGroups = new Permissions().getPermissionGroups()
+  const expectedPermissions = [
+    [
+      { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+      { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+      { id: 'ENTITLEMENTS', level: 'AMEND' },
+      { id: 'LAND_DETAILS', level: 'AMEND' }
+    ],
+    [
+      { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+      { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+      { id: 'ENTITLEMENTS', level: 'AMEND' },
+      { id: 'LAND_DETAILS', level: 'AMEND' }
+    ],
+    [
+      { id: 'BASIC_PAYMENT_SCHEME', level: 'AMEND' },
+      { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+      { id: 'ENTITLEMENTS', level: 'AMEND' },
+      { id: 'LAND_DETAILS', level: 'AMEND' }
+    ],
+    [
+      { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+      { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+      { id: 'ENTITLEMENTS', level: 'AMEND' },
+      { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'SUBMIT' },
+      { id: 'LAND_DETAILS', level: 'AMEND' }
+    ],
+    [
+      { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+      { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+      { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+      { id: 'ENTITLEMENTS', level: 'AMEND' },
+      { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+      { id: 'LAND_DETAILS', level: 'AMEND' }
+    ]
+  ].map((customerPermissions) =>
+    customerPermissions.map((permission) => ({
+      ...permission,
+      functions: permissionGroups
+        .find((group) => group.id === permission.id)
+        .permissions.find((perm) => perm.level === permission.level).functions
+    }))
+  )
+
   test('#transformBusinessCustomerPrivilegesToPermissionGroups', () => {
-    const permissionGroups = new Permissions().getPermissionGroups()
     const { _data: customers } = organisationPeopleByOrgId(5565448)
 
     const transformedPermissionGroups = customers.map((customer) => {
@@ -34,53 +84,6 @@ describe('Business transformer', () => {
       )
     })
 
-    expect(transformedPermissionGroups).toEqual([
-      [
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
-        { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
-        { id: 'ENTITLEMENTS', level: 'AMEND' },
-        { id: 'LAND_DETAILS', level: 'AMEND' }
-      ],
-      [
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
-        { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
-        { id: 'ENTITLEMENTS', level: 'AMEND' },
-        { id: 'LAND_DETAILS', level: 'AMEND' }
-      ],
-      [
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'AMEND' },
-        { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
-        { id: 'ENTITLEMENTS', level: 'AMEND' },
-        { id: 'LAND_DETAILS', level: 'AMEND' }
-      ],
-      [
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
-        { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
-        { id: 'ENTITLEMENTS', level: 'AMEND' },
-        {
-          id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
-          level: 'SUBMIT'
-        },
-        { id: 'LAND_DETAILS', level: 'AMEND' }
-      ],
-      [
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
-        { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
-        { id: 'ENTITLEMENTS', level: 'AMEND' },
-        {
-          id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
-          level: 'NO_ACCESS'
-        },
-        { id: 'LAND_DETAILS', level: 'AMEND' }
-      ]
-    ])
+    expect(transformedPermissionGroups).toEqual(expectedPermissions)
   })
 })
