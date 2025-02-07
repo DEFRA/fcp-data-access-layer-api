@@ -1,5 +1,6 @@
 import { logger } from '../../logger/logger.js'
 import { sampleResponse } from '../../logger/utils.js'
+import { validateDate } from '../../utils/date.js'
 
 export function transformBusinessCustomerToCustomerRole(crn, customers) {
   const customer = customers.find(({ customerReference }) => customerReference === crn)
@@ -103,17 +104,15 @@ export const ruralPaymentsPortalCustomerTransformer = (data) => {
   }
 }
 
-export function transformNotificationsToMessages(notifications = [], showOnlyDeleted = false) {
-  return notifications
-    .filter(({ archivedAt }) => (showOnlyDeleted ? archivedAt !== null : archivedAt === null))
-    .map((message) => ({
-      id: message.id,
-      title: message.title,
-      date: message.createdAt,
-      body: message.body,
-      read: !!message.readAt,
-      archivedAt: message.archivedAt
-    }))
+export function transformNotificationsToMessages(notifications = []) {
+  return notifications.map((message) => ({
+    id: message.id,
+    subject: message.title,
+    date: validateDate(message.createdAt).toLocaleDateString('en-GB'),
+    body: message.body,
+    read: !!message.readAt,
+    deleted: !!message.archivedAt
+  }))
 }
 
 export function transformPersonSummaryToCustomerAuthorisedFilteredBusiness(properties, summary) {

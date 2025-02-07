@@ -194,14 +194,7 @@ describe('CustomerBusiness', () => {
         bespokeNotificationId: null
       }
     ]
-    parsedMessages = mockMessages.map(({ id, title, body, archivedAt, createdAt, readAt }) => ({
-      id,
-      title,
-      body,
-      archivedAt,
-      date: createdAt,
-      read: !!readAt
-    }))
+
     dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId.mockImplementation(
       () => mockMessages
     )
@@ -237,7 +230,9 @@ describe('CustomerBusiness', () => {
   })
 
   describe('CustomerBusiness.messages', () => {
-    test('no args', async () => {
+    test('get messages', async () => {
+      jest.useFakeTimers().setSystemTime(Date.parse('2025-01-01'))
+
       const response = await CustomerBusiness.messages(
         { organisationId: '4309257', personId: 'mockpersonId' },
         {},
@@ -245,44 +240,26 @@ describe('CustomerBusiness', () => {
       )
       expect(
         dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
-      ).toHaveBeenCalledWith('4309257', 'mockpersonId', 1, 5)
-      expect(response).toEqual([parsedMessages[1]])
-    })
+      ).toHaveBeenCalledWith('4309257', 'mockpersonId', 1704067200000)
 
-    test('showOnlyDeleted = false', async () => {
-      const response = await CustomerBusiness.messages(
-        { organisationId: '4309257', personId: 'mockpersonId' },
-        { showOnlyDeleted: false },
-        { dataSources }
-      )
-      expect(
-        dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
-      ).toHaveBeenCalledWith('4309257', 'mockpersonId', 1, 5)
-      expect(response).toEqual([parsedMessages[1]])
-    })
-
-    test('showOnlyDeleted = true', async () => {
-      const response = await CustomerBusiness.messages(
-        { organisationId: '123123', personId: '321321' },
-        { showOnlyDeleted: true },
-        { dataSources }
-      )
-      expect(
-        dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
-      ).toHaveBeenCalledWith('123123', '321321', 1, 5)
-      expect(response).toEqual([parsedMessages[0]])
-    })
-
-    test('pagination', async () => {
-      const response = await CustomerBusiness.messages(
-        { organisationId: '123', personId: '123' },
-        { pagination: { perPage: 5, page: 5 } },
-        { dataSources }
-      )
-      expect(
-        dataSources.ruralPaymentsCustomer.getNotificationsByOrganisationIdAndPersonId
-      ).toHaveBeenCalledWith('123', '123', 5, 5)
-      expect(response).toEqual([parsedMessages[1]])
+      expect(response).toEqual([
+        {
+          id: 5875045,
+          subject: 'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
+          date: '05/05/2231',
+          body: '<p>Adversus crastinus suggero caste adhuc vomer accusamus acies iure.</p>',
+          read: false,
+          deleted: true
+        },
+        {
+          id: 2514276,
+          subject: 'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
+          date: '13/06/2249',
+          body: '<p>Cruentus venia dedecor beatus vinco cultellus clarus.</p>',
+          read: true,
+          deleted: false
+        }
+      ])
     })
   })
 })
