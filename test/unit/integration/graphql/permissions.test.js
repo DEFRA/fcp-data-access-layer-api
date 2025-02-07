@@ -51,7 +51,9 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in View BPS',
+                  'View business summary',
+                  'View claims',
+                  'View land, features and covers',
                   'Create and edit a claim',
                   'Amend a previously submitted claim',
                   'Amend land, features and covers'
@@ -61,7 +63,12 @@ describe('Query.permissionGroups', () => {
               {
                 active: true,
                 functions: [
-                  'All permissions in Amend BPS',
+                  'View business summary',
+                  'View claims',
+                  'View land, features and covers',
+                  'Create and edit a claim',
+                  'Amend a previously submitted claim',
+                  'Amend land, features and covers',
                   'Submit a claim',
                   'Withdraw a claim',
                   'Receive warnings and notifications'
@@ -83,7 +90,8 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in View Business Details',
+                  'View business details',
+                  'View people associated with the business',
                   'Amend business and correspondence contact details'
                 ],
                 level: 'AMEND'
@@ -91,7 +99,9 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in Amend Business Details',
+                  'View business details',
+                  'View people associated with the business',
+                  'Amend business and correspondence contact details',
                   'Amend controlled information, such as business name',
                   'Confirm business details',
                   'Amend bank account details',
@@ -102,7 +112,13 @@ describe('Query.permissionGroups', () => {
               {
                 active: true,
                 functions: [
-                  'All permissions in Make Legal Changes Business Details',
+                  'View business details',
+                  'View people associated with the business',
+                  'Amend business and correspondence contact details',
+                  'Amend controlled information, such as business name',
+                  'Confirm business details',
+                  'Amend bank account details',
+                  'Make young/new farmer declaration',
                   'Add someone to the business',
                   'Give permissions on business'
                 ],
@@ -129,7 +145,11 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in View CS Agreements',
+                  'View CS Agreements',
+                  'View Land, Features and Cover',
+                  'View CS Agreement amendments',
+                  'View CS agreement Transfers',
+                  'View CS Claims',
                   'Amend land, Features and Covers',
                   'Create and edit a CS claim',
                   'Amend a previously submitted claim',
@@ -143,7 +163,18 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in Amend CS agreements',
+                  'View CS Agreements',
+                  'View Land, Features and Cover',
+                  'View CS Agreement amendments',
+                  'View CS agreement Transfers',
+                  'View CS Claims',
+                  'Amend land, Features and Covers',
+                  'Create and edit a CS claim',
+                  'Amend a previously submitted claim',
+                  'Create and edit a CS agreement Amendment',
+                  'Revise a previously submitted agreement amendment',
+                  'Create and Edit a CS agreement transfer',
+                  'Revise a previously submitted agreement transfer',
                   'Submit Acceptance of CS Agreement offer',
                   'Submit rejection of CS agreement offer',
                   'Submit (and resubmit) a CS claim',
@@ -176,7 +207,10 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in View CS Applications',
+                  'View CS Scheme eligibility',
+                  'View Applications',
+                  'View land, features and covers',
+                  'View CS agreement offer',
                   'View draft CS Agreements',
                   'Create and edit a CS application',
                   'Amend a previously submitted CS application',
@@ -187,7 +221,14 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in Amend CS permissions',
+                  'View CS Scheme eligibility',
+                  'View Applications',
+                  'View land, features and covers',
+                  'View CS agreement offer',
+                  'View draft CS Agreements',
+                  'Create and edit a CS application',
+                  'Amend a previously submitted CS application',
+                  'Amend Land, Features and Covers',
                   'Submit CS Application',
                   'Withdraw CS application',
                   'Receive warnings and notifications'
@@ -235,7 +276,10 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in View Environmental Land Management',
+                  'View Environmental Land Management scheme eligibility',
+                  'View Environmental Land Management applications',
+                  'View land, features and covers',
+                  'View Environmental Land Management agreement offer',
                   'View Environmental Land Management agreements',
                   'Create and edit a Environmental Land Management application',
                   'Amend (but not resubmit) a previously submitted Environmental Land Management application',
@@ -246,7 +290,14 @@ describe('Query.permissionGroups', () => {
               {
                 active: false,
                 functions: [
-                  'All permissions in Amend Environmental Land Management',
+                  'View Environmental Land Management scheme eligibility',
+                  'View Environmental Land Management applications',
+                  'View land, features and covers',
+                  'View Environmental Land Management agreement offer',
+                  'View Environmental Land Management agreements',
+                  'Create and edit a Environmental Land Management application',
+                  'Amend (but not resubmit) a previously submitted Environmental Land Management application',
+                  'Amend land, features and covers',
                   'Submit Environmental Land Management application',
                   'Withdraw Environmental Land Management application',
                   'Submit acceptance of Environmental Land Management agreement offer',

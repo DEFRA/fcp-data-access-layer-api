@@ -7,6 +7,7 @@ import {
   organisationPersonSummary
 } from '../../../mocks/fixtures/organisation.js'
 import { personById } from '../../../mocks/fixtures/person.js'
+import { buildPermissionsFromIdsAndLevels } from '../../../test/test-helpers/permissions.js'
 
 const orgId = '5565448'
 const personId = '5007136'
@@ -218,15 +219,18 @@ describe('CustomerBusiness', () => {
       }
     )
 
-    expect(response).toEqual([
-      { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
-      { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
-      { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
-      { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
-      { id: 'ENTITLEMENTS', level: 'AMEND' },
-      { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
-      { id: 'LAND_DETAILS', level: 'AMEND' }
-    ])
+    const permissions = buildPermissionsFromIdsAndLevels([
+      [
+        { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+        { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
+        { id: 'ENTITLEMENTS', level: 'AMEND' },
+        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+        { id: 'LAND_DETAILS', level: 'AMEND' }
+      ]
+    ])[0]
+    expect(response).toEqual(permissions)
   })
 
   describe('CustomerBusiness.messages', () => {
@@ -282,14 +286,17 @@ describe('CustomerBusinessPermissionGroup', () => {
       { dataSources }
     )
 
-    expect(response).toEqual([
-      { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
-      { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
-      { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
-      { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
-      { id: 'ENTITLEMENTS', level: 'AMEND' },
-      { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
-      { id: 'LAND_DETAILS', level: 'AMEND' }
-    ])
+    const permissions = buildPermissionsFromIdsAndLevels([
+      [
+        { id: 'BASIC_PAYMENT_SCHEME', level: 'SUBMIT' },
+        { id: 'BUSINESS_DETAILS', level: 'FULL_PERMISSION' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
+        { id: 'ENTITLEMENTS', level: 'AMEND' },
+        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+        { id: 'LAND_DETAILS', level: 'AMEND' }
+      ]
+    ])[0]
+    expect(response).toEqual(permissions)
   })
 })

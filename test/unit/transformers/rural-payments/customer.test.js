@@ -8,6 +8,10 @@ import {
   organisationPeopleByOrgId,
   organisationPersonSummary
 } from '../../../../mocks/fixtures/organisation.js'
+import {
+  buildPermissionsFromIdsAndLevels,
+  getPermissionFunctionsFromIdAndLevel
+} from '../../../../test/test-helpers/permissions.js'
 
 describe('Customer transformer', () => {
   test('#transformBusinessCustomerToCustomerRole', () => {
@@ -55,15 +59,18 @@ describe('Customer transformer', () => {
         permissionGroups
       )
 
-      expect(transformedPermissionGroups).toEqual([
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' },
-        { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
-        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+      const [permissions] = buildPermissionsFromIdsAndLevels([
+        [
+          { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' },
+          { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
+          { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+        ]
       ])
+      expect(transformedPermissionGroups).toEqual(permissions)
     })
 
     test('should fail with NO_ACCESS if customers with no privileges', () => {
@@ -73,15 +80,18 @@ describe('Customer transformer', () => {
         permissionGroups
       )
 
-      expect(transformedPermissionGroups).toEqual([
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' },
-        { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
-        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+      const [permissions] = buildPermissionsFromIdsAndLevels([
+        [
+          { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' },
+          { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
+          { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+        ]
       ])
+      expect(transformedPermissionGroups).toEqual(permissions)
     })
 
     test('should return correct privilege', () => {
@@ -91,15 +101,18 @@ describe('Customer transformer', () => {
         permissionGroups
       )
 
-      expect(transformedPermissionGroups).toEqual([
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'VIEW' },
-        { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
-        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+      const [permissions] = buildPermissionsFromIdsAndLevels([
+        [
+          { id: 'BASIC_PAYMENT_SCHEME', level: 'VIEW' },
+          { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
+          { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+        ]
       ])
+      expect(transformedPermissionGroups).toEqual(permissions)
     })
 
     test('should return highest privilege when two in same group', () => {
@@ -116,15 +129,18 @@ describe('Customer transformer', () => {
         permissionGroups
       )
 
-      expect(transformedPermissionGroups).toEqual([
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'AMEND' },
-        { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
-        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+      const [permissions] = buildPermissionsFromIdsAndLevels([
+        [
+          { id: 'BASIC_PAYMENT_SCHEME', level: 'AMEND' },
+          { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
+          { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+        ]
       ])
+      expect(transformedPermissionGroups).toEqual(permissions)
     })
 
     test('should be case insensitive', () => {
@@ -136,15 +152,18 @@ describe('Customer transformer', () => {
         permissionGroups
       )
 
-      expect(transformedPermissionGroups).toEqual([
-        { id: 'BASIC_PAYMENT_SCHEME', level: 'AMEND' },
-        { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
-        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
-        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
-        { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+      const [permissions] = buildPermissionsFromIdsAndLevels([
+        [
+          { id: 'BASIC_PAYMENT_SCHEME', level: 'AMEND' },
+          { id: 'BUSINESS_DETAILS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'NO_ACCESS' },
+          { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
+          { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+          { id: 'LAND_DETAILS', level: 'NO_ACCESS' }
+        ]
       ])
+      expect(transformedPermissionGroups).toEqual(permissions)
     })
 
     const cases = [
@@ -218,7 +237,7 @@ describe('Customer transformer', () => {
             [{ customerReference: 'crn', privileges: [privilegeName] }],
             permissionGroups
           )
-        ).toContainEqual(expectedResult)
+        ).toContainEqual(getPermissionFunctionsFromIdAndLevel(expectedResult))
       }
     )
 

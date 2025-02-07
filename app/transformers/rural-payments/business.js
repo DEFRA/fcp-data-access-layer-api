@@ -29,7 +29,8 @@ export function transformBusinessCustomerPrivilegesToPermissionGroups(
       if (permission.privilegeNames.some((privilegeName) => privileges.includes(privilegeName))) {
         customerPermissionGroups.push({
           id: permissionGroup.id,
-          level: permission.level
+          level: permission.level,
+          functions: permission.functions
         })
       }
     }

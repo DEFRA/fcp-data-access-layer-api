@@ -24,22 +24,23 @@ export function transformBusinessCustomerToCustomerPermissionGroups(
   if (!customerPrivileges) {
     return permissionGroups.map(({ id, permissions }) => ({
       id,
-      level: permissions[0].level
+      level: permissions[0].level,
+      functions: permissions[0].functions
     }))
   }
 
-  return permissionGroups.map(({ id, permissions }) => ({
-    id,
-    level: permissions.reduce(
-      (level, permission) =>
-        permission.privilegeNames.some((privilegeName) =>
+  return permissionGroups.map(({ id, permissions }) => {
+    const customerPermisson = permissions.reduce(
+      (permission, currentPermission) =>
+        currentPermission.privilegeNames.some((privilegeName) =>
           customerPrivileges.includes(privilegeName.toLowerCase())
         )
-          ? permission.level
-          : level,
-      permissions[0].level
+          ? currentPermission
+          : permission,
+      permissions[0]
     )
-  }))
+    return { id, level: customerPermisson.level, functions: customerPermisson.functions }
+  })
 }
 
 export function transformPersonSummaryToCustomerAuthorisedBusinesses(properties, summary) {

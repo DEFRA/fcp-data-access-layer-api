@@ -588,6 +588,7 @@ describe('Query.business.customers', () => {
               permissionGroups {
                 id
                 level
+                functions
               }
             }
           }

@@ -20,18 +20,3 @@ export function transformOrganisationAuthorisationToCustomerBusinessPermissionLe
 
   return null
 }
-
-export function transformPrivilegesListToBusinessCustomerPermissions(privileges, permissionGroups) {
-  return permissionGroups.map((permissionGroup) => {
-    permissionGroup.permissions.reverse()
-
-    return {
-      id: permissionGroup.id,
-      name: permissionGroup.name,
-      level:
-        permissionGroup.permissions.find(({ privilegeNames }) =>
-          privilegeNames.some((privilege) => privileges.includes(privilege))
-        )?.level || 'NO_ACCESS'
-    }
-  })
-}
