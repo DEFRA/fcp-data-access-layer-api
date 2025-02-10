@@ -121,7 +121,7 @@ describe('schema', () => {
             crn: ID!
 
             """The security questions of the customer."""
-            authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions
+            authenticationQuestions: CustomerAuthenticationQuestions
 
             """The businesses associated with the customer."""
             businesses: [CustomerBusiness]
@@ -643,7 +643,7 @@ describe('schema', () => {
             info: CustomerInfo
 
             """The security questions of the customer."""
-            authenticationQuestions(entraIdUserObjectId: UUID!): CustomerAuthenticationQuestions
+            authenticationQuestions: CustomerAuthenticationQuestions
 
             """The businesses associated with the customer."""
             businesses: [CustomerBusiness]
