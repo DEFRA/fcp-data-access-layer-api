@@ -144,7 +144,7 @@ export default [
   },
   {
     id: 'rural-payments-lms-get-land-covers-by-sheet-id-and-parcel-id',
-    url: '/v1/lms/organisation/:orgId/parcel/sheet-id/:sheetId/parcel-id/:parcelId/land-covers',
+    url: '/v1/lms/organisation/:orgId/parcel/sheet-id/:sheetId/parcel-id/:parcelId/historic/:historicDate/land-covers',
     method: ['GET'],
     variants: [
       {
@@ -152,7 +152,19 @@ export default [
         type: 'middleware',
         options: {
           middleware: (req, res) => {
-            const { orgId, sheetId, parcelId } = req.params
+            const { orgId, sheetId, parcelId, historicDate } = req.params
+
+            // Verify date format matches DD-MMM-YY (e.g. 19-Jul-24)
+            const dateFormatRegex = /^\d{2}-[A-Z][a-z]{2}-\d{2}$/
+            if (!dateFormatRegex.test(historicDate)) {
+              return badRequestResponse(res)
+            }
+
+            // if year is before 2020, return empty array
+            if (parseInt(historicDate.substring(7, 9)) < 20) {
+              return okOrNotFoundResponse(res, [])
+            }
+
             const data = landCover(orgId, sheetId, parcelId)
 
             return okOrNotFoundResponse(res, data)
