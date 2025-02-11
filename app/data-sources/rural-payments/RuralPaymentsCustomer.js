@@ -125,7 +125,7 @@ export class RuralPaymentsCustomer extends RuralPayments {
         })
         return null
       }
-      throw err
+      throw new Error(err)
     })
   }
 }

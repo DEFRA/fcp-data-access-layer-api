@@ -153,7 +153,7 @@ describe('Customer transformer', () => {
       isFound: true,
       memorableDate: 'some date',
       memorableEvent: null,
-      memorableLocation: null,
+      memorableLocation: '',
       updatedAt: undefined
     })
   })

@@ -127,12 +127,6 @@ describe('Rural Payments Customer', () => {
   })
 
   test('should catch error via getAuthenticateAnswersByCRN', async () => {
-    const results = {
-      memorableDate: '11/11/2000',
-      memorableEvent: 'Birthday',
-      memorableLocation: 'location',
-      lastUpdatedOn: 3494617373808
-    }
     httpGet.mockRejectedValue({
       extensions: { response: { status: 404, statusText: 'Not Found' } }
     })
@@ -140,6 +134,18 @@ describe('Rural Payments Customer', () => {
     const notifications = await ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)
 
     expect(notifications).toEqual(null)
+    expect(httpGet).toHaveBeenCalledTimes(1)
+  })
+
+  test('should throw error via getAuthenticateAnswersByCRN', async () => {
+    httpGet.mockRejectedValue({
+      extensions: { response: { status: 500 } }
+    })
+    await expect(ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)).rejects.toThrow(
+      new Error({
+        extensions: { response: { status: 500 } }
+      })
+    )
     expect(httpGet).toHaveBeenCalledTimes(1)
   })
 })
