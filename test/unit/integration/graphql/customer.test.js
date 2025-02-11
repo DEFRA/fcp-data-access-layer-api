@@ -8,6 +8,7 @@ import { transformAuthenticateQuestionsAnswers } from '../../../../app/transform
 import { ruralPaymentsPortalCustomerTransformer } from '../../../../app/transformers/rural-payments/customer.js'
 import { personById } from '../../../../mocks/fixtures/person.js'
 import mockServer from '../../../../mocks/server.js'
+import { buildPermissionsFromIdsAndLevels } from '../../../../test/test-helpers/permissions.js'
 import { fakeContext } from '../../../test-setup.js'
 
 const personFixture = personById({ id: '5007136' })
@@ -451,6 +452,109 @@ describe('Query.customer.business', () => {
               permissionGroups {
                 id
                 level
+                functions
+              }
+            }
+          }
+        }
+      `,
+      variableValues: {
+        crn: '0866159801',
+        sbi: '107591843'
+      },
+      schema,
+      contextValue: fakeContext
+    })
+
+    const [permissionGroups] = buildPermissionsFromIdsAndLevels([
+      [
+        { id: 'BASIC_PAYMENT_SCHEME', level: 'NO_ACCESS' },
+        { id: 'BUSINESS_DETAILS', level: 'AMEND' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS', level: 'SUBMIT' },
+        { id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS', level: 'SUBMIT' },
+        { id: 'ENTITLEMENTS', level: 'NO_ACCESS' },
+        { id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS', level: 'NO_ACCESS' },
+        { id: 'LAND_DETAILS', level: 'VIEW' }
+      ]
+    ])
+    expect(result).toEqual({
+      data: {
+        customer: {
+          business: {
+            role: 'Employee',
+            permissionGroups
+          }
+        }
+      }
+    })
+  })
+
+  it('should return customer business messages', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query Messages($crn: ID!, $sbi: ID!) {
+          customer(crn: $crn) {
+            business(sbi: $sbi) {
+              messages {
+                subject
+                read
+                id
+                date
+              }
+
+            }
+          }
+        }
+      `,
+      variableValues: {
+        crn: '0866159801',
+        sbi: '107591843'
+      },
+      schema,
+      contextValue: fakeContext
+    })
+
+    expect(result).toEqual({
+      data: {
+        customer: {
+          business: {
+            messages: [
+              {
+                subject: 'Permission changed for David Paul',
+                read: false,
+                id: '11401',
+                date: '21/06/2160'
+              },
+              {
+                subject: 'Permission changed for David Paul',
+                read: true,
+                id: '7551987',
+                date: '22/11/2233'
+              },
+              {
+                subject: 'Permission changed for David Paul',
+                read: false,
+                id: '9315941',
+                date: '02/11/2250'
+              }
+            ]
+          }
+        }
+      }
+    })
+  })
+
+  it('should return deleted customer businesses messages', async () => {
+    const result = await graphql({
+      source: `#graphql
+        query Messages($crn: ID!, $sbi: ID!) {
+          customer(crn: $crn) {
+            business(sbi: $sbi) {
+              messages {
+                subject
+                read
+                id
+                date
               }
             }
           }
@@ -468,136 +572,24 @@ describe('Query.customer.business', () => {
       data: {
         customer: {
           business: {
-            role: 'Employee',
-            permissionGroups: [
-              {
-                id: 'BASIC_PAYMENT_SCHEME',
-                level: 'NO_ACCESS'
-              },
-              {
-                id: 'BUSINESS_DETAILS',
-                level: 'AMEND'
-              },
-              {
-                id: 'COUNTRYSIDE_STEWARDSHIP_AGREEMENTS',
-                level: 'SUBMIT'
-              },
-              {
-                id: 'COUNTRYSIDE_STEWARDSHIP_APPLICATIONS',
-                level: 'SUBMIT'
-              },
-              {
-                id: 'ENTITLEMENTS',
-                level: 'NO_ACCESS'
-              },
-              {
-                id: 'ENVIRONMENTAL_LAND_MANAGEMENT_APPLICATIONS',
-                level: 'NO_ACCESS'
-              },
-              {
-                id: 'LAND_DETAILS',
-                level: 'VIEW'
-              }
-            ]
-          }
-        }
-      }
-    })
-  })
-
-  it('should return customer business messages', async () => {
-    const result = await graphql({
-      source: `#graphql
-        query Messages($crn: ID!, $sbi: ID!, $pagination: Pagination, $deleted: Boolean) {
-          customer(crn: $crn) {
-            business(sbi: $sbi) {
-              messages(pagination: $pagination, showOnlyDeleted: $deleted) {
-                title
-                read
-                id
-                date
-              }
-
-            }
-          }
-        }
-      `,
-      variableValues: {
-        crn: '0866159801',
-        sbi: '107591843',
-        pagination: {
-          page: 1,
-          perPage: 3
-        },
-        deleted: false
-      },
-      schema,
-      contextValue: fakeContext
-    })
-
-    expect(result).toEqual({
-      data: {
-        customer: {
-          business: {
             messages: [
               {
-                title: 'Permission changed for David Paul',
+                subject: 'Permission changed for David Paul',
                 read: false,
                 id: '11401',
-                date: 6010706997254
+                date: '21/06/2160'
               },
               {
-                title: 'Permission changed for David Paul',
+                subject: 'Permission changed for David Paul',
                 read: true,
                 id: '7551987',
-                date: 8327630499790
-              }
-            ]
-          }
-        }
-      }
-    })
-  })
-
-  it('should return deleted customer businesses messages', async () => {
-    const result = await graphql({
-      source: `#graphql
-        query Messages($crn: ID!, $sbi: ID!, $pagination: Pagination, $deleted: Boolean) {
-          customer(crn: $crn) {
-            business(sbi: $sbi) {
-              messages(pagination: $pagination, showOnlyDeleted: $deleted) {
-                title
-                read
-                id
-                date
-              }
-            }
-          }
-        }
-      `,
-      variableValues: {
-        crn: '0866159801',
-        sbi: '107591843',
-        pagination: {
-          page: 1,
-          perPage: 3
-        },
-        deleted: true
-      },
-      schema,
-      contextValue: fakeContext
-    })
-
-    expect(result).toEqual({
-      data: {
-        customer: {
-          business: {
-            messages: [
+                date: '22/11/2233'
+              },
               {
-                title: 'Permission changed for David Paul',
+                subject: 'Permission changed for David Paul',
                 read: false,
                 id: '9315941',
-                date: 8862388585856
+                date: '02/11/2250'
               }
             ]
           }

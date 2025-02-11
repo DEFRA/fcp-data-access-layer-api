@@ -176,8 +176,7 @@ type CustomerBusiness {
   """
   The messages associated with the business.
   """
-  messages(pagination: Pagination, showOnlyDeleted: Boolean): [CustomerBusinessMessage]
-    @excludeFromList
+  messages: [CustomerBusinessMessage] @on @excludeFromList
 
   """
   The permission groups associated with the business.

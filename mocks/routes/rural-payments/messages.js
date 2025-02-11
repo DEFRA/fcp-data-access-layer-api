@@ -13,11 +13,14 @@ export default [
         options: {
           middleware: (req, res) => {
             const personId = req.query.personId
+            const page = req.query.page
+            const size = req.query.size
+
             if (!personId) {
               return badRequestResponse(res)
             }
 
-            const data = messages(personId)
+            const data = messages(personId, page, size)
 
             return okOrNotFoundResponse(res, data)
           }

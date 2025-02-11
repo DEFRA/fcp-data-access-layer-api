@@ -1,5 +1,6 @@
 import { logger } from '../../logger/logger.js'
 import { sampleResponse } from '../../logger/utils.js'
+import { validateDate } from '../../utils/date.js'
 
 export function transformBusinessCustomerToCustomerRole(crn, customers) {
   const customer = customers.find(({ customerReference }) => customerReference === crn)
@@ -23,22 +24,23 @@ export function transformBusinessCustomerToCustomerPermissionGroups(
   if (!customerPrivileges) {
     return permissionGroups.map(({ id, permissions }) => ({
       id,
-      level: permissions[0].level
+      level: permissions[0].level,
+      functions: permissions[0].functions
     }))
   }
 
-  return permissionGroups.map(({ id, permissions }) => ({
-    id,
-    level: permissions.reduce(
-      (level, permission) =>
-        permission.privilegeNames.some((privilegeName) =>
+  return permissionGroups.map(({ id, permissions }) => {
+    const customerPermisson = permissions.reduce(
+      (permission, currentPermission) =>
+        currentPermission.privilegeNames.some((privilegeName) =>
           customerPrivileges.includes(privilegeName.toLowerCase())
         )
-          ? permission.level
-          : level,
-      permissions[0].level
+          ? currentPermission
+          : permission,
+      permissions[0]
     )
-  }))
+    return { id, level: customerPermisson.level, functions: customerPermisson.functions }
+  })
 }
 
 export function transformPersonSummaryToCustomerAuthorisedBusinesses(properties, summary) {
@@ -103,17 +105,15 @@ export const ruralPaymentsPortalCustomerTransformer = (data) => {
   }
 }
 
-export function transformNotificationsToMessages(notifications = [], showOnlyDeleted = false) {
-  return notifications
-    .filter(({ archivedAt }) => (showOnlyDeleted ? archivedAt !== null : archivedAt === null))
-    .map((message) => ({
-      id: message.id,
-      title: message.title,
-      date: message.createdAt,
-      body: message.body,
-      read: !!message.readAt,
-      archivedAt: message.archivedAt
-    }))
+export function transformNotificationsToMessages(notifications = []) {
+  return notifications.map((message) => ({
+    id: message.id,
+    subject: message.title,
+    date: validateDate(message.createdAt).toLocaleDateString('en-GB'),
+    body: message.body,
+    read: !!message.readAt,
+    deleted: !!message.archivedAt
+  }))
 }
 
 export function transformPersonSummaryToCustomerAuthorisedFilteredBusiness(properties, summary) {
