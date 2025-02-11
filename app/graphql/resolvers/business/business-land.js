@@ -51,10 +51,11 @@ export const BusinessLand = {
     )
 
     return transformLandCovers(
-      await dataSources.ruralPaymentsBusiness.getCoversByOrgSheetParcelId(
+      await dataSources.ruralPaymentsBusiness.getCoversByOrgSheetParcelIdDate(
         organisationId,
         parcel.sheetId,
-        parcelId
+        parcelId,
+        date
       )
     )
   }
