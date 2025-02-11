@@ -152,8 +152,8 @@ describe('Customer transformer', () => {
     expect(result).toEqual({
       isFound: true,
       memorableDate: 'some date',
-      memorableEvent: 'some event',
-      memorableLocation: 'some location',
+      memorableEvent: null,
+      memorableLocation: null,
       updatedAt: undefined
     })
   })
