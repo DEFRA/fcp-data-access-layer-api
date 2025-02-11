@@ -110,4 +110,36 @@ describe('Rural Payments Customer', () => {
     expect(notifications).toEqual([{ id: 2, createdAt: 1698796800000 }])
     expect(httpGet).toHaveBeenCalledTimes(1)
   })
+
+  test('should return security answers via getAuthenticateAnswersByCRN', async () => {
+    const results = {
+      memorableDate: '11/11/2000',
+      memorableEvent: 'Birthday',
+      memorableLocation: 'location',
+      lastUpdatedOn: 3494617373808
+    }
+    httpGet.mockImplementationOnce(async () => results)
+
+    const notifications = await ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)
+
+    expect(notifications).toEqual(results)
+    expect(httpGet).toHaveBeenCalledTimes(1)
+  })
+
+  test('should catch error via getAuthenticateAnswersByCRN', async () => {
+    const results = {
+      memorableDate: '11/11/2000',
+      memorableEvent: 'Birthday',
+      memorableLocation: 'location',
+      lastUpdatedOn: 3494617373808
+    }
+    httpGet.mockRejectedValue({
+      extensions: { response: { status: 404, statusText: 'Not Found' } }
+    })
+
+    const notifications = await ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)
+
+    expect(notifications).toEqual(null)
+    expect(httpGet).toHaveBeenCalledTimes(1)
+  })
 })

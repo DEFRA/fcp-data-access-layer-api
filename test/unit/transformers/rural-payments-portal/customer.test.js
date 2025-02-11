@@ -139,4 +139,22 @@ describe('Customer transformer', () => {
       updatedAt: undefined
     })
   })
+
+  test('transformAuthenticateQuestionsAnswers with partially null results', () => {
+    const mockAuthenticateQuestionsResponse = {
+      memorableDate: 'some date',
+      memorableEvent: null,
+      memorableLocation: ''
+    }
+
+    const result = transformAuthenticateQuestionsAnswers(mockAuthenticateQuestionsResponse)
+
+    expect(result).toEqual({
+      isFound: true,
+      memorableDate: 'some date',
+      memorableEvent: 'some event',
+      memorableLocation: 'some location',
+      updatedAt: undefined
+    })
+  })
 })
