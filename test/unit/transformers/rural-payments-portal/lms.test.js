@@ -67,7 +67,10 @@ describe('LMS transformer', () => {
     const parcelId = 'mockParcelId'
     const sheetId = 'mockSheetId'
     const parcels = [{ parcelId, sheetId, validFrom: '2023-01-01', validTo: '2024-01-01' }]
-    const output = { effectiveTo: '2024-01-01', effectiveFrom: '2023-01-01' }
+    const output = {
+      effectiveTo: '2024-01-01T00:00:00.000Z',
+      effectiveFrom: '2023-01-01T00:00:00.000Z'
+    }
     expect(transformLandParcelsEffectiveDates(parcelId, sheetId, parcels)).toEqual(output)
   })
 })

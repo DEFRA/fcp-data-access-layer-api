@@ -314,8 +314,8 @@ describe('Query.business.land', () => {
           land: {
             parcel: {
               ...parcel,
-              effectiveFromDate: 1636934401682,
-              effectiveToDate: 1636934392140
+              effectiveFromDate: '2021-11-15T00:00:01.682Z',
+              effectiveToDate: '2021-11-14T23:59:52.140Z'
             }
           }
         }
