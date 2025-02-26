@@ -21,27 +21,21 @@ const dataSources = {
     getPersonBusinessesByPersonId() {
       return organisationPersonSummary({ id: personId })._data
     },
-    getNotificationsByOrganisationIdAndPersonId: jest.fn()
+    getNotificationsByOrganisationIdAndPersonId: jest.fn(),
+    getAuthenticateAnswersByCRN(_) {
+      return {
+        memorableDate: 'some date',
+        memorableEvent: 'some event',
+        memorableLocation: 'some location'
+      }
+    }
   },
   ruralPaymentsBusiness: {
     getOrganisationCustomersByOrganisationId() {
       return organisationPeopleByOrgId(orgId)._data
     }
   },
-  permissions: new Permissions(),
-  authenticateDatabase: {
-    getAuthenticateQuestionsAnswersByCRN() {
-      return {
-        CRN: '123',
-        Date: 'some date',
-        Event: 'some event',
-        Location: 'some location'
-      }
-    }
-  },
-  entraIdApi: {
-    getEmployeeId: jest.fn()
-  }
+  permissions: new Permissions()
 }
 
 describe('Customer', () => {
@@ -128,34 +122,21 @@ describe('Customer', () => {
   })
 
   test('Customer.authenticationQuestions', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockResolvedValue({ employeeId: 'x123456' })
-
-    const response = await Customer.authenticationQuestions(
-      { id: 'mockCustomerId' },
-      { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
-      { dataSources }
-    )
-
-    expect(dataSources.entraIdApi.getEmployeeId).toHaveBeenCalledWith('mockEntraIdUserObjectId')
-
+    const response = await Customer.authenticationQuestions({ crn: 'mockCustomerCRN' }, undefined, {
+      dataSources
+    })
     expect(response).toEqual({
       isFound: true,
       memorableDate: 'some date',
       memorableEvent: 'some event',
-      memorablePlace: 'some location',
+      memorableLocation: 'some location',
       updatedAt: undefined
     })
   })
 
   test('Customer.authenticationQuestions - error', async () => {
-    dataSources.entraIdApi.getEmployeeId.mockRejectedValue(new Error())
-
     expect(
-      Customer.authenticationQuestions(
-        { id: 'mockCustomerId' },
-        { entraIdUserObjectId: 'mockEntraIdUserObjectId' },
-        { dataSources }
-      )
+      Customer.authenticationQuestions({ id: 'mockCustomerId' }, { dataSources })
     ).rejects.toThrow(Error)
   })
 })
@@ -250,7 +231,7 @@ describe('CustomerBusiness', () => {
         {
           id: 5875045,
           subject: 'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
-          date: '2231-05-05T06:01:29.993Z',
+          date: '05/05/2231',
           body: '<p>Adversus crastinus suggero caste adhuc vomer accusamus acies iure.</p>',
           read: false,
           deleted: true
@@ -258,7 +239,7 @@ describe('CustomerBusiness', () => {
         {
           id: 2514276,
           subject: 'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
-          date: '2249-06-13T11:46:20.296Z',
+          date: '13/06/2249',
           body: '<p>Cruentus venia dedecor beatus vinco cultellus clarus.</p>',
           read: true,
           deleted: false

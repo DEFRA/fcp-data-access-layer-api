@@ -59,7 +59,7 @@ describe('Customer transformer', () => {
       {
         id: 5875045,
         subject: 'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
-        date: '2231-05-05T06:01:29.993Z',
+        date: '05/05/2231',
         body: '<p>Adversus crastinus suggero caste adhuc vomer accusamus acies iure.</p>',
         read: false,
         deleted: false
@@ -67,7 +67,7 @@ describe('Customer transformer', () => {
       {
         id: 2514276,
         subject: 'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
-        date: '2249-06-13T11:46:20.296Z',
+        date: '13/06/2249',
         body: '<p>Cruentus venia dedecor beatus vinco cultellus clarus.</p>',
         read: true,
         deleted: true
@@ -112,10 +112,9 @@ describe('Customer transformer', () => {
 
   test('transformAuthenticateQuestionsAnswers', () => {
     const mockAuthenticateQuestionsResponse = {
-      CRN: '123',
-      Date: 'some date',
-      Event: 'some event',
-      Location: 'some location'
+      memorableDate: 'some date',
+      memorableEvent: 'some event',
+      memorableLocation: 'some location'
     }
 
     const result = transformAuthenticateQuestionsAnswers(mockAuthenticateQuestionsResponse)
@@ -124,7 +123,7 @@ describe('Customer transformer', () => {
       isFound: true,
       memorableDate: 'some date',
       memorableEvent: 'some event',
-      memorablePlace: 'some location',
+      memorableLocation: 'some location',
       updatedAt: undefined
     })
   })
@@ -136,7 +135,25 @@ describe('Customer transformer', () => {
       isFound: false,
       memorableDate: undefined,
       memorableEvent: undefined,
-      memorablePlace: undefined,
+      memorableLocation: undefined,
+      updatedAt: undefined
+    })
+  })
+
+  test('transformAuthenticateQuestionsAnswers with partially null results', () => {
+    const mockAuthenticateQuestionsResponse = {
+      memorableDate: 'some date',
+      memorableEvent: null,
+      memorableLocation: ''
+    }
+
+    const result = transformAuthenticateQuestionsAnswers(mockAuthenticateQuestionsResponse)
+
+    expect(result).toEqual({
+      isFound: true,
+      memorableDate: 'some date',
+      memorableEvent: null,
+      memorableLocation: '',
       updatedAt: undefined
     })
   })

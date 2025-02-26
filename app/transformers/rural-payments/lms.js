@@ -1,4 +1,3 @@
-import { validateDate } from '../../utils/date.js'
 import { convertSquareMetersToHectares } from '../../utils/numbers.js'
 
 export function transformLandCovers(landCover) {
@@ -21,8 +20,8 @@ export function transformLandParcelsEffectiveDates(parcelId, sheetId, parcels) {
   const parcel = parcels.find((p) => p.parcelId === parcelId && p.sheetId === sheetId)
 
   return {
-    effectiveFrom: validateDate(parcel?.validFrom).toISOString(),
-    effectiveTo: validateDate(parcel?.validTo).toISOString()
+    effectiveFrom: parcel?.validFrom,
+    effectiveTo: parcel?.validTo
   }
 }
 
