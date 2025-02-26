@@ -63,7 +63,6 @@
 - key: HEALTH_CHECK_RP_INTERNAL_ORGANISATION_ID
   value: '{{servicename}}-HEALTH-CHECK-RP-INTERNAL-ORGANISATION-ID'
   type: 'keyvault'
-
 - key: EVENT_HUB_NAME
   value: '{{servicename}}-EVENT-HUB-NAME'
   type: 'keyvault'

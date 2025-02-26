@@ -2,7 +2,6 @@
   value: '2'
 - key: RURAL_PAYMENTS_PORTAL_API_URL
   value: 'http://127.0.0.1:3100/rpp/'
-
 - key: VERSION_1_PAGE_SIZE
   value: '10000'
 - key: LOG_LEVEL
@@ -64,7 +63,6 @@
 - key: HEALTH_CHECK_RP_INTERNAL_ORGANISATION_ID
   value: '{{servicename}}-HEALTH-CHECK-RP-INTERNAL-ORGANISATION-ID'
   type: 'keyvault'
-
 - key: EVENT_HUB_NAME
   value: '{{servicename}}-EVENT-HUB-NAME'
   type: 'keyvault'
