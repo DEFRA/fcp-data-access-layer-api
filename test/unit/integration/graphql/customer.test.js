@@ -1,7 +1,6 @@
 import { DefaultAzureCredential } from '@azure/identity'
 import { graphql, GraphQLError } from 'graphql'
 
-import { EntraIdApi } from '../../../../app/data-sources/entra-id/EntraIdApi.js'
 import { NotFound } from '../../../../app/errors/graphql.js'
 import { schema } from '../../../../app/graphql/server.js'
 import { transformAuthenticateQuestionsAnswers } from '../../../../app/transformers/authenticate/question-answers.js'
@@ -235,7 +234,6 @@ describe('Query.customer.authenticationQuestions', () => {
     jest
       .spyOn(DefaultAzureCredential.prototype, 'getToken')
       .mockImplementation(() => ({ token: 'mockToken' }))
-    jest.spyOn(EntraIdApi.prototype, 'get').mockImplementation(() => ({ employeeId: 'x123456' }))
   })
 
   afterEach(() => {
@@ -244,26 +242,22 @@ describe('Query.customer.authenticationQuestions', () => {
 
   it('should return customer authenticate questions', async () => {
     const authenticateQuestionsResponse = {
-      CRN: '123',
-      Date: 'some date',
-      Event: 'some event',
-      Location: 'some location',
-      Updated: 'some date'
+      memorableDate: '11/11/2000',
+      memorableEvent: 'Birthday',
+      memorableLocation: 'location',
+      lastUpdatedOn: 3494617373808
     }
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
     const transformedAuthenticateQuestions = transformAuthenticateQuestionsAnswers(
       authenticateQuestionsResponse
     )
     const result = await graphql({
       source: `#graphql
         query Customer {
-          customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+          customer(crn: "4705658987") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
-              memorablePlace
+              memorableLocation
               updatedAt
               isFound
             }
@@ -283,66 +277,15 @@ describe('Query.customer.authenticationQuestions', () => {
     })
   })
 
-  it('should return isFound false if record not found', async () => {
-    const authenticateQuestionsResponse = null
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
-    const result = await graphql({
-      source: `#graphql
-        query Customer {
-          customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
-              memorableDate
-              memorableEvent
-              memorablePlace
-              updatedAt
-              isFound
-            }
-          }
-        }
-      `,
-      variableValues: {
-        personId: '123'
-      },
-      schema,
-      contextValue: fakeContext
-    })
-
-    expect(result).toEqual({
-      data: {
-        customer: {
-          authenticationQuestions: {
-            memorableDate: null,
-            memorableEvent: null,
-            memorablePlace: null,
-            updatedAt: null,
-            isFound: false
-          }
-        }
-      }
-    })
-  })
-
   it('should return null for fields that are empty', async () => {
-    const authenticateQuestionsResponse = {
-      CRN: '123',
-      Date: '',
-      Event: '',
-      Location: 'some location',
-      Updated: 'some date'
-    }
-    fakeContext.dataSources.authenticateDatabase.getAuthenticateQuestionsAnswersByCRN.mockResolvedValue(
-      authenticateQuestionsResponse
-    )
     const result = await graphql({
       source: `#graphql
         query Customer {
-          customer(crn: "0866159801") {
-            authenticationQuestions(entraIdUserObjectId: "3ac411c8-858a-4be4-9395-6e86a86923f7") {
+          customer(crn: "3646257965") {
+            authenticationQuestions {
               memorableDate
               memorableEvent
-              memorablePlace
+              memorableLocation
               updatedAt
               isFound
             }
@@ -361,14 +304,52 @@ describe('Query.customer.authenticationQuestions', () => {
         customer: {
           authenticationQuestions: {
             memorableDate: null,
-            memorableEvent: null,
-            memorablePlace: 'some location',
-            updatedAt: 'some date',
+            memorableEvent: 'Birthday',
+            memorableLocation: null,
+            updatedAt: 3494617373808,
             isFound: true
           }
         }
       }
     })
+  })
+})
+
+it('should return isFound false if record not found', async () => {
+  await mockServer.server.mock.useRouteVariant('rural-payments-authenticate-get-by-crn:not-found')
+  const result = await graphql({
+    source: `#graphql
+        query Customer {
+          customer(crn: "0866159801") {
+            authenticationQuestions {
+              memorableDate
+              memorableEvent
+              memorableLocation
+              updatedAt
+              isFound
+            }
+          }
+        }
+      `,
+    variableValues: {
+      personId: '123'
+    },
+    schema,
+    contextValue: fakeContext
+  })
+
+  expect(result).toEqual({
+    data: {
+      customer: {
+        authenticationQuestions: {
+          memorableDate: null,
+          memorableEvent: null,
+          memorableLocation: null,
+          updatedAt: null,
+          isFound: false
+        }
+      }
+    }
   })
 })
 
@@ -523,19 +504,19 @@ describe('Query.customer.business', () => {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '11401',
-                date: '2160-06-21T08:49:57.254Z'
+                date: '21/06/2160'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: true,
                 id: '7551987',
-                date: '2233-11-22T14:41:39.790Z'
+                date: '22/11/2233'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '9315941',
-                date: '2250-11-02T22:36:25.856Z'
+                date: '02/11/2250'
               }
             ]
           }
@@ -577,19 +558,19 @@ describe('Query.customer.business', () => {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '11401',
-                date: '2160-06-21T08:49:57.254Z'
+                date: '21/06/2160'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: true,
                 id: '7551987',
-                date: '2233-11-22T14:41:39.790Z'
+                date: '22/11/2233'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '9315941',
-                date: '2250-11-02T22:36:25.856Z'
+                date: '02/11/2250'
               }
             ]
           }
