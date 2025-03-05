@@ -109,7 +109,7 @@ export function transformNotificationsToMessages(notifications = []) {
   return notifications.map((message) => ({
     id: message.id,
     subject: message.title,
-    date: validateDate(message.createdAt).toLocaleDateString('en-GB'),
+    date: validateDate(message.createdAt).toISOString(),
     body: message.body,
     read: !!message.readAt,
     deleted: !!message.archivedAt

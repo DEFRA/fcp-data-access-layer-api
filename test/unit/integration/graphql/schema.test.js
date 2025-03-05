@@ -22,10 +22,18 @@ describe('schema', () => {
   it('should only contain fields that have the directive', async () => {
     delete process.env.ALL_SCHEMA_ON
     const { schema } = await import(`../../../../app/graphql/server.js?test=${Math.random()}`)
-    const expectedSchema = buildSchema(
-      await readFile(join(dirname(fileURLToPath(import.meta.url)), 'partial-schema.gql'), 'utf-8')
-    )
-    expect(findBreakingChanges(schema, expectedSchema)).toHaveLength(0)
+
+    expect(
+      findBreakingChanges(
+        schema,
+        buildSchema(
+          await readFile(
+            join(dirname(fileURLToPath(import.meta.url)), 'partial-schema.gql'),
+            'utf-8'
+          )
+        )
+      )
+    ).toHaveLength(0)
   })
 
   it('should contain all fields if process.env.ALL_SCHEMA is set', async () => {

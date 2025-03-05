@@ -59,7 +59,7 @@ describe('Customer transformer', () => {
       {
         id: 5875045,
         subject: 'Vomica aiunt alveus pectus volo argumentum derelinquo ambulo audacia certe.',
-        date: '05/05/2231',
+        date: '2231-05-05T06:01:29.993Z',
         body: '<p>Adversus crastinus suggero caste adhuc vomer accusamus acies iure.</p>',
         read: false,
         deleted: false
@@ -67,7 +67,7 @@ describe('Customer transformer', () => {
       {
         id: 2514276,
         subject: 'Cohibeo conspergo crux ulciscor cubo adamo aufero tepesco odit suppono.',
-        date: '13/06/2249',
+        date: '2249-06-13T11:46:20.296Z',
         body: '<p>Cruentus venia dedecor beatus vinco cultellus clarus.</p>',
         read: true,
         deleted: true
