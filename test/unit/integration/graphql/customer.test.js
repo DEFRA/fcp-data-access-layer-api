@@ -504,19 +504,19 @@ describe('Query.customer.business', () => {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '11401',
-                date: '21/06/2160'
+                date: '2160-06-21T08:49:57.254Z'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: true,
                 id: '7551987',
-                date: '22/11/2233'
+                date: '2233-11-22T14:41:39.790Z'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '9315941',
-                date: '02/11/2250'
+                date: '2250-11-02T22:36:25.856Z'
               }
             ]
           }
@@ -558,19 +558,19 @@ describe('Query.customer.business', () => {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '11401',
-                date: '21/06/2160'
+                date: '2160-06-21T08:49:57.254Z'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: true,
                 id: '7551987',
-                date: '22/11/2233'
+                date: '2233-11-22T14:41:39.790Z'
               },
               {
                 subject: 'Permission changed for David Paul',
                 read: false,
                 id: '9315941',
-                date: '02/11/2250'
+                date: '2250-11-02T22:36:25.856Z'
               }
             ]
           }
