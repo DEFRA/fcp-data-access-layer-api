@@ -1,5 +1,5 @@
 import { authenticateAnswers } from '../../fixtures/authenticate.js'
-import { notFoundResponse, okOrNotFoundResponse } from '../../utils/requestResponse.js'
+import { noContentResponse, okOrNoContentResponse } from '../../utils/requestResponse.js'
 
 export default [
   {
@@ -14,7 +14,7 @@ export default [
           middleware: (req, res) => {
             const crn = req.params.crn
             const data = authenticateAnswers(crn)
-            return okOrNotFoundResponse(res, data)
+            return okOrNoContentResponse(res, data)
           }
         }
       },
@@ -23,7 +23,7 @@ export default [
         type: 'middleware',
         options: {
           middleware: (_, res) => {
-            return notFoundResponse(res)
+            return noContentResponse(res)
           }
         }
       }

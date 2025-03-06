@@ -1,4 +1,4 @@
-import StatusCodes from 'http-status-codes'
+import { StatusCodes } from 'http-status-codes'
 import { NotFound } from '../../errors/graphql.js'
 import { RURALPAYMENTS_API_NOT_FOUND_001 } from '../../logger/codes.js'
 import { RuralPayments } from './RuralPayments.js'
@@ -114,19 +114,16 @@ export class RuralPaymentsCustomer extends RuralPayments {
     return notifications
   }
 
-  getAuthenticateAnswersByCRN(crn) {
+  async getAuthenticateAnswersByCRN(crn) {
     this.logger.silly('Getting authenticate answers by crn', { crn })
-
-    return this.get(`external-auth/security-answers/${crn}`).catch((err) => {
-      if (err.extensions.response.status === StatusCodes.NOT_FOUND) {
-        // It is expected that some customers won't exist, so we return nulls for their answers and set isFound to false
-        this.logger.silly('#datasource - Rural payments - authenticate answers not found for CRN', {
-          crn,
-          code: RURALPAYMENTS_API_NOT_FOUND_001
-        })
-        return null
-      }
-      throw new Error(err)
-    })
+    const response = await this.get(`external-auth/security-answers/${crn}`)
+    if (response.status == StatusCodes.NO_CONTENT) {
+      this.logger.silly('#datasource - Rural payments - authenticate answers not found for CRN', {
+        crn,
+        code: RURALPAYMENTS_API_NOT_FOUND_001
+      })
+      return null
+    }
+    return response
   }
 }
