@@ -245,7 +245,7 @@ describe('Query.customer.authenticationQuestions', () => {
       memorableDate: '11/11/2000',
       memorableEvent: 'Birthday',
       memorableLocation: 'location',
-      lastUpdatedOn: 3494617373808
+      lastUpdatedOn: '2025-02-10T09:21:24.285'
     }
     const transformedAuthenticateQuestions = transformAuthenticateQuestionsAnswers(
       authenticateQuestionsResponse
@@ -306,7 +306,7 @@ describe('Query.customer.authenticationQuestions', () => {
             memorableDate: null,
             memorableEvent: 'Birthday',
             memorableLocation: null,
-            updatedAt: 3494617373808,
+            updatedAt: '2025-02-10T09:21:24.285',
             isFound: true
           }
         }

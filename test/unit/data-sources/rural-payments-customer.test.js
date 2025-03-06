@@ -116,13 +116,13 @@ describe('Rural Payments Customer', () => {
       memorableDate: '11/11/2000',
       memorableEvent: 'Birthday',
       memorableLocation: 'location',
-      lastUpdatedOn: 3494617373808
+      lastUpdatedOn: '2025-02-10T09:21:24.285'
     }
     httpGet.mockImplementationOnce(async () => results)
 
-    const notifications = await ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)
+    const getAuthenticate = await ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)
 
-    expect(notifications).toEqual(results)
+    expect(getAuthenticate).toEqual(results)
     expect(httpGet).toHaveBeenCalledTimes(1)
   })
 
