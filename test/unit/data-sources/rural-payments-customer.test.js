@@ -126,26 +126,22 @@ describe('Rural Payments Customer', () => {
     expect(httpGet).toHaveBeenCalledTimes(1)
   })
 
-  test('should catch error via getAuthenticateAnswersByCRN', async () => {
-    httpGet.mockRejectedValue({
-      extensions: { response: { status: 404, statusText: 'Not Found' } }
-    })
+  test('should handle 204 reponse and return null via getAuthenticateAnswersByCRN', async () => {
+    httpGet.mockImplementationOnce(async () => ({ status: 204, body: '' }))
 
-    const notifications = await ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)
+    const authenticateAnswers = await ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)
 
-    expect(notifications).toEqual(null)
+    expect(authenticateAnswers).toEqual(null)
     expect(httpGet).toHaveBeenCalledTimes(1)
   })
 
   test('should throw error via getAuthenticateAnswersByCRN', async () => {
     httpGet.mockRejectedValue({
-      extensions: { response: { status: 500 } }
+      extensions: { response: { status: 404 } }
     })
-    await expect(ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)).rejects.toThrow(
-      new Error({
-        extensions: { response: { status: 500 } }
-      })
-    )
+    await expect(ruralPaymentsCustomer.getAuthenticateAnswersByCRN(123123123)).rejects.toEqual({
+      extensions: { response: { status: 404 } }
+    })
     expect(httpGet).toHaveBeenCalledTimes(1)
   })
 })
