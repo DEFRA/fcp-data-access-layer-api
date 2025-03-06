@@ -302,7 +302,7 @@ export class RuralPayments extends RESTDataSource {
   parseBody(response) {
     const contentType = response.headers.get('Content-Type')
     const contentLength = response.headers.get('Content-Length')
-    if (response.status == 204) {
+    if (response.status === StatusCodes.NO_CONTENT) {
       return { status: StatusCodes.NO_CONTENT }
     } else if (
       contentLength !== '0' &&
